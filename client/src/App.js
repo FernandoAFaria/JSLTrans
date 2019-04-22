@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Login from "./components/Login";
+
 import Dashboard from './components/Dashboard';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navbar from './components/Navbar'
 import Landing from './components/Landing'
 
@@ -10,17 +10,16 @@ import Landing from './components/Landing'
 
 
 
-class App extends Component {
 
-  
+class App extends Component {
 
   render() {
     return (
       <Router>
         <div className="App" style={{overflowX: 'hidden'}}>
         <Navbar />
-        <Landing />
-         
+        <Route exact path="/" component={Landing} />
+        <Route exact path='/login' component={Dashboard} ></Route>
         </div>
       </Router>
     );

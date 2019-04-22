@@ -26,3 +26,18 @@
   z-index: 4;
   transition: all .3s
 }
+.grow {
+  transition: all .3s;
+  font-size: 1.3rem;
+  cursor: pointer;
+  margin: 50px
+}
+.grow:hover {
+  transform: scale(1.2);
+ 
+}
+.inline {
+  display: inline-block;
+  margin: 0 25px;
+  width: 300px;
+}

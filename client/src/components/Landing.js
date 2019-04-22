@@ -1,6 +1,10 @@
 import React from 'react'
 import CallToAction from './CallToAction'
-import forkliftImg from '../assets/imgs/forklift-driver.jpg'
+import AboutUs from './AboutUs'
+import OurTeam from './OurTeam'
+import Contact from './Contact'
+import Footer from './Footer'
+
 
 import Cards from './Cards'
 
@@ -9,7 +13,10 @@ export default function Landing() {
     <div>
       <CallToAction />
       <Cards />
-
+    <AboutUs />
+    <OurTeam />
+    <Contact />
+    <Footer />
     </div>
   )
 }
