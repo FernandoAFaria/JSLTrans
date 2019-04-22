@@ -9,7 +9,7 @@
 
 # production
 /client/build
-
+/client/node_modules
 # misc
 /client/.DS_Store
 /client/.env.local
