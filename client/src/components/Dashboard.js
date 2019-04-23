@@ -33,6 +33,8 @@ export default class Dashboard extends Component {
             this.setState({
                 auth: true
             })
+            
+            
         } else {
             this.setState({
                 error: 'username or password invalid.'
@@ -42,7 +44,11 @@ export default class Dashboard extends Component {
 
     Authenticated() {
         if (this.state.auth === true) {
-            return <Controls />;
+            
+                    return <Controls />
+               
+            
+                
         } else {
             return (
                 <Login

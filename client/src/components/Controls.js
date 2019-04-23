@@ -1,10 +1,53 @@
 import React from 'react'
+import InsertPickup from './Dashboard/InsertPickup';
 
-export default function Controls() {
-  return (
+//default Controls
+
+
+
+
+export default class Controls extends React.Component {
+    constructor(){
+        super();
+        this.state = {
+            component: 'Controls'
+        }
+
+    }
+
+    handleInsertPickup(e){
+        e.preventDefault();
+        this.setState({
+            component: 'InsertPickup'
+        })
+    }
+
+    render(){
+    
+        switch(this.state.component) {
+            case "Controls":
+                return <ControlCenter handleInsertPickup={this.handleInsertPickup.bind(this)} />
+                break;
+            case 'InsertPickup':
+                return <InsertPickup />
+            case 'default':
+                break;
+        }
+    
+  
+}
+}
+
+
+
+
+
+const ControlCenter = (props) => {
+    return (
     <div
     style={{ minHeight: "90vh" }}
     className="container-fluid text-center pt-5  bg-dark"
+    onClick={(e) => props.handleInsertPickup(e)}
 >
     <a href='/' style={{textDecoration: 'none'}}><div
         className="card grow text-white bg-info mb-3 mx-auto"
@@ -55,6 +98,5 @@ export default function Controls() {
         </div>
     </div>
 </div>
-  )
+    )
 }
-
