@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Login from "./Login";
 import Controls from "./Controls";
 
+
 export default class Dashboard extends Component {
     constructor() {
         super();
@@ -64,6 +65,11 @@ export default class Dashboard extends Component {
     }
 
     render() {
-        return <div>{this.Authenticated()}</div>;
+        return (
+            <div style={{position: 'relative'}}>
+          
+
+        {this.Authenticated()}
+        </div>);
     }
 }

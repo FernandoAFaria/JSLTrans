@@ -40,9 +40,7 @@ export default class Navbar extends React.Component {
             <li className="nav-item">
               <a className="nav-link" href="/#team">Our Team</a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/">Pricing</a>
-            </li>
+          
             <li className="nav-item">
               <a className="nav-link" href="/">Contact Us</a>
             </li>
@@ -52,8 +50,10 @@ export default class Navbar extends React.Component {
 
           </ul>
           <form className="form-inline my-2 my-lg-0">
-            <input className="form-control mr-sm-2" type="search" placeholder="Pro#" aria-label="Search" />
+          <div style={{width: '400px'}}>
+            <input className="form-control mr-sm-3" type="search" placeholder="Pro#" aria-label="Search" />
             <button className="btn btn-danger my-2 my-sm-0" type="submit">Track</button>
+            </div>
           </form>
         </div>
       </nav>

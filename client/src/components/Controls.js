@@ -30,12 +30,11 @@ export default class Controls extends React.Component {
                 break;
             case 'InsertPickup':
                 return <InsertPickup />
-            case 'default':
-                break;
+          
         }
     
   
-}
+    }
 }
 
 
@@ -44,14 +43,23 @@ export default class Controls extends React.Component {
 
 const ControlCenter = (props) => {
     return (
+        <section>
+        <nav id="sidebar" className="bg-primary">
+            <ul className='list-group'>
+                <li className='list-group-item' >Insert Pickup</li>
+                <li className='list-group-item' >Insert Inbound</li>
+                <li className='list-group-item' >Update Status</li>
+                <li className='list-group-item' >Create Outbound</li>
+            </ul>
+             </nav>
     <div
-    style={{ minHeight: "90vh" }}
-    className="container-fluid text-center pt-5  bg-dark"
+    style={{ minHeight: "90vh", marginLeft: '125px' }}
+    className="container-fluid text-center pt-5 bg-dark"
     onClick={(e) => props.handleInsertPickup(e)}
->
+><h4>Dashboard</h4>
     <a href='/' style={{textDecoration: 'none'}}><div
         className="card grow text-white bg-info mb-3 mx-auto"
-        style={{ maxWidth: "75vw" }}
+        style={{ maxWidth: "55vw" }}
     >
         <div className="card-header">Insert a Pickup Shipment</div>
         <div className="card-body">
@@ -65,7 +73,7 @@ const ControlCenter = (props) => {
     </a>
     <div
         className="card grow text-white bg-success mb-3 mx-auto"
-        style={{ maxWidth: "75vw" }}
+        style={{ maxWidth: "55vw" }}
     >
         <div className="card-header">
             Insert an Inbound Shipment
@@ -79,7 +87,7 @@ const ControlCenter = (props) => {
     </div>
     <div
         className="card grow text-white bg-danger mb-3 mx-auto"
-        style={{ maxWidth: "75vw" }}
+        style={{ maxWidth: "55vw" }}
     >
         <div className="card-header">Update Status on a Shipment</div>
         <div className="card-body">
@@ -89,7 +97,7 @@ const ControlCenter = (props) => {
     </div>
     <div
         className="card grow text-white bg-warning mb-3 mx-auto"
-        style={{ maxWidth: "75vw" }}
+        style={{ maxWidth: "55vw" }}
     >
         <div className="card-header">Create an Outbound Manifest</div>
         <div className="card-body">
@@ -98,5 +106,6 @@ const ControlCenter = (props) => {
         </div>
     </div>
 </div>
+</section>
     )
 }

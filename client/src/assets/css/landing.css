@@ -33,11 +33,19 @@
   margin: 50px
 }
 .grow:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
  
 }
 .inline {
   display: inline-block;
   margin: 0 25px;
   width: 300px;
+}
+#sidebar {
+  position: absolute;
+  width: 225px;
+  top: 0;
+  bottom: 0;
+  
+  padding: 125px 15px;
 }
