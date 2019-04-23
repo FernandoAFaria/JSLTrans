@@ -1,14 +1,11 @@
 const express = require('express');
 const path = require('path')
 const passport = require('./authentication/passport')
-const session = require('express-session')
-const flash = require("connect-flash");
 
-const isAuth = require('./authentication/isAuth')
 
 //import Routes
 const apiRoute = require('./routes/api');
-const dashboardRoute = require('./routes/dashboard')
+
 
 const port = process.env.PORT || 5000;
 const app = express();
@@ -16,11 +13,13 @@ const app = express();
 //middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use(session({ secret: 'abc123' }))
-//init passport
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 //routes
 app.use(express.static(path.join(__dirname, '../client/build')))
 app.use('/login/submit', passport.authenticate('local', {

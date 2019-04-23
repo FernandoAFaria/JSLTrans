@@ -29,18 +29,13 @@ module.exports = {
     })
   },
   // ADD ONE
-  insert(pro) {
-    return new Promise((resolve, reject) => {
-      let sql = "INSERT STATEMENT HERE";
-      db.query(sql, (err, rows) => {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(rows)
-        }
-      })
-    })
-  },
+  insert(pro, vendor, date, pieces, pallets, status, weight, fromName, fromStreet, fromCity, fromState, fromZipcode, toName, toStreet, toCity, toState, toZipcode, callback) {
+    
+      let sql = `INSERT INTO shipments(pro, vendor, date, pieces, pallets, status, weight, fromName, fromStreet, fromCity, fromState, fromZipcode, toName, toStreet, toCity, toState, toZipcode) values('${pro}', '${vendor}', '${date}', '${pieces}', '${pallets}', '${status}', '${weight}', '${fromName}',' ${fromStreet}', '${fromCity}', '${fromState}', '${fromZipcode}', '${toName}', '${toStreet}', '${toCity}',' ${toState}', '${toZipcode}')`;
+     
+      db.query(sql, callback)
+    }
+  ,
 
   // MODIFY ONE
   modify(pro, variables) {

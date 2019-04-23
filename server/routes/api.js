@@ -36,13 +36,24 @@ router.get("/:pro", (req, res) => {
 
 // INSERT ONE
 router.post("/", (req, res) => {
-    const { variables } = req.body;
+    
+    const { pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode } = req.body;
+    
     dbActions
-        .insert(variables)
-        .then(value => {
-            res.send(value);
+        .insert(pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode, (err, rows) => {
+            if(err){
+                if(err.code === 'ER_DUP_ENTRY'){
+                    res.status(401).send('Pro Already Exists')
+                } else {
+                    res.status(400).send('Something went wrong')
+                }
+                
+            } else {
+                
+                res.status(200).send('Inserted Successfully')
+            }
         })
-        .catch(err => res.json({code: 400, error: 'Something went wrong'}));
+        
 });
 
 // MODIFY ONE
