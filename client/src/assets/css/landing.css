@@ -49,3 +49,7 @@
   
   padding: 125px 15px;
 }
+.bg-light label{
+  color: black!important;
+  width: 115px!important;
+}

@@ -21,7 +21,7 @@ export default function OurTeam() {
                         className="fas fa-user-tie  "
                         style={{ fontSize: "125px" }}
                     />
-                    <h4 className="card-title my-3">Jay Wilcos</h4>
+                    <h4 className="card-title my-3">Jay</h4>
                 </div>
                 <div className="card-body">
                     <p>

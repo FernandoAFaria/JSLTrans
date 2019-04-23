@@ -1,92 +1,106 @@
 import React from 'react'
 
 export default function InsertPickup() {
+
+  let todaysDate = new Date();
+  let date = todaysDate.toISOString().substr(0, 10)
+
   return (
-    <section className="bg-dark" style={{minWidth: '1100px'}}>
-      <nav id="sidebar" className="bg-primary">
-        <ul className='list-group'>
-          <li className='list-group-item bg-info text-white' >Insert Pickup</li>
-          <li className='list-group-item' >Insert Inbound</li>
-          <li className='list-group-item' >Update Status</li>
-          <li className='list-group-item' >Create Outbound</li>
-        </ul>
-      </nav>
+    <section className="bg-light py-5" >
+      <div className='container '>
+        <p>Required**</p>
+        <div className='form-inline'>
+          <div className='form-group'>
+            <label htmlFor='proNumber' className='mr-1'>Pro Number:</label>
+            <input id='proNumber' name='proNumber' className='form-control border border-danger mr-3'></input>
+            <label htmlFor='vendor' className='mr-1'>Vendor:</label>
+            <input id='vendor' name='vendor' className='form-control border border-danger  mr-3' ></input>
 
 
 
-      <div style={{ minHeight: '100vh', paddingTop: '25px', marginLeft: '50%', position: 'relative', transform: 'translatex(-30%)' }} className='container-fluid'>
-        <div className='col border border-primary' style={{
-          padding: '50px',
-          background: 'transparent',
-          width: '900px'
 
-        }}>
-          <div className='row'>
-            <input id='tracking-number' style={{ maxWidth: '68%' }} className='form-control border border-danger mr-3' placeholder="Tracking number" />
-            <input  id='vendor' style={{ maxWidth: '25%' }} className='form-control border border-danger' placeholder="Vendor" />
-          </div>
-
-          <div className='row mt-4'>
-
-            <input id='piece-count' style={{ maxWidth: '25%' }} className='form-control mr-3 border border-danger' type='number' placeholder='Pieces'></input>
-            <input id='pallet-count' style={{ maxWidth: '25%' }} className='form-control mr-3 border border-danger' type='number' placeholder='Pallets'></input>
-            <input id='weight' style={{ maxWidth: '25%' }} className='form-control  border border-danger' type='number' placeholder='Weight'></input>
-            <input id='submitpickup' type='submit' className='btn btn-success ml-3'></input>
-
-
+            <label htmlFor='date' className='mr-1'>Date:</label>
+            <input id='date' type='date' defaultValue={date} name='date' className='form-control border border-danger'></input>
 
           </div>
+          <div className="mt-3 form-inline">
+            <div className='form-group'>
+              <label htmlFor='pieces' type='number' className='mr-1'>Pieces:    </label>
+              <input id='pieces' name='pieces' className='form-control border border-danger  mr-3' ></input>
 
+              <label htmlFor='pallets' type='number' className='mr-1'>Pallets:</label>
+              <input id='pallets' name='pallets' className='form-control border border-danger  mr-3' ></input>
 
+              <label htmlFor='weight' className='mr-1'>Weight:</label>
+              <input style={{width: '220px'}} id='weight' name='weight' className='form-control border border-danger  ' ></input>
 
-
-          <div style={{ display: 'hidden' }} className="alert  my-5 text-center text-black"></div>
-
-          <h5 className="my-5">Pickup:</h5>
-          <div className='row'>
-            <input style={{ maxWidth: '98%' }} className='form-control  mb-3' placeholder="Customer Name" />
+            </div>
+            <button className='btn btn-success ml-auto mr-4 mt-4'>Submit</button>
           </div>
-          <div className='row'>
-            <input style={{ maxWidth: '98%' }} className='form-control  mb-3 ' placeholder="Address - Street" />
-          </div>
-          <div className='row'>
-            <input style={{ maxWidth: '42%' }} className='form-control  mb-3 mr-4' placeholder="City" />
-            <input style={{ maxWidth: '22%' }} className='form-control  mb-3 mr-4' placeholder="State" />
-            <input style={{ maxWidth: '28%' }} className='form-control  mb-3' placeholder="Zipcode" />
-
-          </div>
-
         </div>
+      </div>
 
-        {/* Ship To */}
 
-        <div className='col border border-primary' style={{
-          marginRight: '50px',
-          background: 'transparent',
-          padding: ' 0 50px 50px 50px',
-          width: '900px'
 
-        }}>
-
-          <h5 className="my-5">SHIP TO:</h5>
-          <div className='row'>
-            <input style={{ maxWidth: '98%' }} className='form-control  mb-3' placeholder="Customer Name" />
-          </div>
-          <div className='row'>
-            <input style={{ maxWidth: '98%' }} className='form-control  mb-3 ' placeholder="Address - Street" />
-          </div>
-          <div className='row'>
-            <input style={{ maxWidth: '42%' }} className='form-control  mb-3 mr-4' placeholder="City" />
-            <input style={{ maxWidth: '22%' }} className='form-control  mb-3 mr-4' placeholder="State" />
-            <input style={{ maxWidth: '28%' }} className='form-control  mb-3' placeholder="Zipcode" />
-          </div>
-
+<hr />
+    <div className='container my-4'>
+    <p>Pickup Information**</p>
+      
+        <div className='form-group'>
+          <label htmlFor='from-name'>Customer Name:</label>
+          <input type='text' id='from-name' name='from-name' className='form-control border border-primary'></input>
+          <label htmlFor='from-street'>Street Address:</label>
+          <input type='text' id='from-street' name='from-street' className='form-control border border-primary'></input>
+        
         </div>
+        <div className='form-inline'>
+        <label htmlFor='from-city'>City:</label>
+          <input type='text' id='from-city' name='from-city' className='form-control border border-primary'></input>
 
+          <label htmlFor='from-state'>State:</label>
+          <input type='text' id='from-state' name='from-state' className='form-control border border-primary'></input>
 
-
+          <label htmlFor='from-zip'>Zipcode:</label>
+          <input type='number' id='from-zip' name='from-zip' className='form-control border border-primary'></input>
 
       </div>
+ 
+    
+    
+    
+    </div>
+
+
+    <hr />
+    <div className='container my-4'>
+    <p>Delivery Information**</p>
+      
+        <div className='form-group'>
+          <label htmlFor='to-name'>Customer Name:</label>
+          <input type='text' id='to-name' name='to-name' className='form-control border border-primary'></input>
+          <label htmlFor='to-street'>Street Address:</label>
+          <input type='text' id='to-street' name='to-street' className='form-control border border-primary'></input>
+        
+        </div>
+        <div className='form-inline'>
+        <label htmlFor='to-city'>City:</label>
+          <input type='text' id='to-city' name='to-city' className='form-control border border-primary'></input>
+
+          <label htmlFor='to-state'>State:</label>
+          <input type='text' id='to-state' name='to-state' className='form-control border border-primary'></input>
+
+          <label htmlFor='to-zip'>Zipcode:</label>
+          <input type='number' id='to-zip' name='to-zip' className='form-control border border-primary'></input>
+
+      </div>
+    
+    
+    
+    
+    </div>
+
     </section>
   )
 }
+
+

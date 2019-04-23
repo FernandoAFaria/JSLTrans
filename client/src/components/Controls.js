@@ -27,10 +27,12 @@ export default class Controls extends React.Component {
         switch(this.state.component) {
             case "Controls":
                 return <ControlCenter handleInsertPickup={this.handleInsertPickup.bind(this)} />
-                break;
+                
             case 'InsertPickup':
                 return <InsertPickup />
-          
+            
+             default:
+                return ""
         }
     
   
@@ -44,17 +46,17 @@ export default class Controls extends React.Component {
 const ControlCenter = (props) => {
     return (
         <section>
-        <nav id="sidebar" className="bg-primary">
+        {/* <nav id="sidebar" className="bg-primary">
             <ul className='list-group'>
                 <li className='list-group-item' >Insert Pickup</li>
                 <li className='list-group-item' >Insert Inbound</li>
                 <li className='list-group-item' >Update Status</li>
                 <li className='list-group-item' >Create Outbound</li>
             </ul>
-             </nav>
+             </nav> */}
     <div
-    style={{ minHeight: "90vh", marginLeft: '125px' }}
-    className="container-fluid text-center pt-5 bg-dark"
+    style={{ minHeight: "90vh" }}
+    className="container-fluid text-center pt-5 bg-light"
     onClick={(e) => props.handleInsertPickup(e)}
 ><h4>Dashboard</h4>
     <a href='/' style={{textDecoration: 'none'}}><div
