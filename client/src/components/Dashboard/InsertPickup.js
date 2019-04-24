@@ -3,7 +3,11 @@ import React from 'react'
 export default function InsertPickup(props) {
   
   let todaysDate = new Date();
-  let date = todaysDate.toISOString().substr(0, 10);
+  todaysDate.setHours(12, -todaysDate.getTimezoneOffset(), 0, 0)
+
+  
+  let date = todaysDate.toISOString().slice(0, 10);
+
 
   function handleSubmit(e){
     e.preventDefault();
@@ -104,6 +108,7 @@ export default function InsertPickup(props) {
         
         </div>
         <div className='form-inline'>
+        <div className='form-group'>
         <label htmlFor='from-city'>City:</label>
           <input type='text' id='from-city' name='from-city' className='form-control border border-primary'></input>
 
@@ -112,7 +117,7 @@ export default function InsertPickup(props) {
 
           <label htmlFor='from-zip'>Zipcode:</label>
           <input type='number' id='from-zip' name='from-zip' className='form-control border border-primary'></input>
-
+          </div>
       </div>
  
     
@@ -133,6 +138,7 @@ export default function InsertPickup(props) {
         
         </div>
         <div className='form-inline'>
+        <div className='form-group'>
         <label htmlFor='to-city'>City:</label>
           <input type='text' id='to-city' name='to-city' className='form-control border border-primary'></input>
 
@@ -141,7 +147,7 @@ export default function InsertPickup(props) {
 
           <label htmlFor='to-zip'>Zipcode:</label>
           <input type='number' id='to-zip' name='to-zip' className='form-control border border-primary'></input>
-          
+          </div>
       </div>
     
     
