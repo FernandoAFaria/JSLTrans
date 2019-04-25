@@ -2,6 +2,7 @@ import React from 'react'
 import CallToAction from './CallToAction'
 import AboutUs from './AboutUs'
 import OurTeam from './OurTeam'
+import Slideshow from './Slideshow'
 import Contact from './Contact'
 import Footer from './Footer'
 
@@ -13,10 +14,11 @@ export default function Landing() {
     <div>
       <CallToAction />
       <Cards />
-    <AboutUs />
-    <OurTeam />
-    <Contact />
-    <Footer />
+      <AboutUs />
+      <Slideshow />
+      <OurTeam />
+      <Contact />
+      <Footer />
     </div>
   )
 }

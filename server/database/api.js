@@ -18,7 +18,7 @@ module.exports = {
   // GET ONE
   queryOne(pro) {
     return new Promise((resolve, reject) => {
-      let sql = "SELECT * from testing where username=" + db.escape(pro);
+      let sql = "SELECT * from shipments where pro=" + db.escape(pro);
       db.query(sql, (err, rows) => {
         if (err) {
           reject(err)

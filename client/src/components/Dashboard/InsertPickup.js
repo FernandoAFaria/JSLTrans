@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function InsertPickup(props) {
+  console.log(props)
   
   let todaysDate = new Date();
   todaysDate.setHours(12, -todaysDate.getTimezoneOffset(), 0, 0)
@@ -56,7 +57,8 @@ export default function InsertPickup(props) {
   }
 
   return (
-    <form className="bg-light py-5" onSubmit={(e) => handleSubmit(e)} >
+    <form className="bg-light py-5 " onSubmit={(e) => handleSubmit(e)} >
+    <h3 className="text-dark  mb-5 text-center">Insert a pickup</h3>
       <div className='container '>
         <p>Required**</p>
         
@@ -86,7 +88,7 @@ export default function InsertPickup(props) {
               <input required style={{width: '220px'}} id='weight' name='weight' className='form-control border border-danger  ' ></input>
 
             </div>
-            
+            <button className='btn btn-danger  mr-4 mt-4'  onClick={(e) => props.handleBackBtn(e)} >Back</button>
             <input className='btn btn-success ml-auto mr-4 mt-4' type='submit' ></input>
           </div>
           <div id='success' style={{width: '100%', paddingleft: '125px', display: 'none'}} className='alert alert-success mt-3'>SUCCESS</div>

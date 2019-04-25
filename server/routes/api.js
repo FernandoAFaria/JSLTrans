@@ -26,6 +26,7 @@ router.get('/test', (req, res) => {
 // GET ONE
 router.get("/:pro", (req, res) => {
     let pro = req.params.pro;
+ 
     dbActions
         .queryOne(pro)
         .then(value => {

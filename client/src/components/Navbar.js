@@ -1,6 +1,7 @@
 import React from 'react'
 
 
+
 export default class Navbar extends React.Component {
 
  componentDidMount() {
@@ -15,6 +16,18 @@ export default class Navbar extends React.Component {
      }
    })
  }
+
+ submitTracking = (e) => {
+    e.preventDefault()
+    let pro = document.getElementById('tracking-num').value;
+    if(pro === ""){
+      document.getElementById('track-btn').focus();
+    } else {
+      window.location.assign(`/track/${pro}`)
+    }
+ }
+
+
   render(){
 
   
@@ -42,17 +55,17 @@ export default class Navbar extends React.Component {
             </li>
           
             <li className="nav-item">
-              <a className="nav-link" href="/">Contact Us</a>
+              <a className="nav-link" href="/#contact">Contact Us</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="/dashboard">Login</a>
             </li>
 
           </ul>
-          <form className="form-inline my-2 my-lg-0">
+          <form onSubmit={(e) => this.submitTracking(e)}  className="form-inline my-2 my-lg-0">
           <div style={{width: '400px'}}>
-            <input className="form-control mr-sm-3" type="search" placeholder="Pro#" aria-label="Search" />
-            <button className="btn btn-danger my-2 my-sm-0" type="submit">Track</button>
+            <input required id='tracking-num' className="form-control mr-sm-3" type="search" placeholder="Pro#"  />
+            <button id='track-btn' className="btn btn-danger my-2 my-sm-0" type="submit">Track</button>
             </div>
           </form>
         </div>

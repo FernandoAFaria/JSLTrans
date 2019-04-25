@@ -9,7 +9,7 @@ export default function Contact() {
     }
 
   return (
-<section className="bg-dark py-5" id="form1-2w" style={{position: 'relative'}}>
+    <section id="contact" className="bg-dark py-5"  style={{position: 'relative'}}>
 
     <div id='submitted-modal' className="bg-dark text-center " style={{position: 'absolute', zIndex: '1', width: '100vw', height: '85%', paddingTop: '250px', display: 'none'}}><h1 style={{color: '#eee'}}>Thanks for your submission!</h1></div>
 
@@ -18,9 +18,9 @@ export default function Contact() {
     <div className="container">
         <div className="row justify-content-center">
             <div className="title col-12 col-lg-8">
-                <h2 className=""><strong>
+                <h2 className="text-white"><strong>
                     Contact Us</strong></h2>
-                <h6 className="my-5">
+                <h6 className="my-5 text-white">
                     Questions?  Please fill out the form below and we'll get back to you as soon as we can!
                 </h6>
             </div>

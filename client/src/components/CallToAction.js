@@ -4,10 +4,10 @@ import "../assets/css/landing.css";
 
 export default function Landing() {
     return (
-        <div
-            className="card card-image"
+        <div className="callToAction"
+            
             style={{
-                background: `linear-gradient(rgba(116,235,213,.7), rgba(172,182,229, .88)) ,url(${backgroundImg})`,
+                background: `linear-gradient(to top,rgba(45, 52, 54,.7), rgba(9,132,227, .60)) ,url(${backgroundImg})`,
                 backgroundSize: "cover",
                 backgroundPosition: "bottom center",
                 minHeight: "750px",
@@ -18,18 +18,18 @@ export default function Landing() {
                 <div className="landing-container">
                     {/* Left Landing */}
                     <div>
-                        <h1 className="mb-5">Welcome to JSL Transportation</h1>
-                        <h3 className="mb-5">
+                        <h1 className="mb-5 display-4 text-white">Welcome to JSL Transportation</h1>
+                        <h3 className="mb-5 text-white">
                             Servicing NJ, NYC, Brooklyn, Queens, Long Island
                         </h3>
-                        <p className="mb-5">
+                        <p className="mb-5 text-white">
                             Specializing in LTL, Trailer Loads, Warehousing, and more!
                         </p>
                     </div>
                     {/* Request a quote section */}
 
-                    <div className="card shadow" style={{ minWidth: "525px" }}>
-                        <h5 className="card-header bg-dark text-center py-4">
+                    <div className=" req-quote shadow" style={{ minWidth: "500px", background: 'rgba(0,0,0,.5)' }}>
+                        <h5 className="card-header bg-warning text-center py-4">
                             <strong>Request a quote.</strong>
                         </h5>
 
