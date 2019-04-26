@@ -15,8 +15,9 @@ export default function Landing() {
       <CallToAction />
       <Cards />
       <AboutUs />
-      <Slideshow />
       <OurTeam />
+      <Slideshow />
+      
       <Contact />
       <Footer />
     </div>

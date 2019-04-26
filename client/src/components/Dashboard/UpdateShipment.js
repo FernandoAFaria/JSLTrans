@@ -38,15 +38,13 @@ export default function UpdateShipment(props) {
       
       if(res.status === 200) {
         document.getElementById('success').style.display = 'block';
-        setTimeout(() => {
-          document.getElementById('success').style.display = 'none';
-        }, 4500);
+        
+
       } if(res.status === 401) {
         document.getElementById('error').style.display = 'block';
         document.getElementById('error').textContent = 'That Pro Number Already Exists!';
-        setTimeout(() => {
-          document.getElementById('error').style.display = 'none';
-        }, 6000);
+        
+
       }
     }).catch(err => {
       console.log(err)

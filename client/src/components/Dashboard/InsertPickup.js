@@ -38,15 +38,13 @@ export default function InsertPickup(props) {
       
       if(res.status === 200) {
         document.getElementById('success').style.display = 'block';
-        setTimeout(() => {
-          document.getElementById('success').style.display = 'none';
-        }, 4500);
+        
+       
+
       } if(res.status === 401) {
         document.getElementById('error').style.display = 'block';
         document.getElementById('error').textContent = 'That Pro Number Already Exists!';
-        setTimeout(() => {
-          document.getElementById('error').style.display = 'none';
-        }, 6000);
+        
       }
     }).catch(err => {
       console.log(err)
@@ -92,7 +90,7 @@ export default function InsertPickup(props) {
             <button className='btn btn-danger  mr-4 mt-4'  onClick={(e) => props.handleBackBtn(e)} >Back</button>
             <input className='btn btn-success ml-auto mr-4 mt-4' type='submit' ></input>
           </div>
-          <div id='success' style={{width: '100%', paddingleft: '125px', display: 'none'}} className='alert alert-success mt-3'>SUCCESS</div>
+          <div id='success' style={{width: '100%', paddingleft: '125px', display: 'none'}} className='alert alert-success mt-3'>Insert Successful</div>
           <div id='error' style={{width: '100%', paddingleft: '125px', display: 'none'}} className='alert alert-danger mt-3'>Something Went Wrong</div>
         </div>
       </div>

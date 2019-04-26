@@ -20,6 +20,8 @@ export default class Tracking extends Component {
         document.getElementById('pallets').textContent = data[0].pallets;
       }
 
+    }).catch(err => {
+      document.getElementById('number').textContent = err;
     })
     
     
