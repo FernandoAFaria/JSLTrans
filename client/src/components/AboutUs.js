@@ -3,7 +3,7 @@ import React from "react";
 export default function AboutUs() {
     return (
         <div className="container-fluid bg-primary px-5 py-5">
-        <h2>About us</h2>
+        <h2 className='text-white'>About us</h2>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
                 ac semper augue. Curabitur elit nisl, auctor at vestibulum sed,

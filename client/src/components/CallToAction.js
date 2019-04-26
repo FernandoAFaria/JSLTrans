@@ -10,7 +10,7 @@ export default function Landing() {
                 background: `linear-gradient(to top,rgba(45, 52, 54,.7), rgba(9,132,227, .60)) ,url(${backgroundImg})`,
                 backgroundSize: "cover",
                 backgroundPosition: "bottom center",
-                minHeight: "750px",
+                minHeight: "850px",
                 position: "relative"
             }}
         >
@@ -18,7 +18,7 @@ export default function Landing() {
                 <div className="landing-container">
                     {/* Left Landing */}
                     <div>
-                        <h1 className="mb-5 display-4 text-white">Welcome to JSL Transportation</h1>
+                        <h1 style={{fontSize: 'calc(2vw + 16px)'}} className="mb-5 text-white">Welcome to JSL Transportation</h1>
                         <h3 className="mb-5 text-white">
                             Servicing NJ, NYC, Brooklyn, Queens, Long Island
                         </h3>
@@ -28,7 +28,7 @@ export default function Landing() {
                     </div>
                     {/* Request a quote section */}
 
-                    <div className=" req-quote shadow" style={{ minWidth: "500px", background: 'rgba(0,0,0,.5)' }}>
+                    <div className=" req-quote shadow" style={{ minWidth: "400px", background: 'rgba(0,0,0,.6)' }}>
                         <h5 className="card-header bg-warning text-center py-4">
                             <strong>Request a quote.</strong>
                         </h5>

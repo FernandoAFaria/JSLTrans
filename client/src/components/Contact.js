@@ -58,7 +58,7 @@ export default function Contact() {
                         </div>
             
                         <span className="input-group-btn">
-                            <button href="" type="submit" className="btn btn-primary btn-form display-4" onClick={(e) => submitForm(e)}>SEND FORM</button>
+                            <button href="" type="submit" className="btn btn-info btn-form display-4" onClick={(e) => submitForm(e)}>SEND FORM</button>
                         </span>
                     </form>
             </div>

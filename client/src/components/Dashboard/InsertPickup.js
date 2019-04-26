@@ -1,12 +1,9 @@
 import React from 'react'
 
 export default function InsertPickup(props) {
-  console.log(props)
-  
-  let todaysDate = new Date();
-  todaysDate.setHours(12, -todaysDate.getTimezoneOffset(), 0, 0)
 
-  
+  let todaysDate = new Date();
+  todaysDate.setHours(12, -todaysDate.getTimezoneOffset(), 0, 0)  
   let date = todaysDate.toISOString().slice(0, 10);
 
 
@@ -51,7 +48,11 @@ export default function InsertPickup(props) {
           document.getElementById('error').style.display = 'none';
         }, 6000);
       }
-    })
+    }).catch(err => {
+      console.log(err)
+      document.getElementById('error').style.display = 'block';
+        document.getElementById('error').textContent = "Error: " + err;
+    }) 
 
 
   }
