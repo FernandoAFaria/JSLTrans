@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const dbActions = require("../database/api");
 
+
+
 // GET ALL
 router.get("/", (req, res) => {
     dbActions
@@ -60,13 +62,17 @@ router.post("/", (req, res) => {
 // MODIFY ONE
 router.put("/:pro", (req, res) => {
     const pro = req.params.pro;
-    const { variables } = req.body;
+    const { vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode } = req.body;
     dbActions
-        .modify(pro, variables)
-        .then(value => {
-            res.send(value);
+        .modify(pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode, (err, response) => {
+            if(err){
+                console.log(err)
+                res.status(400).send('Something went wrong')
+            } else {
+                res.status(200).send(response)
+            }
         })
-        .catch(err => res.json({code: 400, error: 'Something went wrong'}));
+        
 });
 
 

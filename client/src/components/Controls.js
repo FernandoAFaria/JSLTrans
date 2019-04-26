@@ -1,6 +1,7 @@
 import React from "react";
 import InsertPickup from "./Dashboard/InsertPickup";
 import InsertInbound from './Dashboard/InsertInbound';
+import UpdateShipment from './Dashboard/UpdateShipment'
 
 //default Controls
 //This holds all functions for displaying different dashboard components
@@ -25,6 +26,12 @@ export default class Controls extends React.Component {
             component: "InsertInbound"
         });
     };
+    handleUpdateShipment = e => {
+        e.preventDefault();
+        this.setState({
+            component: "UpdateShipment"
+        });
+    };
     handleBackBtn = e => {
         e.preventDefault();
         this.setState({
@@ -39,6 +46,7 @@ export default class Controls extends React.Component {
                     <ControlCenter
                         handleInsertPickup={this.handleInsertPickup}
                         handleInsertInbound={this.handleInsertInbound}
+                        handleUpdateShipment={this.handleUpdateShipment}
                     />
                 );
 
@@ -47,7 +55,9 @@ export default class Controls extends React.Component {
             
             case "InsertInbound":
                 return <InsertInbound handleBackBtn={this.handleBackBtn} />
-                    
+
+            case "UpdateShipment":
+                return <UpdateShipment handleBackBtn={this.handleBackBtn} />
 
             default:
                 return "";
@@ -110,9 +120,10 @@ const ControlCenter = props => {
                 <div
                     className="card grow text-white bg-danger mb-3 mx-auto"
                     style={{ maxWidth: "55vw" }}
+                    onClick={(e) => props.handleUpdateShipment(e)}
                 >
                     <div className="card-header">
-                        Update Status on a Shipment
+                        Update a Shipment
                     </div>
                     <div className="card-body">
                         <h5 className="card-title">
