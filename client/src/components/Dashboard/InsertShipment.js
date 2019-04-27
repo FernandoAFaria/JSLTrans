@@ -1,10 +1,31 @@
 import React from 'react'
 
-export default function InsertPickup(props) {
+export default function InsertShipment(props) {
 
   let todaysDate = new Date();
   todaysDate.setHours(12, -todaysDate.getTimezoneOffset(), 0, 0)  
   let date = todaysDate.toISOString().slice(0, 10);
+
+
+  function clearForm(){
+     document.getElementById('proNumber').value = ""
+     document.getElementById('vendor').value = ""
+    
+     document.getElementById('pieces').value = "";
+     document.getElementById('pallets').value = "";
+    
+     document.getElementById('weight').value = "";
+     document.getElementById('from-name').value = "" 
+     document.getElementById('from-street').value = "" 
+     document.getElementById('from-city').value = "" 
+     document.getElementById('from-state').value = "" 
+     document.getElementById('from-zip').value = "" 
+     document.getElementById('to-name').value = "" 
+     document.getElementById('to-street').value = "" 
+     document.getElementById('to-city').value = "" 
+     document.getElementById('to-state').value = "" 
+     document.getElementById('to-zip').value = "" 
+  }
 
 
   function handleSubmit(e){
@@ -16,16 +37,16 @@ export default function InsertPickup(props) {
     let pallets = document.getElementById('pallets').value;
     let status = "Picked Up"
     let weight = document.getElementById('weight').value;
-    let fromName = document.getElementById('from-name').value || "null";
-    let fromStreet = document.getElementById('from-street').value || "null";
-    let fromCity = document.getElementById('from-city').value || "null";
-    let fromState = document.getElementById('from-state').value || "null";
-    let fromZipcode = document.getElementById('from-zip').value || "null";
-    let toName = document.getElementById('to-name').value || "null";
-    let toStreet = document.getElementById('to-street').value || "null";
-    let toCity = document.getElementById('to-city').value || "null";
-    let toState = document.getElementById('to-state').value || "null";
-    let toZipcode = document.getElementById('to-zip').value || "null";
+    let fromName = document.getElementById('from-name').value || " ";
+    let fromStreet = document.getElementById('from-street').value || " ";
+    let fromCity = document.getElementById('from-city').value || " ";
+    let fromState = document.getElementById('from-state').value || " ";
+    let fromZipcode = document.getElementById('from-zip').value || " ";
+    let toName = document.getElementById('to-name').value || " ";
+    let toStreet = document.getElementById('to-street').value || " ";
+    let toCity = document.getElementById('to-city').value || " ";
+    let toState = document.getElementById('to-state').value || " ";
+    let toZipcode = document.getElementById('to-zip').value || " ";
 
     let body = {
       pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode
@@ -38,7 +59,7 @@ export default function InsertPickup(props) {
       
       if(res.status === 200) {
         document.getElementById('success').style.display = 'block';
-        
+        clearForm();
        
 
       } if(res.status === 401) {
@@ -57,7 +78,7 @@ export default function InsertPickup(props) {
 
   return (
     <form className="bg-light py-5 " onSubmit={(e) => handleSubmit(e)} >
-    <h3 className="text-dark  mb-5 text-center">Insert a pickup</h3>
+    <h3 className="text-dark  mb-5 text-center">Insert a Shipment</h3>
       <div className='container '>
         <p>Required**</p>
         
@@ -88,6 +109,13 @@ export default function InsertPickup(props) {
 
             </div>
             <button className='btn btn-danger  mr-4 mt-4'  onClick={(e) => props.handleBackBtn(e)} >Back</button>
+            <label className="ml-auto mt-4" htmlFor='shipment-type'>Shipment Type: </label>
+            <select name='shipment-type' className='form-control border border-danger mt-4'>
+              <option>Pickup</option>
+              <option>Inbound</option>
+              <option>Customer Drop</option>
+              <option>Other</option>
+            </select>
             <input className='btn btn-success ml-auto mr-4 mt-4' type='submit' ></input>
           </div>
           <div id='success' style={{width: '100%', paddingleft: '125px', display: 'none'}} className='alert alert-success mt-3'>Insert Successful</div>

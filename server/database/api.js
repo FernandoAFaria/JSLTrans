@@ -43,6 +43,13 @@ module.exports = {
       let sql = 'UPDATE shipments SET vendor=' + db.escape(vendor) +', pieces=' + db.escape(pieces) + ', pallets='+ db.escape(pallets) + ', status=' + db.escape(status) + ', weight=' + db.escape(weight) + ', fromName=' + db.escape(fromName) + ', fromStreet=' + db.escape(fromStreet) + ", fromCity=" + db.escape(fromCity) + ', fromState=' + db.escape(fromState) + ', fromZipcode=' + db.escape(fromZipcode) + ', toName=' + db.escape(toName) + ', toStreet=' + db.escape(toStreet) + ', toCity=' + db.escape(toCity) + ', toState=' + db.escape(toState) + ', toZipcode=' + db.escape(toZipcode) + 'WHERE pro=' + db.escape(pro)
       db.query(sql, callback)
     
+  },
+  queryByField(vendor,field, value, callback){
+    
+      let sql = `SELECT * FROM shipments where vendor = '${vendor}' and ${field} =` + db.escape(value);
+      db.query(sql,callback)
+
+
   }
 
 }

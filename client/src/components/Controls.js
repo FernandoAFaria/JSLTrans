@@ -1,6 +1,6 @@
 import React from "react";
-import InsertPickup from "./Dashboard/InsertPickup";
-import InsertInbound from './Dashboard/InsertInbound';
+import InsertShipment from "./Dashboard/InsertShipment";
+
 import UpdateShipment from './Dashboard/UpdateShipment'
 
 //default Controls
@@ -13,19 +13,39 @@ export default class Controls extends React.Component {
             component: "Controls"
         };
     }
+    componentDidMount(){
+       this.searchProsByField('edi','status', 'picked up', 'edi-on-hand');
+       this.searchProsByField('hercules','status', 'picked up', 'hercules-on-hand');
+       this.searchProsByField('clear lane','status', 'picked up', 'clearlane-on-hand');
+      
+       
+    }
 
-    handleInsertPickup = e => {
+
+    searchProsByField(vendor, field,  value, populate){
+
+        //('EDI', 'STATUS', 'PICKED UP', 'edi-on-hand')
+        fetch('http://localhost:5000/api/search', {
+            method: 'post',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({
+                vendor: vendor,
+                field: field,
+                value: value
+            })
+        }).then(res => res.json())
+        .then(data =>  {
+            document.getElementById(populate).textContent = data.length;
+        })
+    }
+
+    handleInsertShipment = e => {
         e.preventDefault();
         this.setState({
-            component: "InsertPickup"
+            component: "InsertShipment"
         });
     };
-    handleInsertInbound = e => {
-        e.preventDefault();
-        this.setState({
-            component: "InsertInbound"
-        });
-    };
+
     handleUpdateShipment = e => {
         e.preventDefault();
         this.setState({
@@ -44,17 +64,16 @@ export default class Controls extends React.Component {
             case "Controls":
                 return (
                     <ControlCenter
-                        handleInsertPickup={this.handleInsertPickup}
-                        handleInsertInbound={this.handleInsertInbound}
+                        handleInsertShipment={this.handleInsertShipment}
+                        
                         handleUpdateShipment={this.handleUpdateShipment}
                     />
                 );
 
-            case "InsertPickup":
-                return <InsertPickup handleBackBtn={this.handleBackBtn} />;
+            case "InsertShipment":
+                return <InsertShipment handleBackBtn={this.handleBackBtn} />;
             
-            case "InsertInbound":
-                return <InsertInbound handleBackBtn={this.handleBackBtn} />
+          
 
             case "UpdateShipment":
                 return <UpdateShipment handleBackBtn={this.handleBackBtn} />
@@ -78,45 +97,59 @@ const ControlCenter = props => {
                 <li className='list-group-item' >Create Outbound</li>
             </ul>
              </nav> */}
+             <table id='on-hand-totals' className='my-5 ml-auto mr-auto text-left'>
+                <thead>
+                    <tr>
+                        <td>Customer</td>
+                        <td>Total On-Hand Shipments</td>
+                        <td>Out For Delivery</td>
+                    </tr>
+                    </thead>
+                    
+               <tbody>
+                   <tr>
+                        <th>EDI:</th>
+                       <td id='edi-on-hand'>1234</td>
+                       <td id='edi-ofd'>123</td>
+                    </tr>
+                    <tr>
+                        <th>CLEAR LANE:</th>
+                       <td id='clearlane-on-hand'>1234</td>
+                       <td id='clearlane-ofd'>123</td>
+                    </tr>
+                    <tr>
+                        <th>HERCULES:</th>
+                       <td id='hercules-on-hand'>1234</td>
+                       <td id='hercules-ofd'>123</td>
+                    </tr>
+                 
+               </tbody>
+
+             </table>
             <div
                 style={{ minHeight: "90vh" }}
                 className="container-fluid text-center pt-5 bg-light">
                 <h3 className="text-dark">Dashboard</h3>
-                <a href="/" style={{ textDecoration: "none" }}>
+               
                     
                     <div
                         className="card grow text-white bg-info mb-3 mx-auto"
                         style={{ maxWidth: "55vw" }}
-                        onClick={(e) => props.handleInsertPickup(e)}
+                        onClick={(e) => props.handleInsertShipment(e)}
                     >
                         <div className="card-header">
-                            Insert a Pickup Shipment
+                            Insert a Shipment
                         </div>
                         <div className="card-body">
                             <h5 className="card-title">
-                                Pickups made by our drivers or shipments dropped
-                                on our dock to be loaded for outbound
+                                Pickups, Inbounds, or Customer Drop Off
                             </h5>
                             <p className="card-text" />
                         </div>
                     </div>
-                </a>
+                
 
-                <div
-                    className="card grow text-white bg-success mb-3 mx-auto"
-                    style={{ maxWidth: "55vw" }}
-                    onClick={(e) => props.handleInsertInbound(e)}
-                >
-                    <div className="card-header">
-                        Insert an Inbound Shipment
-                    </div>
-                    <div className="card-body">
-                        <h5 className="card-title">
-                            Shipments arriving for delivery
-                        </h5>
-                        <p className="card-text" />
-                    </div>
-                </div>
+         
                 <div
                     className="card grow text-white bg-danger mb-3 mx-auto"
                     style={{ maxWidth: "55vw" }}
