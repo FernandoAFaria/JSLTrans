@@ -32,7 +32,7 @@ export default class Navbar extends React.Component {
 
   
   return (
-    <div>
+    <div id='top-nav-bar'>
 
       <div className="info-bar bg-dark" >
         <h6 className='text-white'>48 3rd Street, Kearny, NJ</h6>

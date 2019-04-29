@@ -15,16 +15,16 @@ export default function UpdateShipment(props) {
     let pallets = document.getElementById('pallets').value;
     let status = document.getElementById('status').value
     let weight = document.getElementById('weight').value;
-    let fromName = document.getElementById('from-name').value || "null";
-    let fromStreet = document.getElementById('from-street').value || "null";
-    let fromCity = document.getElementById('from-city').value || "null";
-    let fromState = document.getElementById('from-state').value || "null";
-    let fromZipcode = document.getElementById('from-zip').value || "null";
-    let toName = document.getElementById('to-name').value || "null";
-    let toStreet = document.getElementById('to-street').value || "null";
-    let toCity = document.getElementById('to-city').value || "null";
-    let toState = document.getElementById('to-state').value || "null";
-    let toZipcode = document.getElementById('to-zip').value || "null";
+    let fromName = document.getElementById('from-name').value || " ";
+    let fromStreet = document.getElementById('from-street').value || " ";
+    let fromCity = document.getElementById('from-city').value || " ";
+    let fromState = document.getElementById('from-state').value || " ";
+    let fromZipcode = document.getElementById('from-zip').value || " ";
+    let toName = document.getElementById('to-name').value || " ";
+    let toStreet = document.getElementById('to-street').value || " ";
+    let toCity = document.getElementById('to-city').value || " ";
+    let toState = document.getElementById('to-state').value || " ";
+    let toZipcode = document.getElementById('to-zip').value || " ";
 
     let body = {
       pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode

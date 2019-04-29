@@ -79,7 +79,7 @@ router.put("/:pro", (req, res) => {
 router.post('/search', (req,res) => {
     const {vendor,field, value} = req.body;
     dbActions.queryByField(vendor,field,value, (err, data) => {
-        console.log(err, data)
+        
         if(err) {
             res.status(400).send(err)
         } else {
