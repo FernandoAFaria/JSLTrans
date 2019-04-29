@@ -10,7 +10,7 @@ export default class Controls extends React.Component {
     constructor() {
         super();
         this.state = {
-            component: "CreateOutbound"
+            component: "Controls"
         };
 
     }
@@ -21,7 +21,7 @@ export default class Controls extends React.Component {
 
         // }
        
-
+        this.updateStatuses();
     }
 
     updateStatuses() {
@@ -167,7 +167,7 @@ const ControlCenter = props => {
                     <tr>
                         <td>Customer</td>
                         <td>Total On-Hand Outbounds</td>
-                        <td>Total On-Hand Inbounds</td>
+                        
                         <td>Out For Delivery</td>
                     </tr>
                 </thead>
@@ -177,19 +177,19 @@ const ControlCenter = props => {
                         <th>EDI:</th>
                         {/* vendor, field, value */}
                         <td ><span id='edi-on-hand-outbound'></span><button onClick={() => props.printOnHand('EDI', 'status', 'picked up')} className='btn btn-sm ml-3 '>view</button></td>
-                        <td ><span id='edi-on-hand-inbound'></span></td>
+                        
                         <td ><span id='edi-ofd'></span></td>
                     </tr>
                     <tr>
                         <th>CLEAR LANE:</th>
                         <td ><span id='clearlane-on-hand-outbound'></span><button onClick={() => props.printOnHand('CLEAR LANE', 'status', 'picked up')} className='btn btn-sm ml-3 '>view</button></td>
-                        <td ><span id='clearlane-on-hand-inbound'></span></td>
+                        
                         <td ><span id='clearlane-ofd'></span></td>
                     </tr>
                     <tr>
                         <th>HERCULES:</th>
                         <td ><span id='hercules-on-hand-outbound'></span><button onClick={() => props.printOnHand('HERCULES', 'status', 'picked up')} className='btn btn-sm ml-3 '>view</button></td>
-                        <td ><span id='hercules-on-hand-inbound'></span></td>
+                     
                         <td ><span id='hercules-ofd'></span></td>
                     </tr>
 

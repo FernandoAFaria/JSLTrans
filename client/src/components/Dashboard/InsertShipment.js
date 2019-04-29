@@ -35,7 +35,7 @@ export default function InsertShipment(props) {
     let date = document.getElementById('date').value;
     let pieces = document.getElementById('pieces').value;
     let pallets = document.getElementById('pallets').value;
-    let status = "Picked Up"
+    let status = document.getElementById('shipment-type').value + " " + document.getElementById('manifest').value;
     let weight = document.getElementById('weight').value;
     let fromName = document.getElementById('from-name').value || " ";
     let fromStreet = document.getElementById('from-street').value || " ";
@@ -110,12 +110,15 @@ export default function InsertShipment(props) {
             </div>
             <button className='btn btn-danger  mr-4 mt-4'  onClick={(e) => props.handleBackBtn(e)} >Back</button>
             <label className="ml-auto mt-4" htmlFor='shipment-type'>Shipment Type: </label>
-            <select name='shipment-type' className='form-control border border-danger mt-4'>
-              <option>Pickup</option>
-              <option>Inbound</option>
-              <option>Customer Drop</option>
+            <select id='shipment-type' name='shipment-type' className='form-control border border-danger mt-4'>
+              <option default value='Picked Up'>Pickup</option>
+              <option value='Inbound'>Inbound</option>
+              <option value='Customer Drop Off'>Customer Drop</option>
               <option>Other</option>
             </select>
+            <label htmlFor='manifest' className='mr-1 mt-4 ml-3'>Inbound M#:</label>
+              <input style={{width: '220px'}} id='manifest' name='manifest' className='form-control border border-danger  mt-4' ></input>
+
             <input className='btn btn-success ml-auto mr-4 mt-4' type='submit' ></input>
           </div>
           <div id='success' style={{width: '100%', paddingleft: '125px', display: 'none'}} className='alert alert-success mt-3'>Insert Successful</div>

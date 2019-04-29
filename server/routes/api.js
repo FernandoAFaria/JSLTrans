@@ -18,7 +18,7 @@ router.get('/test', (req, res) => {
         if(err) {
             res.status(400).send('Something went wrong')
         } else {
-            console.log(data);
+            
             res.send(data)
         }
     })
@@ -70,6 +70,29 @@ router.put("/:pro", (req, res) => {
                 res.status(400).send('Something went wrong')
             } else {
                 res.status(200).send(response)
+            }
+        })
+        
+});
+router.put("/manifest/:pro", (req, res) => {
+    const pro = req.params.pro;
+    //Only need to update the status on each manifested bill
+    const {status} = req.body;
+    dbActions
+        .updateStatus(pro,status, (err, response) => {
+            
+            if(err){
+                console.log(err)
+                res.status(400).send('Something went wrong')
+            } else {
+                
+                if(response.affectedRows === 0) {
+                    res.status(400).send('Pro Not Found')
+                } else {
+                    res.status(200).send(response)
+                }
+               
+                
             }
         })
         

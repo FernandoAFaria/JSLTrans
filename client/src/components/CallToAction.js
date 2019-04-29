@@ -28,7 +28,7 @@ export default function Landing() {
                     </div>
                     {/* Request a quote section */}
 
-                    <div className=" req-quote shadow" style={{ minWidth: "400px", background: 'rgba(0,0,0,.6)' }}>
+                    <div className=" req-quote shadow" style={{ minWidth: "440px", background: 'rgba(0,0,0,.4)' }}>
                         <h5 className="card-header bg-warning text-center py-4">
                             <strong>Request a quote.</strong>
                         </h5>

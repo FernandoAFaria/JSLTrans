@@ -12,7 +12,8 @@ export default class CreateOutbound extends Component {
             destination: "",
             manifest: "",
             prosTo24: [],
-            pros25To50: []
+            pros25To50: [],
+            errorUpdatingPros: []
         };
     }
     handleVendorChange = e => {
@@ -77,8 +78,7 @@ export default class CreateOutbound extends Component {
             pros25To50: proList25To50
         });
         setTimeout(() => {
-          console.log(this.state.prosTo24)
-          console.log(this.state.pros25To50)
+          
           this.calcShipments();
           this.calcWeight();
         },2000)
@@ -125,7 +125,7 @@ export default class CreateOutbound extends Component {
       let weightFields = document.getElementsByClassName('weight');
       
       for(let i = 0; i < weightFields.length; i++) {
-        console.log(weightFields[i].innerText)
+        
         if(weightFields[i].innerText !== "") {
           weight = weight + parseInt(weightFields[i].innerText);
         }
@@ -134,8 +134,77 @@ export default class CreateOutbound extends Component {
     
       document.getElementById('total-weight').innerText = weight;
     }
+    handleCloseManifest(){
+        document.getElementById('top-nav-bar').style.display = 'block'
+        document.getElementById('input-outbound-form').style.display = 'block';
+        document.getElementById('load-card').style.visibility = 'hidden';
+        window.scrollTo(0,0);
+    }
+    handleSubmitManifest = (e) => {
+        e.preventDefault();
+        
+        const {  date, carrier, trailerNumber,destination} = this.state;
+        
+        for(let i = 0; i < this.state.prosTo24.length; i++) {
+            
+            if(this.state.prosTo24[i] !== " ") {
+                
+                let pro = this.state.prosTo24[i];
+                let status = `Transfered to ${destination} on ${date}. Loaded on ${carrier}, trailer #${trailerNumber}.`
+                let body = {
+                    status: status
+
+                }
+
+                fetch(`http://localhost:5000/api/manifest/${pro}`, {
+                    method: 'PUT',
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(body)
+                }).then(response => {
+                    if(response.status === 400){
+                        document.getElementById('errors').innerText += pro + " , ";
+                        //insert it anyway
+                        let status = `Transfered to ${destination} on ${date}. Loaded on ${carrier}, trailer #${trailerNumber}.`
+                        let body = {
+                            pro: pro,
+                            vendor: " ",
+                            date: " ",
+                            peices: " ",
+                            pallets: " ",
+                            status: status,
+                            weight: ' ',
+                            fromName: " ",
+                            fromStreet: " ",
+                            fromCity: " ",
+                            fromState: " ",
+                            fromZipcode: " ",
+                            toName: " ",
+                            toStreet: " ",
+                            toCity: " ",
+                            toState: " ",
+                            toZipcode: " "
+
+                          }
+                        fetch('http://localhost:5000/api', {
+                        method: 'post',
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify(body)
+                        })
+                                        
+                    } else {
+                        
+                    }
+                }).catch(err => {
+                    console.log(err)
+                })
+            }
+            
+        }
+      
+    }
 
     render() {
+        
         return (
             <div className=" my-2 container-fluid  px-5">
             <section id='input-outbound-form'>
@@ -243,7 +312,7 @@ export default class CreateOutbound extends Component {
                                     Manifest Number:
                                 </label>
                                 <input
-                                    required
+                                    
                                     name="manifest"
                                     type="number"
                                     className="form-control border border-dark mx-3"
@@ -295,33 +364,26 @@ export default class CreateOutbound extends Component {
                             <input className="manifest-pro mx-2 my-2" />
                             <input className="manifest-pro mx-2 my-2" />
                             <input className="manifest-pro mx-2 my-2" />
-                            <input className="manifest-pro mx-2 my-2" />
-                            <input className="manifest-pro mx-2 my-2" />
-                            <input className="manifest-pro mx-2 my-2" />
-                            <input className="manifest-pro mx-2 my-2" />
-                            <input className="manifest-pro mx-2 my-2" />
-                            <input className="manifest-pro mx-2 my-2" />
-                            <input className="manifest-pro mx-2 my-2" />
-                            <input className="manifest-pro mx-2 my-2" />
-                            <input className="manifest-pro mx-2 my-2" />
-                            <input className="manifest-pro mx-2 my-2" />
-                            <input className="manifest-pro mx-2 my-2" />
-                            <input className="manifest-pro mx-2 my-2" />
-                            <input className="manifest-pro mx-2 my-2" />
-                            <input className="manifest-pro mx-2 my-2" />
+                         
+                           
                         </div>
                         <div className="container-fluid">
-                            <button className="btn btn-success ml-5 mt-4">
+                            <button className="btn btn-info ml-5 mt-4">
                                 GENERATE
                             </button>
+                            
+                            <button onClick={(e) => this.handleSubmitManifest(e)} className="btn btn-success float-right mt-4">
+                                SUBMIT
+                            </button>
                         </div>
+                        <div  className='alert alert-danger my-3'>The following shipments had an error when submitting: <span id='errors'></span></div>
                     </div>
                 </form>
 
                 <hr className="my-1" />
 </section>
 
-                <div id='load-card' className="container-fluid header py-4 border border-dark px-5">
+                <div id='load-card' className="container-fluid header py-2 mt-5 px-4">
                     <h2>{this.state.vendor} Load Card</h2>
                     <div className="row mt-4 mb-2">
                         <div className="col">
@@ -386,7 +448,7 @@ export default class CreateOutbound extends Component {
                                     borderBottom: "2px solid black"
                                 }}
                             >
-                                Date: {this.state.date}
+                                Date:{this.state.date} 
                             </h5>
                         </div>
                     </div>
@@ -480,19 +542,21 @@ export default class CreateOutbound extends Component {
                                       <h5>Total Shipments:</h5>
                     
                       
-                                      <h5 id='total-shipments'  style={{
+                                      <h4 id='total-shipments'  style={{
                                       maxWidth: "375px",
-                                      borderBottom: "2px solid black"
-                                  }}> </h5>
+                                      borderBottom: "2px solid black",
+                                      paddingLeft: '75px'
+                                  }}> </h4>
                       </div>
                       <div className='col'>
                                     <h5>Total Weight:</h5>
                    
                     
-                                    <h5 id='total-weight'  style={{
+                                    <h4 id='total-weight'  style={{
                                     maxWidth: "375px",
-                                    borderBottom: "2px solid black"
-                                }}> </h5>
+                                    borderBottom: "2px solid black",
+                                    paddingLeft: '75px'
+                                }}> </h4>
                     </div>
 
                     <div className='col'>
@@ -527,7 +591,7 @@ export default class CreateOutbound extends Component {
                                   }}> </h5>
                       </div>
                       <div className='col py-5'>
-                                      <h5>Trailer Capacity:</h5>
+                                      <h5>Trl Capacity:</h5>
                     
                       
                                       <h5  style={{
@@ -537,7 +601,7 @@ export default class CreateOutbound extends Component {
                       </div>
                     
                       <div className='col border border-dark py-5'>
-                                      <h5>Weight at Nose:</h5>
+                                      <h5>Wt at Nose:</h5>
                     
                       
                                       <h5  style={{
@@ -545,12 +609,12 @@ export default class CreateOutbound extends Component {
                                   }}> </h5>
                       </div>
                       <div className='col border border-dark py-5'>
-                                      <h5>Wt Tail:</h5>
+                                      <h5>Wt at Tail:</h5>
                     
                       
                                       <h5  style={{
                                       maxWidth: "375px"
-                                  }}> </h5>
+                                  }}> </h5><button onClick={this.handleCloseManifest} className='btn btn-primary btn-sm'>x</button>
                       </div>
                     </div>
                 </div>

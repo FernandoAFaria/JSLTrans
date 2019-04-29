@@ -60,7 +60,7 @@ export default function UpdateShipment(props) {
     fetch(`http://localhost:5000/api/${proNum}`)
       .then(data => data.json())
       .then(myJson => {
-        console.log(myJson)
+       
         if (myJson.length === 0) {
 
           errorDiv.style.display = 'block';

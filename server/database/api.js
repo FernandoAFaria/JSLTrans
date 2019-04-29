@@ -40,7 +40,7 @@ module.exports = {
   // MODIFY ONE
   modify(pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode, callback) {
   
-      let sql = 'UPDATE shipments SET vendor=' + db.escape(vendor) +', pieces=' + db.escape(pieces) + ', pallets='+ db.escape(pallets) + ', status=' + db.escape(status) + ', weight=' + db.escape(weight) + ', fromName=' + db.escape(fromName) + ', fromStreet=' + db.escape(fromStreet) + ", fromCity=" + db.escape(fromCity) + ', fromState=' + db.escape(fromState) + ', fromZipcode=' + db.escape(fromZipcode) + ', toName=' + db.escape(toName) + ', toStreet=' + db.escape(toStreet) + ', toCity=' + db.escape(toCity) + ', toState=' + db.escape(toState) + ', toZipcode=' + db.escape(toZipcode) + 'WHERE pro=' + db.escape(pro)
+      let sql = 'UPDATE shipments SET vendor=' + db.escape(vendor) +',date=' + db.escape(date) + ', pieces=' + db.escape(pieces) + ', pallets='+ db.escape(pallets) + ', status=' + db.escape(status) + ', weight=' + db.escape(weight) + ', fromName=' + db.escape(fromName) + ', fromStreet=' + db.escape(fromStreet) + ", fromCity=" + db.escape(fromCity) + ', fromState=' + db.escape(fromState) + ', fromZipcode=' + db.escape(fromZipcode) + ', toName=' + db.escape(toName) + ', toStreet=' + db.escape(toStreet) + ', toCity=' + db.escape(toCity) + ', toState=' + db.escape(toState) + ', toZipcode=' + db.escape(toZipcode) + 'WHERE pro=' + db.escape(pro)
       db.query(sql, callback)
     
   },
@@ -50,6 +50,11 @@ module.exports = {
       db.query(sql,callback)
 
 
-  }
+  },
+  updateStatus(pro, status, callback) {
+    let sql = `UPDATE shipments SET status='${status}' where pro = '${pro}';`
+    db.query(sql,callback)
+
+  } 
 
 }
