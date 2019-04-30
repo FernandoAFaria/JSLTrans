@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+
 export default class CreateOutbound extends Component {
     constructor() {
         super();
@@ -52,7 +53,7 @@ export default class CreateOutbound extends Component {
         });
     };
 
-    handleCreateOutbound = e => {
+    handleGenerate = e => {
         e.preventDefault();
         let allPros = document.getElementsByClassName("manifest-pro");
         let proList24 = [];
@@ -78,7 +79,7 @@ export default class CreateOutbound extends Component {
             pros25To50: proList25To50
         });
         setTimeout(() => {
-          
+         
           this.calcShipments();
           this.calcWeight();
         },2000)
@@ -208,7 +209,7 @@ export default class CreateOutbound extends Component {
         return (
             <div className=" my-2 container-fluid  px-5">
             <section id='input-outbound-form'>
-                <form onSubmit={e => this.handleCreateOutbound(e)}>
+                <form onSubmit={e => this.handleGenerate(e)}>
                     <h1>Create an Outbound Manifest</h1>
                     <div>
                         <div className="row">
@@ -383,241 +384,244 @@ export default class CreateOutbound extends Component {
                 <hr className="my-1" />
 </section>
 
-                <div id='load-card' className="container-fluid header py-2 mt-5 px-4">
-                    <h2>{this.state.vendor} Load Card</h2>
-                    <div className="row mt-4 mb-2">
-                        <div className="col">
-                            <h5
-                                style={{
-                                    maxWidth: "375px",
-                                    borderBottom: "2px solid black"
-                                }}
-                            >
-                                Carrier: {this.state.carrier}
-                            </h5>
-                        </div>
-                        <div className="col">
-                            <h5
-                                style={{
-                                    maxWidth: "375px",
-                                    borderBottom: "2px solid black"
-                                }}
-                            >
-                                Origin: JSL Transportation
-                            </h5>
-                        </div>
-                    </div>
-
-                    <div className="row my-3 ">
-                        <div className="col">
-                            <h5
-                                style={{
-                                    maxWidth: "375px",
-                                    borderBottom: "2px solid black"
-                                }}
-                            >
-                                Trailer Number: {this.state.trailerNumber}
-                            </h5>
-                        </div>
-                        <div className="col">
-                            <h5
-                                style={{
-                                    maxWidth: "375px",
-                                    borderBottom: "2px solid black"
-                                }}
-                            >
-                                Loaded By: {this.state.loader}
-                            </h5>
-                        </div>
-                    </div>
-                    <div className="row my-3 ">
-                        <div className="col">
-                            <h5
-                                style={{
-                                    maxWidth: "375px",
-                                    borderBottom: "2px solid black"
-                                }}
-                            >
-                                Manifest Number: {this.state.manifest}
-                            </h5>
-                        </div>
-                        <div className="col">
-                            <h5
-                                style={{
-                                    maxWidth: "375px",
-                                    borderBottom: "2px solid black"
-                                }}
-                            >
-                                Date:{this.state.date} 
-                            </h5>
-                        </div>
-                    </div>
-                    <hr className="border border-dark my-2" />
-
-                    <div id="outbound-manifest-created">
-                        <table id="outbound-table">
-                            <thead>
-                                <tr>
-                                    <td className="sm" />
-                                    <td className="xl">
-                                        <h5>PRO NUM</h5>
-                                    </td>
-                                    <td className="lg">
-                                        <h5>Pieces</h5>
-                                    </td>
-                                    <td className="lg">
-                                        <h5>Weight</h5>
-                                    </td>
-                                    <td className="sm">
-                                        <h5>INT</h5>
-                                    </td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.prosTo24.map((pro, index) => {
-                                    return (
-                                        <tr key={index}>
-                                            <td className="text-dark">
-                                                {index + 1}
-                                            </td>
-                                            <td>{pro}</td>
-                                            <td id={pro + "plt"}>
-                                                {this.getPieces(pro, "plt")}
-                                            </td>
-                                            <td className='weight' id={pro + "wt"}>
-                                                {this.getPieces(pro, "wt")}
-                                            </td>
-                                            <td />
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </table>
-                        <div id="right-form">
-                            <div className="destination-field">
-                                {this.state.destination}
-                            </div>
-                            <table className="ml-3" id="outbound-table-right">
-                                <thead>
-                                    <tr>
-                                        <td className="sm" />
-                                        <td className="xl">
-                                            <h5>PRO NUM</h5>
-                                        </td>
-                                        <td className="xl">
-                                            <h5>Pieces</h5>
-                                        </td>
-                                        <td className="xl">
-                                            <h5>Weight</h5>
-                                        </td>
-                                        <td className="sm">
-                                            <h5>INT</h5>
-                                        </td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.state.pros25To50.map((pro, index) => {
-                                        return (
-                                            <tr key={index+26}>
-                                                <td className="text-dark">
-                                                    {index + 26}
-                                                </td>
-                                                <td>{pro}</td>
-                                                <td id={pro + "plt"}>
-                                                    {this.getPieces(pro, "plt")}
-                                                </td>
-                                                <td className='weight' id={pro + "wt"}>
-                                                    {this.getPieces(pro, "wt")}
-                                                </td>
-                                                <td />
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div className='row mt-5'>
-                      <div className='col'>
-                                      <h5>Total Shipments:</h5>
-                    
-                      
-                                      <h4 id='total-shipments'  style={{
-                                      maxWidth: "375px",
-                                      borderBottom: "2px solid black",
-                                      paddingLeft: '75px'
-                                  }}> </h4>
-                      </div>
-                      <div className='col'>
-                                    <h5>Total Weight:</h5>
-                   
-                    
-                                    <h4 id='total-weight'  style={{
-                                    maxWidth: "375px",
-                                    borderBottom: "2px solid black",
-                                    paddingLeft: '75px'
-                                }}> </h4>
-                    </div>
-
-                    <div className='col'>
-                                    <h5>Photo Half:</h5>
-                   
-                    
-                                    <h5  style={{
-                                    maxWidth: "375px",
-                                    borderBottom: "2px solid black"
-                                }}> </h5>
-                    </div>
-                    <div className='col'>
-                                    <h5>Photo Tail:</h5>
-                   
-                    
-                                    <h5   style={{
-                                    maxWidth: "375px",
-                                    borderBottom: "2px solid black"
-                                }}> </h5>
-                    </div>
-                    
-                    
-                    </div>
-                    <div className='row'>
-                    <div className='col py-5'>
-                                      <h5>Seal Number:</h5>
-                    
-                      
-                                      <h5  style={{
-                                      maxWidth: "375px",
-                                      borderBottom: "2px solid black"
-                                  }}> </h5>
-                      </div>
-                      <div className='col py-5'>
-                                      <h5>Trl Capacity:</h5>
-                    
-                      
-                                      <h5  style={{
-                                      maxWidth: "375px",
-                                      borderBottom: "2px solid black"
-                                  }}> </h5>
-                      </div>
-                    
-                      <div className='col border border-dark py-5'>
-                                      <h5>Wt at Nose:</h5>
-                    
-                      
-                                      <h5  style={{
-                                      maxWidth: "375px"
-                                  }}> </h5>
-                      </div>
-                      <div className='col border border-dark py-5'>
-                                      <h5>Wt at Tail:</h5>
-                    
-                      
-                                      <h5  style={{
-                                      maxWidth: "375px"
-                                  }}> </h5><button onClick={this.handleCloseManifest} className='btn btn-primary btn-sm'>x</button>
-                      </div>
-                    </div>
-                </div>
+{/* Load Card Section */}
+{/* This is hidden until generate manifest is clicked */}
+ <div id='load-card' className="container-fluid header py-2 mt-5 px-4">
+      <h2>{this.state.vendor} Load Card</h2>
+      <div className="row mt-4 mb-2">
+          <div className="col">
+              <h5
+                  style={{
+                      maxWidth: "375px",
+                      borderBottom: "2px solid black"
+                  }}
+              >
+                  Carrier: {this.state.carrier}
+              </h5>
+          </div>
+          <div className="col">
+              <h5
+                  style={{
+                      maxWidth: "375px",
+                      borderBottom: "2px solid black"
+                  }}
+              >
+                  Origin: JSL Transportation
+              </h5>
+          </div>
+      </div>
+  
+      <div className="row my-3 ">
+          <div className="col">
+              <h5
+                  style={{
+                      maxWidth: "375px",
+                      borderBottom: "2px solid black"
+                  }}
+              >
+                  Trailer Number: {this.state.trailerNumber}
+              </h5>
+          </div>
+          <div className="col">
+              <h5
+                  style={{
+                      maxWidth: "375px",
+                      borderBottom: "2px solid black"
+                  }}
+              >
+                  Loaded By: {this.state.loader}
+              </h5>
+          </div>
+      </div>
+      <div className="row my-3 ">
+          <div className="col">
+              <h5
+                  style={{
+                      maxWidth: "375px",
+                      borderBottom: "2px solid black"
+                  }}
+              >
+                  Manifest Number: {this.state.manifest}
+              </h5>
+          </div>
+          <div className="col">
+              <h5
+                  style={{
+                      maxWidth: "375px",
+                      borderBottom: "2px solid black"
+                  }}
+              >
+                  Date:{this.state.date} 
+              </h5>
+          </div>
+      </div>
+      <hr className="border border-dark my-2" />
+  
+      <div id="outbound-manifest-created">
+          <table id="outbound-table">
+              <thead>
+                  <tr>
+                      <td className="sm" />
+                      <td className="xl">
+                          <h5>PRO NUM</h5>
+                      </td>
+                      <td className="lg">
+                          <h5>Pieces</h5>
+                      </td>
+                      <td className="lg">
+                          <h5>Weight</h5>
+                      </td>
+                      <td className="sm">
+                          <h5>INT</h5>
+                      </td>
+                  </tr>
+              </thead>
+              <tbody>
+                  {this.state.prosTo24.map((pro, index) => {
+                      return (
+                          <tr key={index}>
+                              <td className="text-dark">
+                                  {index + 1}
+                              </td>
+                              <td>{pro}</td>
+                              <td id={pro + "plt"}>
+                                  {this.getPieces(pro, "plt")}
+                              </td>
+                              <td className='weight' id={pro + "wt"}>
+                                  {this.getPieces(pro, "wt")}
+                              </td>
+                              <td />
+                          </tr>
+                      );
+                  })}
+              </tbody>
+          </table>
+          <div id="right-form">
+              <div className="destination-field">
+                  {this.state.destination}
+              </div>
+              <table className="ml-3" id="outbound-table-right">
+                  <thead>
+                      <tr>
+                          <td className="sm" />
+                          <td className="xl">
+                              <h5>PRO NUM</h5>
+                          </td>
+                          <td className="xl">
+                              <h5>Pieces</h5>
+                          </td>
+                          <td className="xl">
+                              <h5>Weight</h5>
+                          </td>
+                          <td className="sm">
+                              <h5>INT</h5>
+                          </td>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {this.state.pros25To50.map((pro, index) => {
+                          return (
+                              <tr key={index+26}>
+                                  <td className="text-dark">
+                                      {index + 26}
+                                  </td>
+                                  <td>{pro}</td>
+                                  <td id={pro + "plt"}>
+                                      {this.getPieces(pro, "plt")}
+                                  </td>
+                                  <td className='weight' id={pro + "wt"}>
+                                      {this.getPieces(pro, "wt")}
+                                  </td>
+                                  <td />
+                              </tr>
+                          );
+                      })}
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      <div className='row mt-5'>
+        <div className='col'>
+                        <h5>Total Shipments:</h5>
+      
+        
+                        <h4 id='total-shipments'  style={{
+                        maxWidth: "375px",
+                        borderBottom: "2px solid black",
+                        paddingLeft: '75px'
+                    }}> </h4>
+        </div>
+        <div className='col'>
+                      <h5>Total Weight:</h5>
+     
+      
+                      <h4 id='total-weight'  style={{
+                      maxWidth: "375px",
+                      borderBottom: "2px solid black",
+                      paddingLeft: '75px'
+                  }}> </h4>
+      </div>
+  
+      <div className='col'>
+                      <h5>Photo Half:</h5>
+     
+      
+                      <h5  style={{
+                      maxWidth: "375px",
+                      borderBottom: "2px solid black"
+                  }}> </h5>
+      </div>
+      <div className='col'>
+                      <h5>Photo Tail:</h5>
+     
+      
+                      <h5   style={{
+                      maxWidth: "375px",
+                      borderBottom: "2px solid black"
+                  }}> </h5>
+      </div>
+      
+      
+      </div>
+      <div className='row'>
+      <div className='col py-5'>
+                        <h5>Seal Number:</h5>
+      
+        
+                        <h5  style={{
+                        maxWidth: "375px",
+                        borderBottom: "2px solid black"
+                    }}> </h5>
+        </div>
+        <div className='col py-5'>
+                        <h5>Trl Capacity:</h5>
+      
+        
+                        <h5  style={{
+                        maxWidth: "375px",
+                        borderBottom: "2px solid black"
+                    }}> </h5>
+        </div>
+      
+        <div className='col border border-dark py-5'>
+                        <h5>Wt at Nose:</h5>
+      
+        
+                        <h5  style={{
+                        maxWidth: "375px"
+                    }}> </h5>
+        </div>
+        <div className='col border border-dark py-5'>
+                        <h5>Wt at Tail:</h5>
+      
+        
+                        <h5  style={{
+                        maxWidth: "375px"
+                    }}> </h5><button onClick={this.handleCloseManifest} className='btn btn-primary btn-sm'>x</button>
+        </div>
+      </div>
+  </div>
+               
             </div>
         );
     }

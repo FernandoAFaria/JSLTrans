@@ -17,7 +17,6 @@ export default function Landing() {
       <AboutUs />
       <OurTeam />
       <Slideshow />
-      
       <Contact />
       <Footer />
     </div>
