@@ -21,6 +21,7 @@ export default class CreateOutbound extends Component {
         this.setState({
             vendor: e.target.value
         });
+        document.getElementById('success').style.display = 'none';
     };
     handleDateChange = e => {
         this.setState({
@@ -55,37 +56,54 @@ export default class CreateOutbound extends Component {
 
     handleGenerate = e => {
         e.preventDefault();
-        let allPros = document.getElementsByClassName("manifest-pro");
-        let proList24 = [];
-        let proList25To50 = [];
-        for (let i = 0; i < allPros.length; i++) {
-            if (allPros[i].value !== "") {
-                if (i < 25) {
-                    proList24.push(allPros[i].value);
-                } else {
-                    proList25To50.push(allPros[i].value);
+        
+        let manifestNumber = this.state.manifest;
+        fetch('http://localhost:5000/api/search', {
+            method: 'post',
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({vendor: '%', field: 'manifest', value: manifestNumber})
+        }).then(res => res.json())
+        .then(myJson => {
+            if(myJson.length > 0){
+                alert('THAT MANIFEST ALREADY EXISTS')
+            } else {
+                let allPros = document.getElementsByClassName("manifest-pro");
+                let proList24 = [];
+                let proList25To50 = [];
+                for (let i = 0; i < allPros.length; i++) {
+                    if (allPros[i].value !== "") {
+                        if (i < 25) {
+                            proList24.push(allPros[i].value);
+                        } else {
+                            proList25To50.push(allPros[i].value);
+                        }
+                    }
                 }
-            }
-        }
 
-        while (proList24.length < 25) {
-            proList24.push(" ");
-        }
-        while (proList25To50.length < 15) {
-            proList25To50.push(" ");
-        }
-        this.setState({
-            prosTo24: proList24,
-            pros25To50: proList25To50
-        });
-        setTimeout(() => {
-         
-          this.calcShipments();
-          this.calcWeight();
-        },2000)
-        document.getElementById('top-nav-bar').style.display = 'none'
-        document.getElementById('input-outbound-form').style.display = 'none';
-        document.getElementById('load-card').style.visibility = 'visible';
+                while (proList24.length < 25) {
+                    proList24.push(" ");
+                }
+                while (proList25To50.length < 15) {
+                    proList25To50.push(" ");
+                }
+                this.setState({
+                    prosTo24: proList24,
+                    pros25To50: proList25To50
+                });
+                setTimeout(() => {
+                
+                this.calcShipments();
+                this.calcWeight();
+                },2000)
+                document.getElementById('top-nav-bar').style.display = 'none'
+                document.getElementById('input-outbound-form').style.display = 'none';
+                document.getElementById('load-card').style.visibility = 'visible';
+                document.getElementById('submit-manifest-btn').style.visibility = 'visible';
+
+            }
+        })
+        
+        
     };
 
     getPieces = (pro, pltOrWt) => {
@@ -144,8 +162,8 @@ export default class CreateOutbound extends Component {
     handleSubmitManifest = (e) => {
         e.preventDefault();
         
-        const {  date, carrier, trailerNumber,destination} = this.state;
-        
+        const {date, carrier, trailerNumber,destination, manifest, loader} = this.state;
+        console.log(date)
         for(let i = 0; i < this.state.prosTo24.length; i++) {
             
             if(this.state.prosTo24[i] !== " ") {
@@ -153,7 +171,13 @@ export default class CreateOutbound extends Component {
                 let pro = this.state.prosTo24[i];
                 let status = `Transfered to ${destination} on ${date}. Loaded on ${carrier}, trailer #${trailerNumber}.`
                 let body = {
-                    status: status
+                    status: status,
+                    manifest: manifest,
+                    manifest_date: date,
+                    manifest_carrier: carrier,
+                    manifest_trailer: trailerNumber,
+                    manifest_destination: destination,
+                    manifest_loader: loader
 
                 }
 
@@ -162,6 +186,9 @@ export default class CreateOutbound extends Component {
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(body)
                 }).then(response => {
+
+                    // If pro is not in database, this will enter a skeleton
+
                     if(response.status === 400){
                         document.getElementById('errors').innerText += pro + " , ";
                         //insert it anyway
@@ -201,7 +228,28 @@ export default class CreateOutbound extends Component {
             }
             
         }
+        // Once complete show finished
+        this.clearForm();
       
+    }
+    clearForm(){
+        this.setState({
+            vendor: "",
+            date: "",
+            carrier: "",
+            trailerNumber: "",
+            loader: "",
+            destination: "",
+            manifest: "",
+            prosTo24: [],
+            pros25To50: [],
+            errorUpdatingPros: []
+        })
+        let allPros = document.getElementsByClassName("manifest-pro");
+        for(let i = 0; i < allPros.length; i++){
+            allPros[i].value = ""
+        }
+        document.getElementById('success').style.display = 'block';
     }
 
     render() {
@@ -309,17 +357,19 @@ export default class CreateOutbound extends Component {
                                 </button>
                             </div>
                             <div className="col">
+                            
                                 <label className="text-dark" htmlFor="manifest">
                                     Manifest Number:
                                 </label>
                                 <input
                                     
                                     name="manifest"
-                                    type="number"
+                                    
                                     className="form-control border border-dark mx-3"
                                     value={this.state.manifest}
                                     onChange={e => this.handleManifest(e)}
                                 />
+                                
                             </div>
                         </div>
                         <hr className="my-4" />
@@ -373,9 +423,11 @@ export default class CreateOutbound extends Component {
                                 GENERATE
                             </button>
                             
-                            <button onClick={(e) => this.handleSubmitManifest(e)} className="btn btn-success float-right mt-4">
+                            <button id='submit-manifest-btn' style={{visibility: 'hidden'}} onClick={(e) => this.handleSubmitManifest(e)} className="btn btn-success float-right mt-4">
                                 SUBMIT
                             </button>
+
+                            <h1 id='success' className='alert alert-success'> Manifest Submitted</h1>
                         </div>
                         <div  className='alert alert-danger my-3'>The following shipments had an error when submitting: <span id='errors'></span></div>
                     </div>

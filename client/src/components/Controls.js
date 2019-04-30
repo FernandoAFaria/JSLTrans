@@ -2,6 +2,7 @@ import React from "react";
 import InsertShipment from "./Dashboard/InsertShipment";
 import CreateOutbound from './Dashboard/CreateOutbound';
 import UpdateShipment from './Dashboard/UpdateShipment';
+import PrintTruckManifest from './Dashboard/PrintTruckManifest'
 
 //default Controls
 //This holds all functions for displaying different dashboard components
@@ -46,7 +47,12 @@ export default class Controls extends React.Component {
             })
         }).then(res => res.json())
             .then(data => {
-                document.getElementById(populate).textContent = data.length;
+                try {
+                    document.getElementById(populate).textContent = data.length;
+                }catch(err){
+                    console.log(err)
+                }
+                
             })
     }
 
@@ -121,6 +127,12 @@ export default class Controls extends React.Component {
         });
         this.updateStatuses();
     };
+    handlePrintTruckManifest = e => {
+        e.preventDefault();
+        this.setState({
+            component: "PrintTruckManifest"
+        });
+    }
 
     render() {
         switch (this.state.component) {
@@ -131,6 +143,7 @@ export default class Controls extends React.Component {
                         printOnHand={this.printOnHand}
                         handleUpdateShipment={this.handleUpdateShipment}
                         handleCreateOutbound={this.handleCreateOutbound}
+                        handlePrintTruckManifest={this.handlePrintTruckManifest}
                     />
                 );
 
@@ -142,8 +155,11 @@ export default class Controls extends React.Component {
 
             case "UpdateShipment":
                 return <UpdateShipment handleBackBtn={this.handleBackBtn} />
-
-            default:
+            
+            case "PrintTruckManifest":
+                return <PrintTruckManifest handleBackBtn={this.handleBackBtn} />
+            
+                default:
                 return "";
         }
     }
@@ -236,8 +252,11 @@ const ControlCenter = props => {
                         <p className="card-text" />
                     </div>
                 </div>
+
+<hr className='mt-5 border border-primary' />
+
                 <div
-                    className="card grow text-white bg-warning mb-3 mx-auto"
+                    className="card grow text-white bg-primary mb-3 mx-auto"
                     style={{ maxWidth: "55vw" }}
                     onClick={(e) => props.handleCreateOutbound(e)}
                 >
@@ -251,6 +270,28 @@ const ControlCenter = props => {
                         <p className="card-text" />
                     </div>
                 </div>
+
+
+                <div
+                    className="card grow text-white bg-dark mb-3 mx-auto"
+                    style={{ maxWidth: "55vw" }}
+                    onClick={(e) => props.handlePrintTruckManifest(e)}
+                >
+                    <div className="card-header">
+                        Print a Truck Manifest
+                    </div>
+                    <div className="card-body">
+                        <h5 className="card-title">
+                            Print by Manifest Number
+                        </h5>
+                        <p className="card-text" />
+                    </div>
+                </div>
+
+
+
+
+
             </div>
         </section>
     );

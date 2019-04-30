@@ -62,9 +62,9 @@ router.post("/", (req, res) => {
 // MODIFY ONE
 router.put("/:pro", (req, res) => {
     const pro = req.params.pro;
-    const { vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode } = req.body;
+    const { vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode, manifest,  } = req.body;
     dbActions
-        .modify(pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode, (err, response) => {
+        .modify(pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode,manifest, (err, response) => {
             if(err){
                 console.log(err)
                 res.status(400).send('Something went wrong')
@@ -77,9 +77,9 @@ router.put("/:pro", (req, res) => {
 router.put("/manifest/:pro", (req, res) => {
     const pro = req.params.pro;
     //Only need to update the status on each manifested bill
-    const {status} = req.body;
+    const {status, manifest, manifest_date, manifest_carrier, manifest_trailer, manifest_destination, manifest_loader} = req.body;
     dbActions
-        .updateStatus(pro,status, (err, response) => {
+        .updateStatus(pro, status, manifest, manifest_date, manifest_carrier, manifest_trailer, manifest_destination, manifest_loader, (err, response) => {
             
             if(err){
                 console.log(err)
@@ -106,6 +106,7 @@ router.post('/search', (req,res) => {
         if(err) {
             res.status(400).send(err)
         } else {
+            
             res.send(data)
         }
     })

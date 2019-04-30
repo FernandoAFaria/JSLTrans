@@ -25,9 +25,10 @@ export default function UpdateShipment(props) {
     let toCity = document.getElementById('to-city').value || " ";
     let toState = document.getElementById('to-state').value || " ";
     let toZipcode = document.getElementById('to-zip').value || " ";
+    let manifest = document.getElementById('manifest').value || " ";
 
     let body = {
-      pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode
+      pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode, manifest
     }
 
     fetch(`http://localhost:5000/api/${pro}`, {
@@ -67,7 +68,7 @@ export default function UpdateShipment(props) {
           errorDiv.textContent = 'Pro not found'
         } else {
           errorDiv.style.display = 'none';
-          const { date, status, pieces, pallets, fromCity, fromName, fromState, fromStreet, fromZipcode, toCity, toName, toState, toStreet, toZipcode, vendor, weight } = myJson[0];
+          const { date, status, pieces, pallets, fromCity, fromName, fromState, fromStreet, fromZipcode, toCity, toName, toState, toStreet, toZipcode, vendor, weight, manifest } = myJson[0];
 
 
           document.getElementById('vendor').value = vendor;
@@ -86,6 +87,7 @@ export default function UpdateShipment(props) {
           document.getElementById('to-city').value = toCity;
           document.getElementById('to-state').value = toState;
           document.getElementById('to-zip').value = toZipcode;
+          document.getElementById('manifest').value = manifest;
         }
       })
   }
@@ -101,6 +103,10 @@ export default function UpdateShipment(props) {
             <input id='proNumber' name='proNumber' className='form-control border border-primary mr-3'>
             </input>
             <button className='btn btn-primary  ' onClick={(e) => fetchInfo(e)} >Fetch Pro</button>
+
+            <label htmlFor='manifest' className='mr-1 ml-5'>Manifest:</label>
+            <input id='manifest' name='manifest' className='form-control border border-primary mr-3'>
+            </input>
 
           </div>
         </div>
