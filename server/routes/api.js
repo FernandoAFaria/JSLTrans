@@ -13,17 +13,6 @@ router.get("/", (req, res) => {
         })
         .catch(err => res.json({code: 400, error: 'Something went wrong'}));
 });
-router.get('/test', (req, res) => {
-    dbActions.callbackQuery((err, data) => {
-        if(err) {
-            res.status(400).send('Something went wrong')
-        } else {
-            
-            res.send(data)
-        }
-    })
-})
-
 
 // GET ONE
 router.get("/:pro", (req, res) => {
@@ -112,5 +101,53 @@ router.post('/search', (req,res) => {
     })
 })
 
+//Driver Functions
+
+//Insert a driver
+
+router.post("/drivers", (req, res) => {
+    
+    const {firstname, lastname, vehicle, phone, address } = req.body;
+    const status = req.body.status || "Active"
+    dbActions
+        .insertDriver(firstname, lastname, vehicle, phone, address, status, (err, rows) => {
+            if(err) res.status(400).send('Something went wrong.')
+            else {
+                res.status(200).send(rows)
+            }
+        })
+        
+});
+//Gets a single driver
+router.post('/driver', (req, res) => {
+    const{firstname, lastname} = req.body;
+    dbActions.getDriver(firstname, lastname, (err, rows) => {
+        if(err) console.log(err)
+        
+        res.status(200).send(rows)
+
+    })
+});
+//Gets ALL drivers
+
+router.post('/all', (req, res) => {
+      
+    dbActions.getAllDrivers((err, rows) => {
+        res.send(rows)
+    })
+})
+
+//Deletes a driver
+router.delete('/driver', (req, res) => {
+    
+    const {firstname, lastname} = req.body
+
+    dbActions.deleteDriver(firstname,lastname,(err, rows) => {
+        if(err) console.log(err)
+        res.send(rows)
+    })
+})
+
+//Modify Driver
 
 module.exports = router;
