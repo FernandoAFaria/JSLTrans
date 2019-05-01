@@ -7,7 +7,7 @@ export default function Landing() {
         <div className="callToAction"
             
             style={{
-                background: `linear-gradient(to top,rgba(45, 52, 54,.7), rgba(9,132,227, .60)) ,url(${backgroundImg})`,
+                background: `linear-gradient(to top,rgba(45, 52, 54,.7), rgba(9,132,227, .30)) ,url(${backgroundImg})`,
                 backgroundSize: "cover",
                 backgroundPosition: "bottom center",
                 minHeight: "850px",

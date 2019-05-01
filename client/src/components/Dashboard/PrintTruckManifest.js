@@ -33,6 +33,103 @@ export default class PrintTruckManifest extends Component {
       })
       return pieces;
     }
+    
+    createPrintablePage(){
+
+       //timeout to make sure state gets loaded
+       setTimeout(() => {
+        let table = ``
+        this.state.pros.map(pro => {
+            table = table +
+            `<tr>
+              <td>${pro.date}</td>
+              <td>${pro.pro}</td>
+              <td>${pro.fromName}</td>
+              <td>${pro.pieces}</td>
+              <td>${pro.pallets}</td>
+              <td>${pro.weight}</td>
+              <td></td>
+            </tr>`
+          
+        })
+        console.log(this.state.pros)
+        console.log(table)
+          let htmlHeader = `
+        <style> @page {size: A4 landscape;}</style>
+        <style>td {height: 25px; border: 1px solid black; text-align: center;}</style>
+        <style>th {height: 25px; border: 1px solid black; text-align: center;}</style>
+      <div class="text-center"><h3>JSL TRANSPORTATION TRUCK MANIFEST</h3></div>
+      <div style='display: flex; flex-direction: row; justify-content: center' class='text-center mt-5'>
+      <u><h5 class='px-5'>Carrier: ${this.state.carrier}</h5></u>
+      <u><h5 class='px-5'>Tractor# : ________</h5></u>
+      <u><h5 class='px-5'>Date: ${this.state.manifest_date}</h5></u>
+      
+      </div>
+
+      <div style='display: flex; flex-direction: row; justify-content: center' class='text-center mt-3'>
+      <u><h5 class='px-5'>Destination: ${this.state.destination}</h5></u>
+      <u><h5 class='px-5'>Trailer# : ${this.state.trailer}</h5></u>
+      <u><h5 class='px-5'>Seal# : ________</h5></u>
+      </div>
+      <hr />
+      <table class='container-fluid'>
+        <thead>
+        <tr>
+          <th style='width: 125px'>P/U DATE</th>
+          <th>PRO#</th>
+          <th>SHIPPER</th>
+          <th>PCS</th>
+          <th>PALLETS</th>
+          <th>WEIGHT</th>
+          <th>COMMENTS</th>
+        </tr>
+        </thead>
+        <tbody>
+        ${table}
+        </tbody>
+      </table>
+      <div style='display: flex; flex-direction: row; justify-content: flex-end' class='text-center mt-5'>
+      <u><h6 class='px-5'>Loader: ${this.state.loader}</h6></u>
+      <u><h6 class='px-5'>Total Weight : ${this.calcWeight()}</h6></u>
+      <u><h6 class='px-5'>Total Pallets : ${this.calcPallets()}</h6></u>
+      
+      </div>
+
+      <div style='display: flex; flex-direction: row; justify-content: flex-end;' class='text-center mt-3'>
+      <u><h6 class='px-5'>Unloader: ________</h6></u>
+      <u><h6 class='px-5'>Total Pieces : ${this.calcPieces()}</h6></u>
+      
+      </div>
+      <div class='text-center mt-3'>
+      <p>EMAIL COMPLETED MANIFESTS TO: dispatch@eightsons.com</p>
+      </div>
+      
+      
+      `;
+
+          console.log(this.state.pros);
+          let win = window.open(
+              "",
+              "TRUCK MANIFEST",
+              "toolbar=yes,directories=no, status=no, width=1280, height=720 "
+          );
+          win.document.head.insertAdjacentHTML(
+              "afterbegin",
+              `<link
+      rel="stylesheet"
+      href="https://bootswatch.com/4/lux/bootstrap.min.css"
+  />`
+          );
+          win.document.body.classList.add("container-fluid");
+          win.document.body.classList.add("py-3");
+
+          win.document.body.insertAdjacentHTML("beforeend", htmlHeader);
+          
+          
+      }, 500);
+
+
+    }
 
     generateTruckManifest = e => {
         e.preventDefault();
@@ -50,107 +147,33 @@ export default class PrintTruckManifest extends Component {
         })
             .then(res => res.json())
             .then(myJson => {
-              let date = myJson[0].manifest_date.slice(0,10)
+              if(myJson.length === 0) {
+                document.getElementById('manifest-error').textContent = 'MANIFEST NOT FOUND';
+                document.getElementById('manifest-error').style.display = 'block';
+              } else {
+
+              
+                let date;
+                if(myJson[0].manifest_date) {
+                   date = myJson[0].manifest_date.slice(0,10);
+                } else {
+                   date = " ";
+                }
                 this.setState({
-                    carrier: myJson[0].manifest_carrier,
-                    trailer:myJson[0].manifest_trailer,
-                    destination:myJson[0].manifest_destination,
-                    manifest_date:date,
-                    loader: myJson[0].manifest_loader,
-                    pros: myJson
+                  carrier: myJson[0].manifest_carrier || " ",
+                  trailer:myJson[0].manifest_trailer || " ",
+                  destination:myJson[0].manifest_destination || " ",
+                  manifest_date:date,
+                  loader: myJson[0].manifest_loader || " ",
+                  pros: myJson
                 });
+
+                this.createPrintablePage();
+
+
+              }
             });
-        //timeout to make sure state gets loaded
-        setTimeout(() => {
-          let table = ``
-          this.state.pros.map(pro => {
-              table = table +
-              `<tr>
-                <td>${pro.date}</td>
-                <td>${pro.pro}</td>
-                <td>${pro.fromName}</td>
-                <td>${pro.pieces}</td>
-                <td>${pro.pallets}</td>
-                <td>${pro.weight}</td>
-                <td></td>
-              </tr>`
-            
-          })
-          console.log(this.state.pros)
-          console.log(table)
-            let htmlHeader = `
-          <style> @page {size: A4 landscape;}</style>
-          <style>td {height: 25px; border: 1px solid black; text-align: center;}</style>
-          <style>th {height: 25px; border: 1px solid black; text-align: center;}</style>
-        <div class="text-center"><h3>JSL TRANSPORTATION TRUCK MANIFEST</h3></div>
-        <div style='display: flex; flex-direction: row; justify-content: center' class='text-center mt-5'>
-        <u><h5 class='px-5'>Carrier: ${this.state.carrier}</h5></u>
-        <u><h5 class='px-5'>Tractor# : ________</h5></u>
-        <u><h5 class='px-5'>Date: ${this.state.manifest_date}</h5></u>
-        
-        </div>
-
-        <div style='display: flex; flex-direction: row; justify-content: center' class='text-center mt-3'>
-        <u><h5 class='px-5'>Destination: ${this.state.destination}</h5></u>
-        <u><h5 class='px-5'>Trailer# : ${this.state.trailer}</h5></u>
-        <u><h5 class='px-5'>Seal# : ________</h5></u>
-        </div>
-        <hr />
-        <table class='container-fluid'>
-          <thead>
-          <tr>
-            <th style='width: 125px'>P/U DATE</th>
-            <th>PRO#</th>
-            <th>SHIPPER</th>
-            <th>PCS</th>
-            <th>PALLETS</th>
-            <th>WEIGHT</th>
-            <th>COMMENTS</th>
-          </tr>
-          </thead>
-          <tbody>
-          ${table}
-          </tbody>
-        </table>
-        <div style='display: flex; flex-direction: row; justify-content: flex-end' class='text-center mt-5'>
-        <u><h6 class='px-5'>Loader: ${this.state.loader}</h6></u>
-        <u><h6 class='px-5'>Total Weight : ${this.calcWeight()}</h6></u>
-        <u><h6 class='px-5'>Total Pallets : ${this.calcPallets()}</h6></u>
-        
-        </div>
-
-        <div style='display: flex; flex-direction: row; justify-content: flex-end;' class='text-center mt-3'>
-        <u><h6 class='px-5'>Unloader: ________</h6></u>
-        <u><h6 class='px-5'>Total Pieces : ${this.calcPieces()}</h6></u>
-        
-        </div>
-        <div class='text-center mt-3'>
-        <p>EMAIL COMPLETED MANIFESTS TO: dispatch@eightsons.com</p>
-        </div>
-        
-        
-        `;
-
-            console.log(this.state.pros);
-            let win = window.open(
-                "",
-                "TRUCK MANIFEST",
-                "toolbar=yes,directories=no, status=no, width=1280, height=720 "
-            );
-            win.document.head.insertAdjacentHTML(
-                "afterbegin",
-                `<link
-        rel="stylesheet"
-        href="https://bootswatch.com/4/lux/bootstrap.min.css"
-    />`
-            );
-            win.document.body.classList.add("container-fluid");
-            win.document.body.classList.add("py-3");
-
-            win.document.body.insertAdjacentHTML("beforeend", htmlHeader);
-            
-            
-        }, 1000);
+       
     };
 
     render() {
@@ -180,6 +203,7 @@ export default class PrintTruckManifest extends Component {
                 >
                     Back
                 </button>
+                <div id='manifest-error' style={{display: 'none'}} className='alert alert-danger mt-5'></div>
             </div>
         );
     }

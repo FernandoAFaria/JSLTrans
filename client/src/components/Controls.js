@@ -3,6 +3,7 @@ import InsertShipment from "./Dashboard/InsertShipment";
 import CreateOutbound from './Dashboard/CreateOutbound';
 import UpdateShipment from './Dashboard/UpdateShipment';
 import PrintTruckManifest from './Dashboard/PrintTruckManifest'
+import ModifyDrivers from "./Dashboard/ModifyDrivers";
 
 //default Controls
 //This holds all functions for displaying different dashboard components
@@ -11,20 +12,16 @@ export default class Controls extends React.Component {
     constructor() {
         super();
         this.state = {
-            component: "Controls"
+            component: "ModifyDrivers"
         };
 
     }
     componentDidMount() {
-        // try {
-        //     this.updateStatuses();
-        // } catch(err){
-
-        // }
+       
        
         this.updateStatuses();
     }
-
+//Updates Onhand Report 
     updateStatuses() {
         this.searchProsByField('edi', 'status', 'picked up', 'edi-on-hand-outbound');
         this.searchProsByField('hercules', 'status', 'picked up', 'hercules-on-hand-outbound');
@@ -33,6 +30,7 @@ export default class Controls extends React.Component {
         this.searchProsByField('hercules', 'status', 'ofd', 'hercules-ofd');
         this.searchProsByField('clear lane', 'status', 'ofd', 'clearlane-ofd');
     }
+
 
     searchProsByField(vendor, field, value, populate) {
 
@@ -55,7 +53,7 @@ export default class Controls extends React.Component {
                 
             })
     }
-
+//Generates a new Window to print the On Hand
     printOnHand = (vendor, field, value) => {
 
 
@@ -100,7 +98,7 @@ export default class Controls extends React.Component {
             })
 
     }
-
+//Component switches
     handleInsertShipment = e => {
         e.preventDefault();
         this.setState({
@@ -133,6 +131,12 @@ export default class Controls extends React.Component {
             component: "PrintTruckManifest"
         });
     }
+    handleModifyDrivers = e => {
+        e.preventDefault();
+        this.setState({
+            component: "ModifyDrivers"
+        });
+    }
 
     render() {
         switch (this.state.component) {
@@ -144,6 +148,7 @@ export default class Controls extends React.Component {
                         handleUpdateShipment={this.handleUpdateShipment}
                         handleCreateOutbound={this.handleCreateOutbound}
                         handlePrintTruckManifest={this.handlePrintTruckManifest}
+                        handleModifyDrivers={this.handleModifyDrivers}
                     />
                 );
 
@@ -158,6 +163,9 @@ export default class Controls extends React.Component {
             
             case "PrintTruckManifest":
                 return <PrintTruckManifest handleBackBtn={this.handleBackBtn} />
+
+            case "ModifyDrivers":
+                return <ModifyDrivers handleBackBtn={this.handleBackBtn} />
             
                 default:
                 return "";
@@ -170,14 +178,7 @@ export default class Controls extends React.Component {
 const ControlCenter = props => {
     return (
         <section>
-            {/* <nav id="sidebar" className="bg-primary">
-            <ul className='list-group'>
-                <li className='list-group-item' >Insert Pickup</li>
-                <li className='list-group-item' >Insert Inbound</li>
-                <li className='list-group-item' >Update Status</li>
-                <li className='list-group-item' >Create Outbound</li>
-            </ul>
-             </nav> */}
+           {/* Dashboard On Hand Totals */}
             <table id='on-hand-totals' className='my-5 ml-auto mr-auto text-left'>
                 <thead>
                     <tr>
@@ -212,6 +213,8 @@ const ControlCenter = props => {
                 </tbody>
 
             </table>
+
+            {/* Dashboard Cards to navigate between components */}
             <div
                 style={{ minHeight: "90vh" }}
                 className="container-fluid text-center pt-5 bg-light">
@@ -283,6 +286,42 @@ const ControlCenter = props => {
                     <div className="card-body">
                         <h5 className="card-title">
                             Print by Manifest Number
+                        </h5>
+                        <p className="card-text" />
+                    </div>
+                </div>
+
+
+                <hr className='mt-5 border border-primary' />
+
+                <div
+                    className="card grow text-dark bg-warning mb-3 mx-auto"
+                    style={{ maxWidth: "55vw" }}
+                    onClick={(e) => props.handleCreateOutbound(e)}
+                >
+                    <div className="card-header">
+                        Create a driver trip
+                    </div>
+                    <div className="card-body">
+                        <h5 className="card-title">
+                            Shipments Out For Delivery
+                        </h5>
+                        <p className="card-text" />
+                    </div>
+                </div>
+
+
+                <div
+                    className="card grow text-dark bg-success mb-3 mx-auto"
+                    style={{ maxWidth: "55vw" }}
+                    onClick={(e) => props.handleModifyDrivers(e)}
+                >
+                    <div className="card-header">
+                        Modify Drivers
+                    </div>
+                    <div className="card-body">
+                        <h5 className="card-title">
+                        Add, Remove, Update a Driver
                         </h5>
                         <p className="card-text" />
                     </div>

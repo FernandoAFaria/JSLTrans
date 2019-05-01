@@ -55,6 +55,37 @@ module.exports = {
     let sql = `UPDATE shipments SET status='${status}', manifest='${manifest}', manifest_date=` + db.escape(manifest_date) + `, manifest_carrier='${manifest_carrier}', manifest_trailer='${manifest_trailer}', manifest_destination='${manifest_destination}', manifest_loader='${manifest_loader}' where pro = '${pro}';`
     db.query(sql,callback)
 
-  } 
+  } ,
+// DRIVER FUNCTIONS
+//INSERT A DRIVER
+  insertDriver(firstname, lastname, vehicle, phone, address, status, callback) {
+    let sql = "INSERT INTO drivers(first_name, last_name, vehicle, phone, address, status) VALUES(" + db.escape(firstname) +"," + db.escape(lastname) +"," + db.escape(vehicle) +"," + db.escape(phone) +"," + db.escape(address) +"," + db.escape(status) + ")"
+
+    db.query(sql, callback)
+
+
+  },
+
+  getDriver(firstname, lastname, callback){
+    let sql= `select * from drivers WHERE first_name= '${firstname}' and last_name ='${lastname}'`;
+    db.query(sql, callback)
+  },
+
+  getAllDrivers(callback){
+    let sql= `select * from drivers`;
+    db.query(sql, callback)
+  },
+
+  deleteDriver(firstname,lastname, callback){
+    let sql= "delete from drivers where first_name=" + db.escape(firstname) + "and last_name=" + db.escape(lastname)
+
+    db.query(sql, callback)
+
+  }
+
+
+
+
+
 
 }
