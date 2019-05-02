@@ -185,7 +185,8 @@ export default class ModifyDrivers extends Component {
     let name = e.target.id;
     let splitName = name.split(" ");
     let firstname = splitName[0];
-    let lastname = splitName[1];
+    let lastname = splitName[2]  || splitName[1];
+    
     
     fetch('http://localhost:5000/api/driver', {
       method: 'delete',
@@ -197,7 +198,7 @@ export default class ModifyDrivers extends Component {
            document.getElementById('insert-message').textContent = "Driver Deleted.";
           document.getElementById('insert-message').style.display = 'block'
       } else {
-        alert('Something went wrong,' + res.statusText)
+        alert('Couldnt delete driver, something went wrong')
       }
    
     })

@@ -220,10 +220,16 @@ router.get("/drivers/all", (req, res) => {
 
 router.delete("/driver", (req, res) => {
     const { firstname, lastname } = req.body;
-
+  
     dbActions.deleteDriver(firstname, lastname, (err, rows) => {
+       
         if (err) console.log(err);
-        res.send(rows);
+        if(rows.affectedRows === 1) {
+            res.send(rows);
+        } else {
+            res.status(400).send('Error removing driver')
+        }
+        
     });
 });
 

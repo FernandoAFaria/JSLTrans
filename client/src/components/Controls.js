@@ -352,7 +352,7 @@ const ControlCenter = props => {
                     onClick={(e) => props.handleModifyDrivers(e)}
                 >
                     <div className="card-header">
-                        Modify Drivers
+                        Driver Functions
                     </div>
                     <div className="card-body">
                         <h5 className="card-title">
