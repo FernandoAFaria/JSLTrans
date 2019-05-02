@@ -255,7 +255,7 @@ export default class CreateOutbound extends Component {
     render() {
         
         return (
-            <div className=" my-2 container-fluid  px-5">
+            <div  className=" my-2 container-fluid  px-5">
             <section id='input-outbound-form'>
                 <form onSubmit={e => this.handleGenerate(e)}>
                     <h1>Create an Outbound Manifest</h1>

@@ -35,7 +35,8 @@ export default function InsertShipment(props) {
     let date = document.getElementById('date').value;
     let pieces = document.getElementById('pieces').value;
     let pallets = document.getElementById('pallets').value;
-    let status = document.getElementById('shipment-type').value + " " + document.getElementById('manifest').value;
+    let status = document.getElementById('shipment-type').value
+    let manifest = document.getElementById('manifest').value || " ";
     let weight = document.getElementById('weight').value;
     let fromName = document.getElementById('from-name').value || " ";
     let fromStreet = document.getElementById('from-street').value || " ";
@@ -49,7 +50,7 @@ export default function InsertShipment(props) {
     let toZipcode = document.getElementById('to-zip').value || " ";
 
     let body = {
-      pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode
+      pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode,manifest
     }
     fetch('http://localhost:5000/api', {
       method: 'post',

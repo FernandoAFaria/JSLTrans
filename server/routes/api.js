@@ -4,35 +4,26 @@ const dbActions = require("../database/api");
 
 
 
-// GET ALL
-router.get("/", (req, res) => {
-    dbActions
-        .queryAll()
-        .then(value => {
-            res.send(value);
-        })
-        .catch(err => res.json({code: 400, error: 'Something went wrong'}));
-});
 
-// GET ONE
+
+// GET INFO ON ONE PRO NUMBER
 router.get("/:pro", (req, res) => {
     let pro = req.params.pro;
  
     dbActions
-        .queryOne(pro)
-        .then(value => {
-            res.send(value);
+        .queryOne(pro,(err, rows) => {
+            if(err)console.log(err)
+            res.send(rows)
         })
-        .catch(err => res.json({code: 400, error: 'Something went wrong'}));
 });
 
-// INSERT ONE
+// INSERT ONE SHIPMENT
 router.post("/", (req, res) => {
     
-    const { pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode } = req.body;
+    const { pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode,manifest } = req.body;
     
     dbActions
-        .insert(pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode, (err, rows) => {
+        .insert(pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode,manifest, (err, rows) => {
             if(err){
                 if(err.code === 'ER_DUP_ENTRY'){
                     res.status(401).send('Pro Already Exists')
@@ -48,7 +39,7 @@ router.post("/", (req, res) => {
         
 });
 
-// MODIFY ONE
+// MODIFY ONE PRO NUMBER
 router.put("/:pro", (req, res) => {
     const pro = req.params.pro;
     const { vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode, manifest,  } = req.body;
@@ -63,6 +54,9 @@ router.put("/:pro", (req, res) => {
         })
         
 });
+
+//UPDATE STATUS ON MANIFESTED SHIPMENTS
+
 router.put("/manifest/:pro", (req, res) => {
     const pro = req.params.pro;
     //Only need to update the status on each manifested bill
@@ -86,7 +80,7 @@ router.put("/manifest/:pro", (req, res) => {
         })
         
 });
-//SEARCH BY FIELD
+//SEARCH BY FIELD - using LIKE
 
 router.post('/search', (req,res) => {
     const {vendor,field, value} = req.body;
@@ -100,6 +94,8 @@ router.post('/search', (req,res) => {
         }
     })
 })
+
+
 
 //Driver Functions
 
@@ -136,6 +132,7 @@ router.post('/all', (req, res) => {
         res.send(rows)
     })
 })
+
 
 //Deletes a driver
 router.delete('/driver', (req, res) => {

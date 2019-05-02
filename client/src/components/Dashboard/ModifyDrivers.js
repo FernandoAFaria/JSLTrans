@@ -157,7 +157,7 @@ export default class ModifyDrivers extends Component {
 
             <div className='col'>
               <label className='mr-3' htmlFor='phone'>Phone Number:</label>
-              <input required className='form-control border border-dark' type='number' id='phone'></input>
+              <input required className='form-control border border-dark' type='phone' id='tel'></input>
             </div>
 
             <div className='col'>
@@ -217,7 +217,7 @@ export default class ModifyDrivers extends Component {
 
             <div className='col'>
               <label className='mr-3' htmlFor='phone'>Phone Number:</label>
-              <input required className='form-control border border-dark' type='number' id='phone-modify'></input>
+              <input required className='form-control border border-dark' type='tel' id='phone-modify'></input>
             </div>
 
             <div className='col'>

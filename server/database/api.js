@@ -3,35 +3,23 @@ const db = require("./config");
 module.exports = {
 
   // GET ALL
-  queryAll() {
-    return new Promise((resolve, reject) => {
-      let sql = "SELECT * from testing";
-      db.query(sql, (err, rows) => {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(rows)
-        }
-      })
-    })
+  queryAllByStatus(field, value, callback) {
+    let sql = `SELECT * from shipments where ${field}=` + db.escape(value);
+    db.query(sql, callback)
   },
-  // GET ONE
-  queryOne(pro) {
-    return new Promise((resolve, reject) => {
-      let sql = "SELECT * from shipments where pro=" + db.escape(pro);
-      db.query(sql, (err, rows) => {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(rows)
-        }
-      })
-    })
-  },
-  // ADD ONE
-  insert(pro, vendor, date, pieces, pallets, status, weight, fromName, fromStreet, fromCity, fromState, fromZipcode, toName, toStreet, toCity, toState, toZipcode, callback) {
+   // GET ONE
+   queryOne(pro, callback) {
     
-      let sql = `INSERT INTO shipments(pro, vendor, date, pieces, pallets, status, weight, fromName, fromStreet, fromCity, fromState, fromZipcode, toName, toStreet, toCity, toState, toZipcode) values('${pro}', '${vendor}', '${date}', '${pieces}', '${pallets}', '${status}', '${weight}', '${fromName}',' ${fromStreet}', '${fromCity}', '${fromState}', '${fromZipcode}', '${toName}', '${toStreet}', '${toCity}',' ${toState}', '${toZipcode}')`;
+      let sql = "SELECT * from shipments where pro=" + db.escape(pro);
+      db.query(sql,callback)
+      
+    
+  },
+  
+  // ADD ONE
+  insert(pro, vendor, date, pieces, pallets, status, weight, fromName, fromStreet, fromCity, fromState, fromZipcode, toName, toStreet, toCity, toState, toZipcode,manifest, callback) {
+    
+      let sql = `INSERT INTO shipments(pro, vendor, date, pieces, pallets, status, weight, fromName, fromStreet, fromCity, fromState, fromZipcode, toName, toStreet, toCity, toState, toZipcode, manifest) values('${pro}', '${vendor}', '${date}', '${pieces}', '${pallets}', '${status}', '${weight}', '${fromName}',' ${fromStreet}', '${fromCity}', '${fromState}', '${fromZipcode}', '${toName}', '${toStreet}', '${toCity}',' ${toState}', '${toZipcode}', '${manifest}')`;
      
       db.query(sql, callback)
     }
@@ -44,6 +32,7 @@ module.exports = {
       db.query(sql, callback)
     
   },
+  //Query using LIKE
   queryByField(vendor,field, value, callback){
     
       let sql = `SELECT * FROM shipments where vendor Like '${vendor}' and ${field} =` + db.escape(value);
@@ -51,12 +40,15 @@ module.exports = {
 
 
   },
+  //Update status when creating a manifest
   updateStatus(pro, status,manifest,manifest_date,manifest_carrier, manifest_trailer, manifest_destination, manifest_loader, callback) {
     let sql = `UPDATE shipments SET status='${status}', manifest='${manifest}', manifest_date=` + db.escape(manifest_date) + `, manifest_carrier='${manifest_carrier}', manifest_trailer='${manifest_trailer}', manifest_destination='${manifest_destination}', manifest_loader='${manifest_loader}' where pro = '${pro}';`
     db.query(sql,callback)
 
   } ,
+
 // DRIVER FUNCTIONS
+
 //INSERT A DRIVER
   insertDriver(firstname, lastname, vehicle, phone, address, status, callback) {
     let sql = "INSERT INTO drivers(first_name, last_name, vehicle, phone, address, status) VALUES(" + db.escape(firstname) +"," + db.escape(lastname) +"," + db.escape(vehicle) +"," + db.escape(phone) +"," + db.escape(address) +"," + db.escape(status) + ")"

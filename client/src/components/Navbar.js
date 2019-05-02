@@ -39,6 +39,7 @@ export default class Navbar extends React.Component {
         <h6 className='text-white'>201-999-9999</h6>
         <h6 className='text-white'>email@jsltransportation.com</h6>
       </div>
+      {/* second navbar */}
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary mt-5">
         <a className="navbar-brand" href="/">JSL Transportation</a>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
