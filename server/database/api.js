@@ -73,6 +73,11 @@ module.exports = {
 
     db.query(sql, callback)
 
+  },
+  modifyDriver(firstname,lastname,vehicle,phone,address,status,notes, id,callback) {
+    let sql = "UPDATE drivers set first_name=" + db.escape(firstname) + ", last_name=" + db.escape(lastname) + ", vehicle=" + db.escape(vehicle) + ", phone=" + db.escape(phone) + ", address=" + db.escape(address) + ", status=" + db.escape(status) + ", notes=" + db.escape(notes) + " where id=" + db.escape(id)
+
+    db.query(sql,callback)
   }
 
 

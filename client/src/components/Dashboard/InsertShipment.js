@@ -60,6 +60,7 @@ export default function InsertShipment(props) {
       
       if(res.status === 200) {
         document.getElementById('success').style.display = 'block';
+        document.getElementById('error').style.display = 'none';
         clearForm();
        
 
@@ -69,7 +70,7 @@ export default function InsertShipment(props) {
         
       }
     }).catch(err => {
-      console.log(err)
+      
       document.getElementById('error').style.display = 'block';
         document.getElementById('error').textContent = "Error: " + err;
     }) 

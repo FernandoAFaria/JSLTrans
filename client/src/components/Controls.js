@@ -291,7 +291,7 @@ const ControlCenter = props => {
                     </div>
                 </div>
 
-                <hr className='mt-5 border border-primary' />
+                <hr className='mt-5' />
 
                 <div
                     className="card grow text-white bg-primary mb-3 mx-auto"
@@ -327,7 +327,7 @@ const ControlCenter = props => {
                 </div>
 
 
-                <hr className='mt-5 border border-primary' />
+                <hr className='mt-5 ' />
 
                 <div
                     className="card grow text-dark bg-warning mb-3 mx-auto"

@@ -16,6 +16,7 @@ export default class CreateOutbound extends Component {
             pros25To50: [],
             errorUpdatingPros: []
         };
+       
     }
     handleVendorChange = e => {
         this.setState({
@@ -56,8 +57,9 @@ export default class CreateOutbound extends Component {
 
     handleGenerate = e => {
         e.preventDefault();
-        
+      
         let manifestNumber = this.state.manifest;
+        //searches if Manifest exists
         fetch('http://localhost:5000/api/search', {
             method: 'post',
             headers: {"Content-Type" : "application/json"},
@@ -162,8 +164,8 @@ export default class CreateOutbound extends Component {
     handleSubmitManifest = (e) => {
         e.preventDefault();
         
-        const {date, carrier, trailerNumber,destination, manifest, loader} = this.state;
-        console.log(date)
+        const {date, carrier, trailerNumber,destination, manifest, loader ,vendor} = this.state;
+        
         for(let i = 0; i < this.state.prosTo24.length; i++) {
             
             if(this.state.prosTo24[i] !== " ") {
@@ -195,7 +197,7 @@ export default class CreateOutbound extends Component {
                         let status = `Transfered to ${destination} on ${date}. Loaded on ${carrier}, trailer #${trailerNumber}.`
                         let body = {
                             pro: pro,
-                            vendor: " ",
+                            vendor: vendor,
                             date: " ",
                             peices: " ",
                             pallets: " ",
@@ -210,7 +212,8 @@ export default class CreateOutbound extends Component {
                             toStreet: " ",
                             toCity: " ",
                             toState: " ",
-                            toZipcode: " "
+                            toZipcode: " ",
+                            manifest: manifest
 
                           }
                         fetch('http://localhost:5000/api', {
@@ -223,7 +226,7 @@ export default class CreateOutbound extends Component {
                         
                     }
                 }).catch(err => {
-                    console.log(err)
+                   
                 })
             }
             
@@ -530,21 +533,42 @@ export default class CreateOutbound extends Component {
               </thead>
               <tbody>
                   {this.state.prosTo24.map((pro, index) => {
-                      return (
-                          <tr key={index}>
-                              <td className="text-dark">
-                                  {index + 1}
-                              </td>
-                              <td>{pro}</td>
-                              <td id={pro + "plt"}>
-                                  {this.getPieces(pro, "plt")}
-                              </td>
-                              <td className='weight' id={pro + "wt"}>
-                                  {this.getPieces(pro, "wt")}
-                              </td>
-                              <td />
-                          </tr>
-                      );
+                      if(pro !== " "){
+
+                        return (
+                            <tr key={index}>
+                                <td className="text-dark">
+                                    {index + 1}
+                                </td>
+                                <td>{pro}</td>
+                                <td id={pro + "plt"}>
+                                    {this.getPieces(pro, "plt")}
+                                </td>
+                                <td className='weight' id={pro + "wt"}>
+                                    {this.getPieces(pro, "wt")}
+                                </td>
+                                <td />
+                            </tr>
+                        );
+
+                      } else {
+                        return (
+                            <tr key={index}>
+                                <td className="text-dark">
+                                    {index + 1}
+                                </td>
+                                <td>{pro}</td>
+                                <td id={pro + "plt"}>
+                                   
+                                </td>
+                                <td className='weight' id={pro + "wt"}>
+                                    
+                                </td>
+                                <td />
+                            </tr>
+                        );
+                      }
+                      
                   })}
               </tbody>
           </table>
@@ -572,21 +596,42 @@ export default class CreateOutbound extends Component {
                   </thead>
                   <tbody>
                       {this.state.pros25To50.map((pro, index) => {
-                          return (
-                              <tr key={index+26}>
-                                  <td className="text-dark">
-                                      {index + 26}
-                                  </td>
-                                  <td>{pro}</td>
-                                  <td id={pro + "plt"}>
-                                      {this.getPieces(pro, "plt")}
-                                  </td>
-                                  <td className='weight' id={pro + "wt"}>
-                                      {this.getPieces(pro, "wt")}
-                                  </td>
-                                  <td />
-                              </tr>
-                          );
+                          if(pro !== " "){
+
+                            return (
+                                <tr key={index+26}>
+                                    <td className="text-dark">
+                                        {index + 26}
+                                    </td>
+                                    <td>{pro}</td>
+                                    <td id={pro + "plt"}>
+                                        {this.getPieces(pro, "plt")}
+                                    </td>
+                                    <td className='weight' id={pro + "wt"}>
+                                        {this.getPieces(pro, "wt")}
+                                    </td>
+                                    <td />
+                                </tr>
+                                );
+                          } else {
+                            return (
+                                <tr key={index+26}>
+                                    <td className="text-dark">
+                                        {index + 26}
+                                    </td>
+                                    <td>{pro}</td>
+                                    <td id={pro + "plt"}>
+                                       
+                                    </td>
+                                    <td className='weight' id={pro + "wt"}>
+                                       
+                                    </td>
+                                    <td />
+                                </tr>
+                                );
+                          }
+                          
+                          
                       })}
                   </tbody>
               </table>

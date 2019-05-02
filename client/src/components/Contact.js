@@ -4,7 +4,7 @@ export default function Contact() {
 
     const submitForm = (e) => {
         e.preventDefault();
-        console.log(document.getElementById('email-form1-2w').value)
+        
         document.getElementById('submitted-modal').style.display = 'block'
     }
 

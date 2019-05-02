@@ -52,8 +52,7 @@ export default class PrintTruckManifest extends Component {
             </tr>`
           
         })
-        console.log(this.state.pros)
-        console.log(table)
+        
           let htmlHeader = `
         <style> @page {size: A4 landscape;}</style>
         <style>td {height: 25px; border: 1px solid black; text-align: center;}</style>
@@ -107,7 +106,7 @@ export default class PrintTruckManifest extends Component {
       
       `;
 
-          console.log(this.state.pros);
+          
           let win = window.open(
               "",
               "TRUCK MANIFEST",
@@ -134,7 +133,7 @@ export default class PrintTruckManifest extends Component {
     generateTruckManifest = e => {
         e.preventDefault();
         let manifestNumber = document.getElementById("manifest").value;
-        console.log(manifestNumber);
+        
         let data = {
             vendor: "%",
             field: "manifest",
