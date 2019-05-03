@@ -10,8 +10,12 @@
   align-items: center;
   
 }
-.callToAction{
-  
+#driver-trip-table {
+  width: 100vw;
+  padding: 0 15px;
+}
+#driver-trip-table tr{
+  height: 50px;
 }
 
 /* .landing-container h1, h2, h3, h4, h5, h6{

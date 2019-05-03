@@ -331,10 +331,10 @@ export default class ModifyDrivers extends Component {
         </div>
 
         <hr className='my-5 border border-dark' />
-        <div>
+        <div style={{minHeight: '500px'}}>
           <h1> Drivers listed below</h1>
 
-          <table className='table table-hover '>
+          <table className='table table-hover my-5'>
             <thead className='thead-dark'>
               <tr className='text-dark'>
                 <th>First Name</th>

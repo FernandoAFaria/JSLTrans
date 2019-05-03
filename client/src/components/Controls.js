@@ -4,6 +4,7 @@ import CreateOutbound from './Dashboard/CreateOutbound';
 import UpdateShipment from './Dashboard/UpdateShipment';
 import PrintTruckManifest from './Dashboard/PrintTruckManifest'
 import ModifyDrivers from "./Dashboard/ModifyDrivers";
+import CreateDriverTrip from './Dashboard/CreateDriverTrip'
 
 //default Controls
 //This holds all functions for displaying different dashboard components
@@ -12,7 +13,7 @@ export default class Controls extends React.Component {
     constructor() {
         super();
         this.state = {
-            component: "Controls"
+            component: "CreateDriverTrip"
         };
 
     }
@@ -165,6 +166,12 @@ export default class Controls extends React.Component {
             component: "ModifyDrivers"
         });
     }
+    handleCreateDriverTrip = e => {
+        e.preventDefault();
+        this.setState({
+            component: "CreateDriverTrip"
+        });
+    }
 
     render() {
         switch (this.state.component) {
@@ -177,6 +184,8 @@ export default class Controls extends React.Component {
                         handleCreateOutbound={this.handleCreateOutbound}
                         handlePrintTruckManifest={this.handlePrintTruckManifest}
                         handleModifyDrivers={this.handleModifyDrivers}
+                        handleCreateDriverTrip={this.handleCreateDriverTrip}
+                        
                     />
                 );
 
@@ -194,6 +203,9 @@ export default class Controls extends React.Component {
 
             case "ModifyDrivers":
                 return <ModifyDrivers handleBackBtn={this.handleBackBtn} />
+
+            case "CreateDriverTrip":
+                return <CreateDriverTrip handleBackBtn={this.handleBackBtn} />
 
             default:
                 return "";
@@ -332,7 +344,7 @@ const ControlCenter = props => {
                 <div
                     className="card grow text-dark bg-warning mb-3 mx-auto"
                     style={{ maxWidth: "55vw" }}
-                    onClick={(e) => props.handleCreateOutbound(e)}
+                    onClick={(e) => props.handleCreateDriverTrip(e)}
                 >
                     <div className="card-header">
                         Create a driver trip
