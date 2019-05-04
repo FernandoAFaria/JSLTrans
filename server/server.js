@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path')
 const passport = require('./authentication/passport')
 const isAuth = require('./authentication/isAuth')
-const loginRoute = require('./routes/loginRoute')
+
 const session = require('express-session')
 //import Routes
 const apiRoute = require('./routes/api');
@@ -15,20 +15,19 @@ const app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header('Access-Control-Allow-Methods', "GET,POST,OPTIONS,DELETE,PUT")
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+//     res.header("Access-Control-Allow-Credentials", "true");
+//     res.header('Access-Control-Allow-Methods', "GET,POST,OPTIONS,DELETE,PUT")
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     
-    next();
-  });
+//     next();
+//   });
   
   app.use(session({
-    resave: true,
-    saveUninitialized: true,
-    secret: 'strongertogether',
-    cookie: { secure: false }
+    
+    secret: 'jsltranslogi',
+
    } ));
 app.use(passport.initialize())
 app.use(passport.session())
@@ -36,7 +35,7 @@ app.use(passport.session())
 //routes
 app.use(express.static(path.join(__dirname, '../client/build')))
 
-app.use('/login', loginRoute)
+app.post('/login', passport.authenticate('local'))
 
 app.use('/api',isAuth, apiRoute)
 
