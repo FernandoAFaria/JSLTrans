@@ -13,7 +13,7 @@ export default class Controls extends React.Component {
     constructor() {
         super();
         this.state = {
-            component: "CreateDriverTrip"
+            component: "Controls"
         };
 
     }

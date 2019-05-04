@@ -10,7 +10,7 @@ export default class Dashboard extends Component {
             username: "",
             password: "",
             error: "",
-            auth: true,
+            auth: false,
             sk: ""
         };
 
@@ -32,17 +32,28 @@ export default class Dashboard extends Component {
     }
     handleSubmit(e) {
         //Auth
-        if(this.state.username === 'admin' && this.state.password === 'admin'){
-            this.setState({
-                auth: true
-            })
+
+        //send a request to /login
+        fetch('http://localhost:5000/login', {
+            method: 'post',
+            headers: {"Content-Type": "application/json"},
+            credentials: 'include',
+            body: JSON.stringify({username: this.state.username, password: this.state.password})
+        })
+        .then(res => {
+            if(res.status === 200) {
+                this.setState({
+                    auth: true
+                })
+            } else {
+                this.setState({
+                    error: 'username or password invalid.'
+                })
             
-            
-        } else {
-            this.setState({
-                error: 'username or password invalid.'
-            })
-        }
+            }
+        })
+        
+    
     }
 
     Authenticated() {
