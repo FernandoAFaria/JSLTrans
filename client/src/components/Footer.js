@@ -5,6 +5,7 @@ export default function Footer() {
     <footer className="footer bg-primary ">
     <div className="container text-center">
       <p>JSLTransportation.org &copy; 2004</p>
+      
     </div>
   </footer>
   )

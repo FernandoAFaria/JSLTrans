@@ -139,7 +139,7 @@ export default class PrintTruckManifest extends Component {
             field: "manifest",
             value: manifestNumber
         };
-        fetch("http://localhost:5000/api/search", {
+        fetch("http://localhost:5000/search", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)

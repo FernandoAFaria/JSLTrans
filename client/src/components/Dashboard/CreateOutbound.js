@@ -60,7 +60,7 @@ export default class CreateOutbound extends Component {
       
         let manifestNumber = this.state.manifest;
         //searches if Manifest exists
-        fetch('http://localhost:5000/api/search', {
+        fetch('http://localhost:5000/search', {
             method: 'post',
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({vendor: '%', field: 'manifest', value: manifestNumber})
@@ -109,7 +109,7 @@ export default class CreateOutbound extends Component {
     };
 
     getPieces = (pro, pltOrWt) => {
-        fetch(`http://localhost:5000/api/${pro}`)
+        fetch(`http://localhost:5000/pro/${pro}`)
             .then(res => res.json())
             .then(data => {
                
@@ -183,7 +183,7 @@ export default class CreateOutbound extends Component {
 
                 }
 
-                fetch(`http://localhost:5000/api/manifest/${pro}`, {
+                fetch(`http://localhost:5000/manifest/${pro}`, {
                     method: 'PUT',
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(body)
@@ -216,14 +216,17 @@ export default class CreateOutbound extends Component {
                             manifest: manifest
 
                           }
-                        fetch('http://localhost:5000/api', {
+                        fetch('http://localhost:5000/pro', {
                         method: 'post',
                         headers: {"Content-Type": "application/json"},
                         body: JSON.stringify(body)
                         })
                                         
+                    } else if(response.status === 200) {
+                        this.clearForm();
                     } else {
-                        
+                        document.getElementById('success').style.display = 'block';
+                        document.getElementById('success').textContent = 'Something went wrong '+ response.status;
                     }
                 }).catch(err => {
                    
@@ -232,7 +235,7 @@ export default class CreateOutbound extends Component {
             
         }
         // Once complete show finished
-        this.clearForm();
+        
       
     }
     clearForm(){
@@ -253,6 +256,7 @@ export default class CreateOutbound extends Component {
             allPros[i].value = ""
         }
         document.getElementById('success').style.display = 'block';
+        document.getElementById('success').textContent = 'Manifest Created';
     }
 
     render() {
@@ -430,7 +434,7 @@ export default class CreateOutbound extends Component {
                                 SUBMIT
                             </button>
 
-                            <h1 id='success' className='alert alert-success'> Manifest Submitted</h1>
+                            <h1 id='success' className='alert alert-warning'> </h1>
                         </div>
                         <div  className='alert alert-danger my-3'>The following shipments had an error when submitting: <span id='errors'></span></div>
                     </div>

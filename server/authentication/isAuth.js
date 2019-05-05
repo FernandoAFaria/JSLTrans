@@ -1,6 +1,5 @@
 function isAuth(req,res,next) {
-    
-    console.log('Auth function')
+
     if(req.isAuthenticated()){
         return next();
     } else {

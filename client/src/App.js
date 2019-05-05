@@ -18,7 +18,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App" style={{ overflowX: 'hidden' }}>
+        <div className="App" style={{ overflowX: 'hidden', margin: '0', marginBottom: '-100px' }}>
           <Navbar />
           <Route exact path="/" component={Landing} />
           <Route exact path='/login' component={Dashboard} />

@@ -13,7 +13,7 @@ export default class CreateDriverTrip extends Component {
     }
   }
   componentDidMount(){
-    fetch('http://localhost:5000/api/drivers/all')
+    fetch('http://localhost:5000/driver/all')
     .then(res => res.json())
     .then(drivers => {
       this.setState({
@@ -36,7 +36,7 @@ export default class CreateDriverTrip extends Component {
     let stop = document.getElementById(`${id}-stop`)
 
     if(pro !== "") {
-      fetch(`http://localhost:5000/api/${pro}`)
+      fetch(`http://localhost:5000/pro/${pro}`)
       .then(res => res.json())
       .then(data => {
 
@@ -72,7 +72,9 @@ export default class CreateDriverTrip extends Component {
 
   render() {
     return (
+      
       <div className='container-fluid px-5 my-5 text-center'>
+      
         <h1>Create a Driver Trip</h1>
         <form className='form my-5'>
         <div className='row'>
@@ -156,7 +158,7 @@ export default class CreateDriverTrip extends Component {
           </tbody>
       </table> 
 
-        
+      
       </div>
     )
   }

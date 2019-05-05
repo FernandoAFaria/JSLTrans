@@ -15,7 +15,7 @@ export default class ModifyDrivers extends Component {
   }
 
   getAllDrivers = () => {
-    fetch('http://localhost:5000/api/drivers/all', {
+    fetch('http://localhost:5000/driver/all', {
       method: 'get'
       // headers: {'Content-Type': 'application/json'},
       // body: JSON.stringify({drivers: 'all'})
@@ -40,7 +40,7 @@ export default class ModifyDrivers extends Component {
 
     //Lets check if Driver exists first
 
-    fetch('http://localhost:5000/api/driver', {
+    fetch('http://localhost:5000/driver/find', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ firstname: firstname, lastname: lastname })
@@ -61,7 +61,7 @@ export default class ModifyDrivers extends Component {
             address: address
           }
 
-          fetch('http://localhost:5000/api/drivers', {
+          fetch('http://localhost:5000/driver', {
             method: 'post',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(driverData)
@@ -112,8 +112,8 @@ export default class ModifyDrivers extends Component {
       id
     }
 
-    fetch('http://localhost:5000/api/modifydriver', {
-      method: 'post',
+    fetch('http://localhost:5000/driver/', {
+      method: 'put',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(modifiedData)
     }).then(response => {
@@ -153,7 +153,7 @@ export default class ModifyDrivers extends Component {
     document.getElementById('insert-message').style.display = 'none'
     let firstname = document.getElementById('firstname-modify').value;
     let lastname = document.getElementById('lastname-modify').value;
-    fetch('http://localhost:5000/api/driver', {
+    fetch('http://localhost:5000/driver/find', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ firstname: firstname, lastname: lastname })
@@ -188,11 +188,12 @@ export default class ModifyDrivers extends Component {
     let lastname = splitName[2]  || splitName[1];
     
     
-    fetch('http://localhost:5000/api/driver', {
+    fetch('http://localhost:5000/driver', {
       method: 'delete',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ firstname: firstname, lastname: lastname })
     }).then(res => {
+      console.log(res, res.status)
       if(res.status === 200){
         this.getAllDrivers();
            document.getElementById('insert-message').textContent = "Driver Deleted.";

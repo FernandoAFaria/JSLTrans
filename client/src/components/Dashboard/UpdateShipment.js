@@ -31,7 +31,7 @@ export default function UpdateShipment(props) {
       pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode, manifest
     }
 
-    fetch(`http://localhost:5000/api/${pro}`, {
+    fetch(`http://localhost:5000/pro/${pro}`, {
       method: 'PUT',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(body)
@@ -57,8 +57,8 @@ export default function UpdateShipment(props) {
   function fetchInfo(e) {
     e.preventDefault();
     let errorDiv = document.getElementById('error');
-    const proNum = document.getElementById('proNumber').value;
-    fetch(`http://localhost:5000/api/${proNum}`)
+    const pro = document.getElementById('proNumber').value;
+    fetch(`http://localhost:5000/pro/${pro}`)
       .then(data => data.json())
       .then(myJson => {
        

@@ -52,7 +52,7 @@ export default function InsertShipment(props) {
     let body = {
       pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode,manifest
     }
-    fetch('http://localhost:5000/api', {
+    fetch('http://localhost:5000/pro', {
       method: 'post',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(body)
