@@ -155,7 +155,7 @@ export default class CreateDriverTrip extends Component {
               this.state.drivers.map(driver => {
                 if(driver.status === "Active"){
                   return (
-                    <option className={`${driver.first_name}_${driver.last_name}`} key={driver.id} value={`${driver.first_name}_${driver.last_name}`}>{driver.first_name + " " + driver.last_name + " --- " + driver.vehicle}</option>
+                    <option  key={driver.id} value={`${driver.first_name}_${driver.last_name}`}>{driver.first_name + " " + driver.last_name + " -- " + driver.vehicle}</option>
                   ) 
                 } else {
                   return "";
