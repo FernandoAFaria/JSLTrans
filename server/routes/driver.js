@@ -86,9 +86,15 @@ router.put("/", (req, res) => {
       notes,
       id,
       (err, rows) => {
+          console.log(err, rows.changedRows)
           if (err) console.log(err);
-
-          res.status(200).send(rows);
+            if(rows.changedRows === 0){
+                res.status(500).send('Nothing Changed')
+            }
+            else {
+                res.status(200).send(rows);
+            }
+          
       }
   );
 });

@@ -78,6 +78,14 @@ module.exports = {
     let sql = "UPDATE drivers set first_name=" + db.escape(firstname) + ", last_name=" + db.escape(lastname) + ", vehicle=" + db.escape(vehicle) + ", phone=" + db.escape(phone) + ", address=" + db.escape(address) + ", status=" + db.escape(status) + ", notes=" + db.escape(notes) + " where id=" + db.escape(id)
 
     db.query(sql,callback)
+  },
+  
+  //DRIVER TRIPS
+  createDriverTrip(driver_id, date, pros, delivery_zone, callback){
+    let sql = "INSERT INTO driver_trips(driver_id, date, pros, zone) VALUE(" + db.escape(driver_id) + ", " + db.escape(date) + ", " + db.escape(pros) + ", " + db.escape(delivery_zone) + ")";
+
+    db.query(sql, callback)
+
   }
 
 

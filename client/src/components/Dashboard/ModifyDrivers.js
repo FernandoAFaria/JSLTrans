@@ -193,7 +193,7 @@ export default class ModifyDrivers extends Component {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ firstname: firstname, lastname: lastname })
     }).then(res => {
-      console.log(res, res.status)
+      
       if(res.status === 200){
         this.getAllDrivers();
            document.getElementById('insert-message').textContent = "Driver Deleted.";

@@ -13,7 +13,7 @@ export default class Controls extends React.Component {
     constructor() {
         super();
         this.state = {
-            component: "Controls"
+            component: "CreateDriverTrip"
         };
 
     }
@@ -217,7 +217,7 @@ export default class Controls extends React.Component {
 
 const ControlCenter = props => {
     return (
-        <section>
+        <section className='my-5'>
             {/* Dashboard On Hand Totals */}
             <table id='on-hand-totals' className='my-5 ml-auto mr-auto text-left'>
                 <thead>

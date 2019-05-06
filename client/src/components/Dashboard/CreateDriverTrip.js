@@ -68,6 +68,76 @@ export default class CreateDriverTrip extends Component {
  
   }
 
+  submitDriverTrip(e){
+    e.preventDefault()
+    const driver_id = document.getElementById('driverId').value;
+    const date = document.getElementById('date').value;
+    const deliverZone = document.getElementById('zone').value;
+    let pros = [];
+    let pro = document.getElementsByClassName('pro');
+    let notes = document.getElementsByClassName('notes');
+    
+    for(let i = 0; i < pro.length; i++) {
+        if(pro[i].value !== ""){
+          pros.push({pro: pro[i].value, notes: notes[i].value || " "})
+        }
+    }
+    const driverTripData = {
+      driver_id,
+      date,
+      zone: deliverZone,
+      pros
+    }
+    fetch('http://localhost:5000/trips', {
+      method: 'post',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(driverTripData)
+    }).then(response => response.json())
+      .then(myData => {
+        console.log(myData)
+        if(myData.affectedRows === 1){
+          document.getElementById('insert-message').textContent = 'DRIVER TRIP CREATED'
+        } else {
+
+          document.getElementById('insert-message').textContent = 'Something went wrong, nothing added'
+        }
+      })
+  }
+  printDriverTrip(e){
+    e.preventDefault()
+    const driver = document.getElementById('driverId').value;
+    const date = document.getElementById('date').value;
+    const deliverZone = document.getElementById('zone').value;
+
+    let form = document.getElementById('driver-trip-table');
+    let win = window.open(
+      "",
+      "TRUCK MANIFEST",
+      "toolbar=yes,directories=no, status=no, width=1280, height=720 "
+  );
+    win.document.head.insertAdjacentHTML(
+        "afterbegin",
+        `<link
+    rel="stylesheet"
+    href="https://bootswatch.com/4/lux/bootstrap.min.css"
+    /><style>@page{size: A4 landscape}</style>`
+    );
+    win.document.body.innerHTML =
+    `
+      <div class='text-center'>
+      <h1>JSL Driver Trip</h1>
+      <div><h3>${driver}</h3></div>
+        <div id='root' class="ml-auto mr-auto"></div>
+      </div>
+    
+    
+    `
+
+    win.document.body.classList.add("container-fluid");
+    win.document.body.classList.add("py-3");
+    win.document.getElementById('root').appendChild(form)
+  }
+
   
 
   render() {
@@ -80,12 +150,17 @@ export default class CreateDriverTrip extends Component {
         <div className='row'>
           <div className='col'>
             <label htmlFor='driver'>Driver:</label>
-            <select className='form-control border border-danger'>
+            <select id='driverId' className='form-control border border-danger'>
               {this.state.driversLoaded === true ?
               this.state.drivers.map(driver => {
-                return (
-                  <option key={driver.id} value={driver.id}>{driver.first_name + " " + driver.last_name + " --- " + driver.vehicle}</option>
-                ) 
+                if(driver.status === "Active"){
+                  return (
+                    <option className={`${driver.first_name}_${driver.last_name}`} key={driver.id} value={`${driver.first_name}_${driver.last_name}`}>{driver.first_name + " " + driver.last_name + " --- " + driver.vehicle}</option>
+                  ) 
+                } else {
+                  return "";
+                }
+               
               })  
             : null
             }
@@ -112,10 +187,15 @@ export default class CreateDriverTrip extends Component {
               <button className='btn btn-info my-4' onClick={(e) => this.props.handleBackBtn(e)}>Back</button>
             </div>
             <div className='col'>
-              <button className='btn btn-success my-4' onClick={(e) => this.props.handleBackBtn(e)}>Print</button>
+            <button className='btn btn-success my-4' onClick={(e) => this.printDriverTrip(e)}>Print</button>
             </div>
             <div className='col'>
-              <button className='btn btn-danger my-4' onClick={(e) => this.props.handleBackBtn(e)}>Submit</button>
+              <button className='btn btn-danger my-4' onClick={(e) => this.submitDriverTrip(e)}>Submit</button>
+            </div>
+        </div>
+        <div className='row'>
+            <div className='col alert  text-center'>
+              <h1 id='insert-message'> </h1>
             </div>
         </div>
         </form>
@@ -140,10 +220,10 @@ export default class CreateDriverTrip extends Component {
 
     <tr key={val}>
     <td ><input id={'stop'+val+'-stop'} style={{width: '50px'}} className='border'></input></td>
-    <td><input id={'stop'+val} tabIndex={val} onBlur={(e) => {this.populateProInfo(e.target.id)}}></input></td>
+    <td><input className='pro' id={'stop'+val} tabIndex={val} onBlur={(e) => {this.populateProInfo(e.target.id)}}></input></td>
     <td><input id={'stop'+val+'-consignee'} className='border'></input></td>
     <td><input id={'stop'+val+'-citystate'} className='border'></input></td>
-    <td><input id={'stop'+val+'-apts'} className='border border-warning'></input></td>
+    <td><input  id={'stop'+val+'-apts'} className='border border-warning notes'></input></td>
     <td ><input id={'stop'+val+'-pcs'} className='border' style={{width: '50px'}}></input></td>
     <td ><input id={'stop'+val+'-weight'} className='border'></input></td>
   </tr>

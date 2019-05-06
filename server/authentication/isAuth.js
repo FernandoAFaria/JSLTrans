@@ -4,7 +4,7 @@ function isAuth(req,res,next) {
         return next();
     } else {
         
-         return res.status(400).send('Forbidden')
+         return res.status(401).send('Forbidden')
     }
 }
 
