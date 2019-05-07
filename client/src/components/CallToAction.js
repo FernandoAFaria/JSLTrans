@@ -9,9 +9,7 @@ export default function Landing() {
             style={{
                 background: `linear-gradient(to top,rgba(45, 52, 54,.2), rgba(9,132,227, 0)) ,url(${backgroundImg})`,
                 backgroundSize: "cover",
-                backgroundPosition: "bottom center",
-                minHeight: "950px",
-                position: "relative"
+                backgroundPosition: "bottom center"
             }}
         >
             <div className="text-white text-center rgba-stylish-strong ">
@@ -28,7 +26,7 @@ export default function Landing() {
                     </div>
                     {/* Request a quote section */}
 
-                    <div className=" req-quote shadow" style={{ minWidth: "440px", background: 'rgba(0,0,0,.4)' }}>
+                    <div className=" req-quote shadow" >
                         <h5 className="card-header bg-warning text-center py-4">
                             <strong>Request a quote.</strong>
                         </h5>

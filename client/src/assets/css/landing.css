@@ -1,3 +1,4 @@
+/* Landing Page */
 .landing-container {
   position: absolute;
   width: 100vw;
@@ -8,27 +9,27 @@
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  
 }
-/* .navbar {
-  position: absolute;
-  width: 100vw;
-  z-index: 1;
-  font-size: .9rem;
-  background: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,.1))
-} */
+
+.callToAction {
+  min-height: 950px;
+  position: relative;
+}
+
+.req-quote{
+  min-width: 440px;
+  background: rgba(0,0,0,.2)
+}
+
 #driver-trip-table {
   width: 100vw;
   padding: 0 15px;
 }
-#driver-trip-table tr{
+#driver-trip-table tr {
   height: 50px;
 }
 
-/* .landing-container h1, h2, h3, h4, h5, h6{
-  color: white;
-} */
-.info-bar{
+.info-bar {
   height: 50px;
   width: 100vw;
   position: fixed;
@@ -39,17 +40,16 @@
   justify-content: space-evenly;
   align-items: center;
   z-index: 4;
-  transition: all .3s
+  transition: all 0.3s;
 }
 .grow {
-  transition: all .3s;
+  transition: all 0.3s;
   font-size: 1.3rem;
   cursor: pointer;
-  margin: 50px
+  margin: 50px;
 }
 .grow:hover {
   transform: scale(1.1);
- 
 }
 .inline {
   display: inline-block;
@@ -61,13 +61,13 @@
   width: 225px;
   top: 0;
   bottom: 0;
-  
+
   padding: 125px 15px;
 }
 
-.bg-light label{
-  color: black!important;
-  width: 100px!important;
+.bg-light label {
+  color: black !important;
+  width: 100px !important;
 }
 .req-quote {
   margin-right: 4rem;
@@ -76,22 +76,19 @@
   width: 26rem;
   position: relative;
 }
-.cs-card .card-img-top{
+.cs-card .card-img-top {
   height: 16rem;
- 
-  border-radius: 5px;
 
+  border-radius: 5px;
 }
 .hidden-btn {
   position: absolute;
   left: 50%;
   transform: translateX(-50%) translateY(-80px);
   opacity: 0;
-  transition: all .3s;
-  
+  transition: all 0.3s;
 }
-.cs-card:hover .hidden-btn{
-  
+.cs-card:hover .hidden-btn {
   opacity: 1;
   transform: translateX(-50%) translateY(-20px);
 }
@@ -105,35 +102,36 @@
   border: 2px solid black;
   text-align: center;
 }
-.inbound-pros{
+.inbound-pros {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-
 }
-.moving-truck{
+.moving-truck {
   position: absolute;
   bottom: 0;
   right: -50px;
   animation: truckRolling 25s linear forwards;
 }
-@keyframes truckRolling{
-from{right:-50px}
-to{right: 105vw}
+@keyframes truckRolling {
+  from {
+    right: -50px;
+  }
+  to {
+    right: 105vw;
+  }
 }
-.moving-truck img{
+.moving-truck img {
   height: 85px;
 }
-#on-hand-totals td{
+#on-hand-totals td {
   width: 225px;
 }
-#on-hand-totals tr:nth-child(even){
+#on-hand-totals tr:nth-child(even) {
   background: #eee;
 }
-
-
 
 #outbound-table td {
   border: 1px solid black;
@@ -164,7 +162,6 @@ to{right: 105vw}
 #outbound-manifest-created {
   display: flex;
   flex-direction: row;
-  
 }
 #load-card {
   visibility: hidden;
@@ -186,11 +183,10 @@ to{right: 105vw}
   align-items: center;
   font-size: 8rem;
 }
-#success{
+#success {
   text-align: center;
   display: none;
 }
-
 
 /* .cs-card {
  
@@ -220,15 +216,14 @@ to{right: 105vw}
   .req-quote {
     margin-right: 0;
   }
-  .cards-section{
+  .cards-section {
     flex-direction: column;
     justify-content: center;
   }
   .cs-card {
     width: 80vw;
   }
-  .cs-card .card-img-top{
-    height: auto
+  .cs-card .card-img-top {
+    height: auto;
   }
-
 }

@@ -49,12 +49,13 @@ app.post("/login", passport.authenticate("local"));
 //Split the API routes
 app.use("/search", searchRoute);
 app.use("/trackMyShipment", trackRoute);
+//protected routes
 app.use("/driver", driverRoute); //add isAuth middleware
 app.use("/pro", proRoute); //add isAuth middleware
 app.use("/manifest", manifestRoute); //add isAuth middleware
 app.use("/trips", driverTripRoute); //add isAuth middleware
-//protected routes
 
+//Lets react router handle the page/component loading
 app.use("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });

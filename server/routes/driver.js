@@ -7,7 +7,13 @@ const router = express.Router();
 //Insert a driver
 
 router.post("/", (req, res) => {
-  const { firstname, lastname, vehicle, phone, address } = req.body;
+  const {
+    firstname,
+    lastname,
+    vehicle,
+    phone,
+    address
+  } = req.body;
   const status = req.body.status || "Active";
   dbActions.insertDriver(
     firstname,
@@ -28,7 +34,10 @@ router.post("/", (req, res) => {
 //Gets a single driver
 
 router.post("/find", (req, res) => {
-  const { firstname, lastname } = req.body;
+  const {
+    firstname,
+    lastname
+  } = req.body;
   dbActions.getDriver(firstname, lastname, (err, rows) => {
     if (err) console.log(err);
 
@@ -57,7 +66,10 @@ router.get("/all", (req, res) => {
 //Deletes a driver
 
 router.delete("/", (req, res) => {
-  const { firstname, lastname } = req.body;
+  const {
+    firstname,
+    lastname
+  } = req.body;
 
   dbActions.deleteDriver(firstname, lastname, (err, rows) => {
     if (err) console.log(err);

@@ -1,66 +1,69 @@
 import React, { Component } from "react";
 
 export default class PrintTruckManifest extends Component {
-    constructor() {
-        super();
-        this.state = {
-            carrier: "",
-            trailer: "",
-            destination: "",
-            manifest_date: "",
-            loader: '',
-            pros: [],
-            allManifests: [],
-            pageLoaded: false
-        };
-    }
-    componentDidMount(){
-      fetch('http://localhost:5000/manifest')
+  constructor() {
+    super();
+    this.state = {
+      carrier: "",
+      trailer: "",
+      destination: "",
+      manifest_date: "",
+      loader: "",
+      pros: [],
+      allManifests: [],
+      pageLoaded: false
+    };
+  }
+  componentDidMount() {
+    //Fetches all manifests
+    fetch("http://localhost:5000/manifest")
       .then(data => data.json())
       .then(myjson => {
-        myjson.sort((a,b) => {
-          a = new Date(a.manifest_date)
-          b = new Date(b.manifest_date)
-          return a > b ? -1 : a < b ? 1 : 0
-        })
-  
+        myjson.sort((a, b) => {
+          a = new Date(a.manifest_date);
+          b = new Date(b.manifest_date);
+          return a > b ? -1 : a < b ? 1 : 0;
+        });
+
         this.setState({
           allManifests: myjson,
           pageLoaded: true
-        })
-        
-      })
-    }
-    calcWeight() {
-      let weight = 0;
-      this.state.pros.forEach(pro => {
-        weight = weight + parseInt(pro.weight)
-      })
-      return weight;
-    }
-    calcPallets() {
-      let pallets = 0;
-      this.state.pros.forEach(pro => {
-        pallets = pallets + parseInt(pro.pallets)
-      })
-      return pallets;
-    }
-    calcPieces() {
-      let pieces = 0;
-      this.state.pros.forEach(pro => {
-        pieces = pieces + parseInt(pro.pieces)
-      })
-      return pieces;
-    }
-    
-    createPrintablePage(){
+        });
+      });
+  }
 
-       //timeout to make sure state gets loaded
-       setTimeout(() => {
-        let table = ``
-        this.state.pros.map(pro => {
-            table = table +
-            `<tr>
+  calcWeight() {
+    let weight = 0;
+    this.state.pros.forEach(pro => {
+      weight = weight + parseInt(pro.weight);
+    });
+    return weight;
+  }
+
+  calcPallets() {
+    let pallets = 0;
+    this.state.pros.forEach(pro => {
+      pallets = pallets + parseInt(pro.pallets);
+    });
+    return pallets;
+  }
+
+  calcPieces() {
+    let pieces = 0;
+    this.state.pros.forEach(pro => {
+      pieces = pieces + parseInt(pro.pieces);
+    });
+    return pieces;
+  }
+
+  createPrintablePage() {
+    //timeout to make sure state gets loaded
+    setTimeout(() => {
+      let table = ``;
+      this.state.pros.map(pro => {
+        table =
+          table +
+          `<tr>
               <td>${pro.date}</td>
               <td>${pro.pro}</td>
               <td>${pro.fromName}</td>
@@ -68,11 +71,10 @@ export default class PrintTruckManifest extends Component {
               <td>${pro.pallets}</td>
               <td>${pro.weight}</td>
               <td></td>
-            </tr>`
-          
-        })
-        
-          let htmlHeader = `
+            </tr>`;
+      });
+
+      let htmlHeader = `
         <style> @page {size: A4 landscape;}</style>
         <style>td {height: 25px; border: 1px solid black; text-align: center;}</style>
         <style>th {height: 25px; border: 1px solid black; text-align: center;}</style>
@@ -125,133 +127,116 @@ export default class PrintTruckManifest extends Component {
       
       `;
 
-          
-          let win = window.open(
-              "",
-              "TRUCK MANIFEST",
-              "toolbar=yes,directories=no, status=no, width=1280, height=720 "
-          );
-          win.document.head.insertAdjacentHTML(
-              "afterbegin",
-              `<link
+      let win = window.open(
+        "",
+        "TRUCK MANIFEST",
+        "toolbar=yes,directories=no, status=no, width=1280, height=720 "
+      );
+      win.document.head.insertAdjacentHTML(
+        "afterbegin",
+        `<link
       rel="stylesheet"
       href="https://bootswatch.com/4/lux/bootstrap.min.css"
   />`
-          );
-          win.document.body.classList.add("container-fluid");
-          win.document.body.classList.add("py-3");
+      );
+      win.document.body.classList.add("container-fluid");
+      win.document.body.classList.add("py-3");
 
-          win.document.body.insertAdjacentHTML("beforeend", htmlHeader);
-          
-          
-      }, 500);
+      win.document.body.insertAdjacentHTML("beforeend", htmlHeader);
+    }, 500);
+  }
 
+  generateTruckManifest = e => {
+    e.preventDefault();
+    let manifestNumber = document.getElementById("manifest").value;
 
-    }
-
-    generateTruckManifest = e => {
-        e.preventDefault();
-        let manifestNumber = document.getElementById("manifest").value;
-        
-        let data = {
-            vendor: "%",
-            field: "manifest",
-            value: manifestNumber
-        };
-        fetch("http://localhost:5000/search", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        })
-            .then(res => res.json())
-            .then(myJson => {
-              if(myJson.length === 0) {
-                document.getElementById('manifest-error').textContent = 'MANIFEST NOT FOUND';
-                document.getElementById('manifest-error').style.display = 'block';
-              } else {
-
-              
-                let date;
-                if(myJson[0].manifest_date) {
-                   date = myJson[0].manifest_date.slice(0,10);
-                } else {
-                   date = " ";
-                }
-                this.setState({
-                  carrier: myJson[0].manifest_carrier || " ",
-                  trailer:myJson[0].manifest_trailer || " ",
-                  destination:myJson[0].manifest_destination || " ",
-                  manifest_date:date,
-                  loader: myJson[0].manifest_loader || " ",
-                  pros: myJson
-                });
-
-                this.createPrintablePage();
-
-
-              }
-            });
-       
+    let data = {
+      vendor: "%",
+      field: "manifest",
+      value: manifestNumber
     };
+    fetch("http://localhost:5000/search", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(myJson => {
+        if (myJson.length === 0) {
+          document.getElementById("manifest-error").textContent =
+            "MANIFEST NOT FOUND";
+          document.getElementById("manifest-error").style.display = "block";
+        } else {
+          let date;
+          if (myJson[0].manifest_date) {
+            date = myJson[0].manifest_date.slice(0, 10);
+          } else {
+            date = " ";
+          }
+          this.setState({
+            carrier: myJson[0].manifest_carrier || " ",
+            trailer: myJson[0].manifest_trailer || " ",
+            destination: myJson[0].manifest_destination || " ",
+            manifest_date: date,
+            loader: myJson[0].manifest_loader || " ",
+            pros: myJson
+          });
 
-    render() {
-        return (
-            <div className="container mt-5">
-                <form
-                    className="form-inline my-5"
-                    onSubmit={e => this.generateTruckManifest(e)}
-                >
-                    <div className="form-group">
-                        <label htmlFor="manifest">Manfiest Number</label>
-                        <input
-                            id="manifest"
-                            className="form-control ml-3 border border-dark"
-                            name="manifest"
-                        />
+          this.createPrintablePage();
+        }
+      });
+  };
 
-                        <button className="btn btn-success ml-5">
-                            Generate
-                        </button>
-                    </div>
-                </form>
-                
-                <button
-                    className="btn btn-danger mt-5"
-                    onClick={this.props.handleBackBtn}
-                >
-                    Back
-                </button>
-                <div id='manifest-error' style={{display: 'none'}} className='alert alert-danger mt-5'></div>
-                <hr />
-                <h4>All manifest</h4>
-                <div>
-                {this.state.pageLoaded === true ? 
-                
-                this.state.allManifests.map(manifest => {
-                  let date;
-                  if(manifest.manifest_date !== null) {
-                     date = manifest.manifest_date.substr(0,10) || "";
+  render() {
+    return (
+      <div className="container mt-5">
+        <form
+          className="form-inline my-5"
+          onSubmit={e => this.generateTruckManifest(e)}
+        >
+          <div className="form-group">
+            <label htmlFor="manifest">Manfiest Number</label>
+            <input
+              id="manifest"
+              className="form-control ml-3 border border-dark"
+              name="manifest"
+            />
 
-                  }
-                  else  date = "";
-                  
-                  
+            <button className="btn btn-success ml-5">Generate</button>
+          </div>
+        </form>
 
-                  return (
-                    <div className='row'>
-                    
-                        <div className='col'>{manifest.manifest}</div>
-                        <div className='col'>{date}</div>
-                    </div>
-                  )
-                })  : ""
-              
-              
-              }
+        <button
+          className="btn btn-danger mt-5"
+          onClick={this.props.handleBackBtn}
+        >
+          Back
+        </button>
+        <div
+          id="manifest-error"
+          style={{ display: "none" }}
+          className="alert alert-danger mt-5"
+        />
+        <hr />
+        <h4>All manifest</h4>
+        <div>
+          {this.state.pageLoaded === true
+            ? this.state.allManifests.map(manifest => {
+                let date;
+                if (manifest.manifest_date !== null) {
+                  date = manifest.manifest_date.substr(0, 10) || "";
+                } else date = "";
 
-
-                </div>
-            </div>
-        );
-    }
+                return (
+                  <div className="row">
+                    <div className="col">{manifest.manifest}</div>
+                    <div className="col">{date}</div>
+                  </div>
+                );
+              })
+            : ""}
+        </div>
+      </div>
+    );
+  }
 }
