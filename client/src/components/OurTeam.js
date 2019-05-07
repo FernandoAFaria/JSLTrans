@@ -2,7 +2,7 @@ import React from "react";
 
 export default function OurTeam() {
     return (
-        <div id="team" className="container-fluid text-center my-5">
+        <div id="team" className="container text-center my-5">
             <h1>Our Team</h1>
             <div
                 className="mx-auto mb-5"
@@ -64,6 +64,61 @@ export default function OurTeam() {
                     </p>
                 </div>
             </div>
+
+            {/* Byron */}
+
+            <div className="card my-5 border-white inline">
+                <div className="card-img-top">
+                    <i
+                        className="fas fa-user-tie  "
+                        style={{ fontSize: "125px" }}
+                    />
+                    <h4 className="card-title my-3">Byron</h4>
+                </div>
+                <div className="card-body">
+                    <p>
+                        a little about Leon a little about Leon a little about
+                        Leon a little about Leon a little about Leon
+                    </p>
+                </div>
+            </div>
+
+            {/* Owen */}
+
+            <div className="card my-5 border-white inline">
+                <div className="card-img-top">
+                    <i
+                        className="fas fa-user-tie  "
+                        style={{ fontSize: "125px" }}
+                    />
+                    <h4 className="card-title my-3">Owen</h4>
+                </div>
+                <div className="card-body">
+                    <p>
+                        a little about Leon a little about Leon a little about
+                        Leon a little about Leon a little about Leon
+                    </p>
+                </div>
+            </div>
+
+            {/* Leon */}
+
+            <div className="card my-5 border-white inline">
+                <div className="card-img-top">
+                    <i
+                        className="fas fa-user-tie  "
+                        style={{ fontSize: "125px" }}
+                    />
+                    <h4 className="card-title my-3">Alex</h4>
+                </div>
+                <div className="card-body">
+                    <p>
+                        a little about Leon a little about Leon a little about
+                        Leon a little about Leon a little about Leon
+                    </p>
+                </div>
+            </div>
+
         </div>
     );
 }

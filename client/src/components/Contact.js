@@ -9,7 +9,7 @@ export default function Contact() {
     }
 
   return (
-    <section id="contact" className="bg-dark py-5"  style={{position: 'relative'}}>
+    <section id="contact" className="bg-primary py-5"  style={{position: 'relative'}}>
 
     <div id='submitted-modal' className="bg-dark text-center " style={{position: 'absolute', zIndex: '1', width: '100vw', height: '85%', paddingTop: '250px', display: 'none'}}><h1 style={{color: '#eee'}}>Thanks for your submission!</h1></div>
 

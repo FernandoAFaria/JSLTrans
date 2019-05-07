@@ -10,7 +10,7 @@ import wh6 from '../assets/imgs/warehouse6.jpg'
 
 export default function Slideshow() {
   return (
-    <div style={{padding: '75px 20vw'}} id="carouselControls" className="carousel slide bg-info text-center" data-ride="carousel">
+    <div style={{padding: '75px 20vw'}} id="carouselControls" className="carousel slide bg-dark text-center" data-ride="carousel">
     <h4 className='text-white mb-4'>View our warehouse</h4>
   <div className="carousel-inner">
     <div className="carousel-item active">

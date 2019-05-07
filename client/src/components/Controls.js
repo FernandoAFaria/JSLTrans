@@ -217,7 +217,7 @@ export default class Controls extends React.Component {
 
 const ControlCenter = props => {
     return (
-        <section className='my-5'>
+        <section  className='my-5'>
             {/* Dashboard On Hand Totals */}
             <table id='on-hand-totals' className='my-5 ml-auto mr-auto text-left'>
                 <thead>
@@ -265,7 +265,7 @@ const ControlCenter = props => {
             <div
                 style={{ minHeight: "90vh" }}
                 className="container-fluid text-center pt-5 bg-light">
-                <h3 className="text-dark">Dashboard</h3>
+                
 
 
                 <div
@@ -342,7 +342,7 @@ const ControlCenter = props => {
                 <hr className='mt-5 ' />
 
                 <div
-                    className="card grow text-dark bg-warning mb-3 mx-auto"
+                    className="card grow text-white bg-warning mb-3 mx-auto"
                     style={{ maxWidth: "55vw" }}
                     onClick={(e) => props.handleCreateDriverTrip(e)}
                 >
@@ -359,7 +359,7 @@ const ControlCenter = props => {
 
 
                 <div
-                    className="card grow text-dark bg-success mb-3 mx-auto"
+                    className="card grow text-white bg-success mb-3 mx-auto"
                     style={{ maxWidth: "55vw" }}
                     onClick={(e) => props.handleModifyDrivers(e)}
                 >

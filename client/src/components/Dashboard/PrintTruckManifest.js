@@ -177,7 +177,7 @@ export default class PrintTruckManifest extends Component {
 
     render() {
         return (
-            <div className="container pt-5">
+            <div className="container mt-5">
                 <form
                     className="form-inline my-5"
                     onSubmit={e => this.generateTruckManifest(e)}

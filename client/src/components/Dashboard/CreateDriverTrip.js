@@ -103,50 +103,17 @@ export default class CreateDriverTrip extends Component {
         }
       })
   }
-  printDriverTrip(e){
-    e.preventDefault()
-    const driver = document.getElementById('driverId').value;
-    const date = document.getElementById('date').value;
-    const deliverZone = document.getElementById('zone').value;
-
-    let form = document.getElementById('driver-trip-table');
-    let win = window.open(
-      "",
-      "TRUCK MANIFEST",
-      "toolbar=yes,directories=no, status=no, width=1280, height=720 "
-  );
-    win.document.head.insertAdjacentHTML(
-        "afterbegin",
-        `<link
-    rel="stylesheet"
-    href="https://bootswatch.com/4/lux/bootstrap.min.css"
-    /><style>@page{size: A4 landscape}</style>`
-    );
-    win.document.body.innerHTML =
-    `
-      <div class='text-center'>
-      <h1>JSL Driver Trip</h1>
-      <div><h3>${driver}</h3></div>
-        <div id='root' class="ml-auto mr-auto"></div>
-      </div>
-    
-    
-    `
-
-    win.document.body.classList.add("container-fluid");
-    win.document.body.classList.add("py-3");
-    win.document.getElementById('root').appendChild(form)
-  }
+  
 
   
 
   render() {
     return (
       
-      <div className='container-fluid px-5 my-5 text-center'>
+      <div  className='container-fluid px-5 my-5 text-center'>
       
-        <h1>Create a Driver Trip</h1>
-        <form className='form my-5'>
+        <h1 className='mt-5'>Create a Driver Trip</h1>
+        <form className='form mt-5'>
         <div className='row'>
           <div className='col'>
             <label htmlFor='driver'>Driver:</label>
@@ -187,7 +154,7 @@ export default class CreateDriverTrip extends Component {
               <button className='btn btn-info my-4' onClick={(e) => this.props.handleBackBtn(e)}>Back</button>
             </div>
             <div className='col'>
-            <button className='btn btn-success my-4' onClick={(e) => this.printDriverTrip(e)}>Print</button>
+       
             </div>
             <div className='col'>
               <button className='btn btn-danger my-4' onClick={(e) => this.submitDriverTrip(e)}>Submit</button>

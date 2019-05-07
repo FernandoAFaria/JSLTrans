@@ -79,9 +79,10 @@ export default function InsertShipment(props) {
   }
 
   return (
-    <form className="bg-light py-5 " onSubmit={(e) => handleSubmit(e)} >
-    <h3 className="text-dark  mb-5 text-center">Insert a Shipment</h3>
-      <div className='container '>
+    <div>
+    <form  className="bg-light mt-5 py-5 " onSubmit={(e) => handleSubmit(e)} >
+    <h3 className="text-dark mb-5 text-center">Insert a Shipment</h3>
+      <div className='container mb-5 '>
         <p>Required**</p>
         
         <div className='form-inline'>
@@ -190,6 +191,7 @@ export default function InsertShipment(props) {
     </div>
    
     </form>
+    </div>
   )
 }
 

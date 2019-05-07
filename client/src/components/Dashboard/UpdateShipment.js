@@ -93,9 +93,10 @@ export default function UpdateShipment(props) {
   }
 
   return (
-    <form className="bg-light py-5 " onSubmit={(e) => handleSubmit(e)} >
+    <div>
+    <form className="bg-light py-5 mt-5 " onSubmit={(e) => handleSubmit(e)} >
       <h3 className="text-dark  mb-5 text-center">Update a Shipment</h3>
-      <div className='container '>
+      <div className='container mb-5 '>
 
         <div className='form-inline'>
           <div className='form-group mb-5'>
@@ -208,6 +209,7 @@ export default function UpdateShipment(props) {
       </div>
 
     </form>
+    </div>
   )
 }
 
