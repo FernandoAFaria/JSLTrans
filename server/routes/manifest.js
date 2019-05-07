@@ -16,7 +16,7 @@ router.put("/:pro", (req, res) => {
       manifest_destination,
       manifest_loader
   } = req.body;
-  dbActions.updateStatus(
+  dbActions.updateManifestInfo(
       pro,
       status,
       manifest,
@@ -40,5 +40,12 @@ router.put("/:pro", (req, res) => {
       }
   );
 });
+
+router.get('/', (req, res) => {
+    dbActions.getManifests((err, rows) => {
+        if(err) console.log(err)
+        res.send(rows);
+    })
+})
 
 module.exports = router;

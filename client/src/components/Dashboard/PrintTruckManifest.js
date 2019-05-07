@@ -9,8 +9,27 @@ export default class PrintTruckManifest extends Component {
             destination: "",
             manifest_date: "",
             loader: '',
-            pros: []
+            pros: [],
+            allManifests: [],
+            pageLoaded: false
         };
+    }
+    componentDidMount(){
+      fetch('http://localhost:5000/manifest')
+      .then(data => data.json())
+      .then(myjson => {
+        myjson.sort((a,b) => {
+          a = new Date(a.manifest_date)
+          b = new Date(b.manifest_date)
+          return a > b ? -1 : a < b ? 1 : 0
+        })
+  
+        this.setState({
+          allManifests: myjson,
+          pageLoaded: true
+        })
+        
+      })
     }
     calcWeight() {
       let weight = 0;
@@ -195,7 +214,7 @@ export default class PrintTruckManifest extends Component {
                         </button>
                     </div>
                 </form>
-                <hr />
+                
                 <button
                     className="btn btn-danger mt-5"
                     onClick={this.props.handleBackBtn}
@@ -203,6 +222,35 @@ export default class PrintTruckManifest extends Component {
                     Back
                 </button>
                 <div id='manifest-error' style={{display: 'none'}} className='alert alert-danger mt-5'></div>
+                <hr />
+                <h4>All manifest</h4>
+                <div>
+                {this.state.pageLoaded === true ? 
+                
+                this.state.allManifests.map(manifest => {
+                  let date;
+                  if(manifest.manifest_date !== null) {
+                     date = manifest.manifest_date.substr(0,10) || "";
+
+                  }
+                  else  date = "";
+                  
+                  
+
+                  return (
+                    <div className='row'>
+                    
+                        <div className='col'>{manifest.manifest}</div>
+                        <div className='col'>{date}</div>
+                    </div>
+                  )
+                })  : ""
+              
+              
+              }
+
+
+                </div>
             </div>
         );
     }

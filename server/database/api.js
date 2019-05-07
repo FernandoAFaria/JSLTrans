@@ -1,6 +1,7 @@
 const db = require("./config");
 
 module.exports = {
+//PROS
 
   // GET ALL
   queryAllByStatus(field, value, callback) {
@@ -40,12 +41,29 @@ module.exports = {
 
 
   },
+
+  //MANIFESTS
+
+
   //Update status when creating a manifest
-  updateStatus(pro, status,manifest,manifest_date,manifest_carrier, manifest_trailer, manifest_destination, manifest_loader, callback) {
+  updateManifestInfo(pro, status,manifest,manifest_date,manifest_carrier, manifest_trailer, manifest_destination, manifest_loader, callback) {
     let sql = `UPDATE shipments SET status='${status}', manifest='${manifest}', manifest_date=` + db.escape(manifest_date) + `, manifest_carrier='${manifest_carrier}', manifest_trailer='${manifest_trailer}', manifest_destination='${manifest_destination}', manifest_loader='${manifest_loader}' where pro = '${pro}';`
     db.query(sql,callback)
 
   } ,
+
+  //Update status for delivery manifest
+
+  updateStatus(pro, status, callback) {
+    let sql = `UPDATE shipments set status='${status}' where pro='${pro}'`
+    db.query(sql, callback)
+  },
+  
+  //GET ALL MANIFESTS
+  getManifests(callback) {
+    let sql = 'select distinct manifest, manifest_date from shipments';
+    db.query(sql,callback)
+  },
 
 // DRIVER FUNCTIONS
 
@@ -60,6 +78,11 @@ module.exports = {
 
   getDriver(firstname, lastname, callback){
     let sql= `select * from drivers WHERE first_name= '${firstname}' and last_name ='${lastname}'`;
+    db.query(sql, callback)
+  },
+
+  getDriverById(id, callback){
+    let sql= `select * from drivers WHERE id= '${id}'`
     db.query(sql, callback)
   },
 
@@ -81,8 +104,8 @@ module.exports = {
   },
   
   //DRIVER TRIPS
-  createDriverTrip(driver_id, date, pros, delivery_zone, callback){
-    let sql = "INSERT INTO driver_trips(driver_id, date, pros, zone) VALUE(" + db.escape(driver_id) + ", " + db.escape(date) + ", " + db.escape(pros) + ", " + db.escape(delivery_zone) + ")";
+  createDriverTrip(driverId, date, pros, delivery_zone, callback){
+    let sql = "INSERT INTO driver_trips(driver_id, date, pros, zone) VALUE(" + db.escape(driverId) + ", " + db.escape(date) + ", " + db.escape(pros) + ", " + db.escape(delivery_zone) + ")";
 
     db.query(sql, callback)
 

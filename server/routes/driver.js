@@ -1,7 +1,6 @@
-const express = require('express')
+const express = require("express");
 const dbActions = require("../database/api");
 const router = express.Router();
-
 
 /* DRIVER FUNCTIONS */
 
@@ -11,18 +10,18 @@ router.post("/", (req, res) => {
   const { firstname, lastname, vehicle, phone, address } = req.body;
   const status = req.body.status || "Active";
   dbActions.insertDriver(
-      firstname,
-      lastname,
-      vehicle,
-      phone,
-      address,
-      status,
-      (err, rows) => {
-          if (err) res.status(400).send("Something went wrong.");
-          else {
-              res.status(200).send(rows);
-          }
+    firstname,
+    lastname,
+    vehicle,
+    phone,
+    address,
+    status,
+    (err, rows) => {
+      if (err) res.status(400).send("Something went wrong.");
+      else {
+        res.status(200).send(rows);
       }
+    }
   );
 });
 
@@ -31,9 +30,19 @@ router.post("/", (req, res) => {
 router.post("/find", (req, res) => {
   const { firstname, lastname } = req.body;
   dbActions.getDriver(firstname, lastname, (err, rows) => {
-      if (err) console.log(err);
+    if (err) console.log(err);
 
-      res.status(200).send(rows);
+    res.status(200).send(rows);
+  });
+});
+
+//Get driver info by ID
+
+router.get("/single/:id", (req, res) => {
+  let id = req.params.id;
+  dbActions.getDriverById(id, (err, rows) => {
+    if (err) console.log(err);
+    res.send(rows);
   });
 });
 
@@ -41,7 +50,7 @@ router.post("/find", (req, res) => {
 
 router.get("/all", (req, res) => {
   dbActions.getAllDrivers((err, rows) => {
-      res.send(rows);
+    res.send(rows);
   });
 });
 
@@ -51,14 +60,12 @@ router.delete("/", (req, res) => {
   const { firstname, lastname } = req.body;
 
   dbActions.deleteDriver(firstname, lastname, (err, rows) => {
-     
-      if (err) console.log(err);
-      if(rows.affectedRows === 1) {
-          res.send(rows);
-      } else {
-          res.status(400).send('Error removing driver')
-      }
-      
+    if (err) console.log(err);
+    if (rows.affectedRows === 1) {
+      res.send(rows);
+    } else {
+      res.status(400).send("Error removing driver");
+    }
   });
 });
 
@@ -66,37 +73,35 @@ router.delete("/", (req, res) => {
 
 router.put("/", (req, res) => {
   const {
-      firstname,
-      lastname,
-      vehicle,
-      phone,
-      address,
-      status,
-      notes,
-      id
+    firstname,
+    lastname,
+    vehicle,
+    phone,
+    address,
+    status,
+    notes,
+    id
   } = req.body;
 
   dbActions.modifyDriver(
-      firstname,
-      lastname,
-      vehicle,
-      phone,
-      address,
-      status,
-      notes,
-      id,
-      (err, rows) => {
-          console.log(err, rows.changedRows)
-          if (err) console.log(err);
-            if(rows.changedRows === 0){
-                res.status(500).send('Nothing Changed')
-            }
-            else {
-                res.status(200).send(rows);
-            }
-          
+    firstname,
+    lastname,
+    vehicle,
+    phone,
+    address,
+    status,
+    notes,
+    id,
+    (err, rows) => {
+      console.log(err, rows.changedRows);
+      if (err) console.log(err);
+      if (rows.changedRows === 0) {
+        res.status(500).send("Nothing Changed");
+      } else {
+        res.status(200).send(rows);
       }
+    }
   );
 });
 
-module.exports = router
+module.exports = router;

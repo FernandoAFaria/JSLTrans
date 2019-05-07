@@ -123,9 +123,17 @@ router.put("/:pro", (req, res) => {
     );
 });
 
+//Modify Status field
+router.post('/updateStatus',(req,res) => {
+    let {pro, status} = req.body;
+    dbActions.updateStatus(pro, status, (err, rows) =>{
+        if(err) console.log(err)
+        res.send(rows);
+    })
+
+})
 
 
-//SEARCH BY FIELD - using LIKE
 
 
 

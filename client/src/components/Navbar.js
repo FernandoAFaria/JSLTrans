@@ -34,13 +34,13 @@ export default class Navbar extends React.Component {
   return (
     <div id='top-nav-bar'>
 
-      <div className="info-bar bg-info" >
+      <div className="info-bar bg-primary" >
         <h6 className='text-white'>48 3rd Street, Kearny, NJ</h6>
         <h6 className='text-white'>201-999-9999</h6>
         <h6 className='text-white'>email@jsltransportation.com</h6>
       </div>
       {/* second navbar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary   mt-5" >
+      <nav className="navbar navbar-expand-lg navbar-dark bg-info   mt-5" >
         <a className="navbar-brand" href="/">JSL Transportation</a>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
