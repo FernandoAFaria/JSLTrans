@@ -10,7 +10,7 @@ export default class Dashboard extends Component {
             username: "",
             password: "",
             error: "",
-            auth: true,
+            auth: false,
             sk: ""
         };
 

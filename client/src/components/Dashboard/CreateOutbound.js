@@ -423,9 +423,9 @@ export default class CreateOutbound extends Component {
                   SUBMIT
                 </button>
 
-                <h1 id="success" className="alert alert-warning">
+                <div id="success" className="alert alert-success my-3">
                   {" "}
-                </h1>
+                </div>
               </div>
               <div className="alert alert-danger my-3">
                 The following shipments had an error when submitting:{" "}

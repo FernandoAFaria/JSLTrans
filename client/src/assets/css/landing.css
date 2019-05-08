@@ -47,6 +47,7 @@
   font-size: 1.3rem;
   cursor: pointer;
   margin: 50px;
+  height: 150px;
 }
 .grow:hover {
   transform: scale(1.1);
@@ -114,6 +115,36 @@
   bottom: 0;
   right: -50px;
   animation: truckRolling 25s linear forwards;
+}
+
+.customer-card {
+ 
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-evenly;
+  color: white;
+}
+.customer-card-container{
+  
+  height: 110px;
+  border-radius: 2px;
+  color: white;
+  padding-top: 15px;
+  cursor: pointer;
+  
+  margin:10px;
+  box-shadow: 3px 3px 4px rgba(0,0,0,.2)
+}
+.customer-card-name {
+  font-size: 1.6rem;
+  font-weight: bold;
+ 
+  
+}
+.display-5{
+  
+  font-size: 1.7rem;
 }
 @keyframes truckRolling {
   from {

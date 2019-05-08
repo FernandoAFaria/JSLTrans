@@ -9,7 +9,7 @@ export default class CreateDriverTrip extends Component {
       lastTripID: 0,
       driversLoaded: false,
       pros: [],
-      stopCount: [1, 2]
+      stopCount: [1,2]
     };
   }
 
@@ -34,6 +34,7 @@ export default class CreateDriverTrip extends Component {
     let pcs = document.getElementById(`${id}-pcs`);
     let weight = document.getElementById(`${id}-weight`);
     let stop = document.getElementById(`${id}-stop`);
+    let vendor = document.getElementById(`${id}-vendor`);
 
     if (pro !== "") {
       fetch(`http://localhost:5000/pro/${pro}`)
@@ -48,9 +49,10 @@ export default class CreateDriverTrip extends Component {
           } else {
             consignee.value = data[0].toName;
             citystate.value = data[0].toCity + " " + data[0].toState;
-            pcs.value = data[0].pieces;
-            weight.value = data[0].weight;
+            pcs.innerText = data[0].pieces;
+            weight.innerText = data[0].weight;
             stop.value = id.slice(4, id.length);
+            vendor.innerText = data[0].vendor;
 
             this.setState({
               stopCount: stopCountCopy
@@ -64,8 +66,8 @@ export default class CreateDriverTrip extends Component {
     let columns = document.getElementsByClassName(className);
     let count = 0;
     for(let i = 0; i < columns.length; i++){
-      if(columns[i].value !==""){
-        count += parseInt(columns[i].value)
+      if(columns[i].innerText !==""){
+        count += parseInt(columns[i].innerText)
       }
     }
     return count;
@@ -108,15 +110,15 @@ export default class CreateDriverTrip extends Component {
         <div class='container-fluid text-center'>
         <h2>JSL Transportation Delivery Manifest</h2>
           <div class='text-left my-4'>
-          <h5 class='my-2'>Date: ${date}</h5>
-          <h5 class='my-2'>Driver: ${driver[0].first_name} ${driver[0].last_name}</h5>
-          <h5 class='my-2'>Delivery Zone: ${deliveryZone}</h5>
+          <h5 class='my-3'>Date: ${date}</h5>
+          <h5 class='my-3'>Driver: ${driver[0].first_name} ${driver[0].last_name}</h5>
+          <h5 class='my-3'>Delivery Zone: ${deliveryZone}</h5>
           </div>
         </div>
-        <hr />
+        <hr class='border border-primary my-3' />
       `;
       let footerTemplate = `
-      <div style="position: absolute; bottom: 20px; right: 50px;">
+      <div style="position: absolute; bottom: 50px; right: 75px;">
       
       <h5>Total Pcs:  ${pcs}</h5>
       <h5>Total Weight: ${weight}</h5>
@@ -210,7 +212,7 @@ export default class CreateDriverTrip extends Component {
     return (
       <div className="container-fluid px-5 my-5 text-center">
         <h1 className="mt-5">Create a Driver Trip</h1>
-        <form className="form mt-5">
+      <form className="form mt-5" onSubmit={e => this.submitDriverTrip(e)}>
           <div className="row">
             <div className="col">
               <label htmlFor="driver">Driver:</label>
@@ -244,6 +246,7 @@ export default class CreateDriverTrip extends Component {
             <div className="col">
               <label htmlFor="date">Route Date:</label>
               <input
+              required
                 className="form-control border border-danger"
                 name="date"
                 type="date"
@@ -254,6 +257,7 @@ export default class CreateDriverTrip extends Component {
             <div className="col">
               <label htmlFor="zone">Delivery Zone:</label>
               <input
+              required
                 className="form-control border border-danger"
                 name="zone"
                 type="text"
@@ -279,48 +283,53 @@ export default class CreateDriverTrip extends Component {
               </button>
             </div>
             <div className="col">
-              <button
+              <input type='submit'
                 className="btn btn-danger my-4"
-                onClick={e => this.submitDriverTrip(e)}
+                
               >
-                Submit
-              </button>
+                
+              </input>
             </div>
           </div>
           <div className="row">
             <div className="col alert  text-center">
-              <h1 id="insert-message"> </h1>
+              <div className='alert alert-success' id="insert-message"> </div>
             </div>
           </div>
         </form>
 
         <p>Pros</p>
-        <table id="driver-trip-table" className="table-striped">
-          <thead className="text-dark border">
+        <table id="driver-trip-table"  className=" table-striped ">
+          <thead className="text-dark border" >
             <tr style={{ height: "25px" }}>
-              <th style={{ width: "50px" }}>#</th>
-              <th >Pro#</th>
+              <th>#</th>
+              <th>Vendor</th>
+              <th>Pro#</th>
               <th>Consignee</th>
               <th>City/State</th>
               <th>Apts</th>
               <th style={{ width: "50px" }}>Pcs</th>
-              <th style={{ width: "100px" }}>Weight</th>
+              <th style={{ width: "75px" }}>Weight</th>
+              <th style={{ width: "125px" }}>Notes</th>
             </tr>
           </thead>
           <tbody>
             {this.state.stopCount.map(val => {
               return (
                 <tr key={val}>
-                  <td>
-                    <input
+                
+                  <td><input
+
                       id={"stop" + val + "-stop"}
-                      style={{ width: "50px" }}
-                      className="border"
+                      style={{ width: "50px", background: 'transparent' }}
+                      className="border border-white"
                     />
                   </td>
+                  <td id={"stop" + val + "-vendor"}
+                      style={{ width: "50px" }}></td>
                   <td>
                     <input
-                      className="pro"
+                      className="pro border"
                       id={"stop" + val}
                       tabIndex={val}
                       onBlur={e => {
@@ -330,32 +339,35 @@ export default class CreateDriverTrip extends Component {
                   </td>
                   <td>
                     <input
+                      style={{background: 'transparent'}}
                       id={"stop" + val + "-consignee"}
-                      className="border"
+                      className="border border-white"
                     />
                   </td>
                   <td>
                     <input
+                    style={{background: 'transparent'}}
                       id={"stop" + val + "-citystate"}
-                      className="border"
+                      className="border border-white"
                     />
                   </td>
                   <td>
                     <input
+                    style={{background: 'transparent'}}
                       id={"stop" + val + "-apts"}
                       className="border notes"
                     />
                   </td>
-                  <td>
-                    <input
+                  <td
                       id={"stop" + val + "-pcs"}
-                      className="border pcs"
+                      className="border border-white pcs"
                       style={{ width: "50px" }}
-                    />
+                    >
                   </td>
-                  <td>
-                    <input id={"stop" + val + "-weight"} className="border weight" />
+                  <td id={"stop" + val + "-weight"} className="border border-white weight mx-3" style={{ width: "125px" }} >
                   </td>
+                  <td style={{background: 'white'}}><input type='text' className='form-control'></input></td>
+                  
                 </tr>
               );
             })}

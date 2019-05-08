@@ -144,6 +144,7 @@ export default class PrintTruckManifest extends Component {
 
       win.document.body.insertAdjacentHTML("beforeend", htmlHeader);
     }, 500);
+    
   }
 
   generateTruckManifest = e => {
