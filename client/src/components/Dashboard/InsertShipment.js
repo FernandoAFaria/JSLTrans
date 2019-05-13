@@ -9,7 +9,7 @@ export default function InsertShipment(props) {
 
   function clearForm(){
      document.getElementById('proNumber').value = ""
-     document.getElementById('vendor').value = ""
+    //  document.getElementById('vendor').value = ""
     
      document.getElementById('pieces').value = "";
      document.getElementById('pallets').value = "";
@@ -61,6 +61,7 @@ export default function InsertShipment(props) {
       if(res.status === 200) {
         document.getElementById('success').style.display = 'block';
         document.getElementById('error').style.display = 'none';
+        addCustomerData();
         clearForm();
        
 
@@ -76,6 +77,115 @@ export default function InsertShipment(props) {
     }) 
 
 
+  }
+
+  function addCustomerData(){
+    let fromName = document.getElementById('from-name').value
+    let fromStreet = document.getElementById('from-street').value
+    let fromCity = document.getElementById('from-city').value
+    let fromState = document.getElementById('from-state').value
+    let fromZipcode = document.getElementById('from-zip').value
+    let toName = document.getElementById('to-name').value
+    let toStreet = document.getElementById('to-street').value
+    let toCity = document.getElementById('to-city').value
+    let toState = document.getElementById('to-state').value
+    let toZipcode = document.getElementById('to-zip').value
+    //If any of these are blank, will not insert into database
+    if(fromName === "" || fromStreet === "" || fromCity === "" || fromState === "" || fromZipcode === "" || toName === "" || toStreet === "" || toCity === "" || toState === "" || toZipcode === ""){
+      console.log("empty fields, will not add to database")
+    } else {
+      //check database first for customer, if it doesnt exist then insert
+
+      //ShipFrom
+      fetch(`http://localhost:5000/customers?name=${fromName}`)
+      .then(res => res.json())
+      .then(data => {
+      
+        if(data.error){
+          const cus_info = {
+            name: fromName,
+            street: fromStreet,
+            city: fromCity,
+            state: fromState,
+            zipcode: fromZipcode
+          }
+
+          fetch('http://localhost:5000/customers', {
+            method: 'post',
+            headers: {"Content-Type": 'application/json'},
+            body: JSON.stringify(cus_info)
+          }).catch(err => console.log(err))
+        }
+      }) 
+
+      //Shipto
+      fetch(`http://localhost:5000/customers?name=${toName}`)
+      .then(res => res.json())
+      .then(data => {
+        
+        if(data.error){
+          const cus_info = {
+            name: toName,
+            street: toStreet,
+            city: toCity,
+            state: toState,
+            zipcode: toZipcode
+          }
+
+          fetch('http://localhost:5000/customers', {
+            method: 'post',
+            headers: {"Content-Type": 'application/json'},
+            body: JSON.stringify(cus_info)
+          })
+        }
+      }).catch(err => console.log(err))
+
+    }
+
+  }
+
+
+  function getCustomerFromData(e){
+    e.preventDefault()
+    
+    let customer_name = e.target.value
+    fetch(`http://localhost:5000/customers?name=${customer_name}`)
+    .then(res => res.json())
+    .then(data => {
+        
+        if(!data.error){
+
+          document.getElementById('from-name').value = data[0].customer_name
+          document.getElementById('from-street').value = data[0].street
+          document.getElementById('from-city').value = data[0].city
+          document.getElementById('from-state').value = data[0].state
+          document.getElementById('from-zip').value = data[0].zipcode
+        }
+          
+    })
+    .catch(err => console.log(err))
+  
+  }
+  function getCustomerShipToData(e){
+    e.preventDefault()
+    
+    let customer_name = e.target.value
+    fetch(`http://localhost:5000/customers?name=${customer_name}`)
+    .then(res => res.json())
+    .then(data => {
+      
+        if(!data.error){
+
+          document.getElementById('to-name').value = data[0].customer_name
+          document.getElementById('to-street').value = data[0].street
+          document.getElementById('to-city').value = data[0].city
+          document.getElementById('to-state').value = data[0].state
+          document.getElementById('to-zip').value = data[0].zipcode
+        }
+          
+    })
+    .catch(err => console.log(err))
+  
   }
 
   return (
@@ -137,7 +247,7 @@ export default function InsertShipment(props) {
       
         <div className='form-group'>
           <label htmlFor='from-name'>Customer Name:</label>
-          <input type='text' id='from-name' name='from-name' className='form-control border border-primary'></input>
+          <input type='text' id='from-name' name='from-name' className='form-control border border-primary' onBlur={(e) => getCustomerFromData(e)}></input>
           <label htmlFor='from-street'>Street Address:</label>
           <input type='text' id='from-street' name='from-street' className='form-control border border-primary'></input>
         
@@ -167,7 +277,7 @@ export default function InsertShipment(props) {
       
         <div className='form-group'>
           <label htmlFor='to-name'>Customer Name:</label>
-          <input type='text' id='to-name' name='to-name' className='form-control border border-primary'></input>
+          <input type='text' id='to-name' name='to-name' className='form-control border border-primary' onBlur={(e)=> getCustomerShipToData(e)}></input>
           <label htmlFor='to-street'>Street Address:</label>
           <input type='text' id='to-street' name='to-street' className='form-control border border-primary'></input>
         

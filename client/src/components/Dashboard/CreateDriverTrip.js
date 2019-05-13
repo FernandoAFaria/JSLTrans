@@ -160,7 +160,7 @@ export default class CreateDriverTrip extends Component {
     })
       .then(response => response.json())
       .then(myData => {
-        console.log(myData);
+        
         if (myData.affectedRows === 1) {
           document.getElementById("insert-message").textContent =
             "DRIVER TRIP CREATED";

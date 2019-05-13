@@ -60,7 +60,7 @@ export default function UpdateShipment(props) {
         }
       })
       .catch(err => {
-        console.log(err);
+       
         document.getElementById("error").style.display = "block";
         document.getElementById("error").textContent = "Error: " + err;
       });

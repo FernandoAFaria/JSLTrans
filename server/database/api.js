@@ -105,6 +105,23 @@ module.exports = {
 
     db.query(sql, callback)
 
+  },
+
+  //CUSTOMERS
+
+  //GET CUSTOMER INFO
+  getCustomerData(name, callback){
+    let sql = "SELECT * FROM customer_data where customer_name=" + db.escape(name);
+    db.query(sql, callback);
+
+  },
+
+  //INSERT CUSTOMER
+  addCustomerData(name,street, city,state,zipcode, callback){
+    
+    let sql = "INSERT INTO customer_data(customer_name, street, city, state, zipcode) VALUE(" + db.escape(name) + "," + db.escape(street) + "," + db.escape(city) + "," + db.escape(state) + "," + db.escape(zipcode) + ")"
+    db.query(sql, callback);
+
   }
 
 }

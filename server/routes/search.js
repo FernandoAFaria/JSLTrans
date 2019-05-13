@@ -6,7 +6,10 @@ const dbActions = require("../database/api");
 
 router.post("/", (req, res) => {
   const { vendor, field, value } = req.body;
+
+
   dbActions.queryByField(vendor, field, value, (err, data) => {
+   
     if (err) {
       res.status(400).send(err);
     } else {

@@ -5,6 +5,7 @@ import UpdateShipment from "./Dashboard/UpdateShipment";
 import PrintTruckManifest from "./Dashboard/PrintTruckManifest";
 import ModifyDrivers from "./Dashboard/ModifyDrivers";
 import CreateDriverTrip from "./Dashboard/CreateDriverTrip";
+import FindShipments from './Dashboard/FindShipments';
 
 //default Controls
 //This holds all functions for displaying different dashboard components
@@ -13,7 +14,7 @@ export default class Controls extends React.Component {
     constructor() {
         super();
         this.state = {
-            component: "Controls"
+            component: "FindShipments"
         };
     }
 
@@ -212,6 +213,13 @@ export default class Controls extends React.Component {
             component: "CreateDriverTrip"
         });
     };
+    handleFindShipments = e => {
+        e.preventDefault();
+        this.setState({
+            component: "FindShipments"
+        });
+    };
+
 
     render() {
         switch (this.state.component) {
@@ -225,6 +233,7 @@ export default class Controls extends React.Component {
                         handlePrintTruckManifest={this.handlePrintTruckManifest}
                         handleModifyDrivers={this.handleModifyDrivers}
                         handleCreateDriverTrip={this.handleCreateDriverTrip}
+                        handleFindShipments={this.handleFindShipments}
                     />
                 );
 
@@ -247,6 +256,9 @@ export default class Controls extends React.Component {
 
             case "CreateDriverTrip":
                 return <CreateDriverTrip handleBackBtn={this.handleBackBtn} />;
+
+            case "FindShipments":
+                return <FindShipments handleBackBtn={this.handleBackBtn} />;
 
             default:
                 return "";
@@ -548,6 +560,70 @@ const ControlCenter = props => {
                         </div>
                     </div>
                 </div>
+
+
+                             {/* Reports*/}
+                <div className="container"> 
+                <h4 className='text-white mt-5'>Reports</h4>
+                    <div className="row">
+                        <div className="col">
+                            <div style={{background: '#a55eea', height: '160px'}}
+                                className="card grow text-white  mb-3 mx-auto px-2 py-2"
+                                
+                                onClick={e => props.handleFindShipments(e)}
+                            >
+                                <div className="" style={{fontSize: '2.1rem'}}>
+                                    Find Shipments
+                                </div>
+                                <div className="card-body">
+                                    <h5 className="card-title">
+                                        Find Shipments by Date, Pickup Name, or Delivery Name
+                                    </h5>
+                                    <p className="card-text" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col">
+                            <div style={{background: '#0fb9b1', height: '160px'}}
+                                className="card grow text-white mb-3 mx-auto px-2 py-2"
+                                
+                                onClick={e => props.handleModifyDrivers(e)}
+                            >
+                                <div className="" style={{fontSize: '2.1rem'}}>
+                                    Find Driver Trips by Date
+                                </div>
+                                <div className="card-body">
+                                    <h5 className="card-title">
+                                        Find driver trips
+                                    </h5>
+                                    <p className="card-text" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col">
+                            <div style={{background: '#eb3b5a', height: '160px'}}
+                                className="card grow text-white mb-3 mx-auto px-2 py-2"
+                                
+                                onClick={e => props.handleModifyDrivers(e)}
+                            >
+                                <div className="" style={{fontSize: '2.1rem'}}>
+                                    Find Driver Trips by Date
+                                </div>
+                                <div className="card-body">
+                                    <h5 className="card-title">
+                                        Find driver trips
+                                    </h5>
+                                    <p className="card-text" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
             </div>
         </section>
     );

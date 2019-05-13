@@ -11,6 +11,7 @@ const manifestRoute = require("./routes/manifest");
 const trackRoute = require("./routes/track");
 const searchRoute = require("./routes/search");
 const driverTripRoute = require("./routes/driverTrips");
+const customerRoute = require('./routes/customer');
 
 const port = process.env.PORT || 5000;
 const app = express();
@@ -54,6 +55,7 @@ app.use("/driver", driverRoute); //add isAuth middleware
 app.use("/pro", proRoute); //add isAuth middleware
 app.use("/manifest", manifestRoute); //add isAuth middleware
 app.use("/trips", driverTripRoute); //add isAuth middleware
+app.use("/customers", customerRoute); //add isAuth middleware
 
 //Lets react router handle the page/component loading
 app.use("*", (req, res) => {
