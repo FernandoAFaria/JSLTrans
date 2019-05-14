@@ -31,9 +31,15 @@ module.exports = {
   },
   //Query using LIKE
   queryByField(vendor, field, value, callback) {
-
-    let sql = `SELECT * FROM shipments where vendor Like '${vendor}' and ${field} =` + db.escape(value);
-    db.query(sql, callback)
+    if(value === "%"){
+      let sql = `SELECT * FROM shipments where vendor LIKE '${vendor}'and ${field} LIKE ` + db.escape(value);
+      db.query(sql, callback)
+    } else {
+      value = value + "%";
+      let sql = `SELECT * FROM shipments where vendor LIKE '${vendor}'and ${field} LIKE ` + db.escape(value);
+      db.query(sql, callback)
+    }
+    
 
 
   },

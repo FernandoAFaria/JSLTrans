@@ -224,9 +224,10 @@ export default class PrintTruckManifest extends Component {
           {this.state.pageLoaded === true
             ? this.state.allManifests.map(manifest => {
                 let date;
+                
                 if (manifest.manifest_date !== null) {
                   date = manifest.manifest_date.substr(0, 10) || "";
-                } else date = "";
+                } else date = "Inbound";
 
                 return (
                   <div className="row">

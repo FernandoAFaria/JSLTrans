@@ -9,7 +9,7 @@ router.post("/", (req, res) => {
 
 
   dbActions.queryByField(vendor, field, value, (err, data) => {
-   
+ 
     if (err) {
       res.status(400).send(err);
     } else {

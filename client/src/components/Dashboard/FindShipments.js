@@ -1,13 +1,13 @@
 import React from "react";
-import { join } from "path";
+
 
 export default function FindShipments(props) {
     function handleFindShipments(e) {
         const date = document.getElementById("date").value || "%";
         const vendor = document.getElementById("vendor").value || "%";
         const pickup_city = document.getElementById("pickup_city").value || "%";
-        const delivery_name =
-            document.getElementById("delivery_name").value || "%";
+        const customer_name =
+            document.getElementById("customer_name").value || "%";
         let query = {};
         if (date !== "%") {
             query.vendor = vendor;
@@ -17,14 +17,18 @@ export default function FindShipments(props) {
             query.vendor = vendor;
             query.field = "fromCity";
             query.value = pickup_city;
-        } else if (delivery_name !== "%") {
+        } else if (customer_name !== "%") {
             query.vendor = vendor;
             query.field = "fromName";
-            query.value = delivery_name;
+            query.value = customer_name;
         } else if (vendor !== "%") {
             query.vendor = vendor;
             query.field = "vendor";
             query.value = vendor;
+        } else {
+            query.vendor = "%";
+            query.field = "fromName";
+            query.value = "%";
         }
 
         fetch("http://localhost:5000/search", {
@@ -89,9 +93,9 @@ export default function FindShipments(props) {
                     </div>
 
                     <div className="col">
-                        <h6>Delivery Name: </h6>
+                        <h6>Customer Name: </h6>
                         <input
-                            id="delivery_name"
+                            id="customer_name"
                             type="text"
                             className="form-control"
                         />

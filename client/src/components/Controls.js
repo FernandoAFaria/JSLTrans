@@ -14,7 +14,7 @@ export default class Controls extends React.Component {
     constructor() {
         super();
         this.state = {
-            component: "FindShipments"
+            component: "Controls"
         };
     }
 
@@ -279,7 +279,7 @@ const ControlCenter = props => {
                 <div className="row">
                     <div className="col">
                         <div
-                            style={{ background: "#00cec9" }}
+                            style={{ background: "#00cec9", minWidth: '190px' }}
                             className="text-center customer-card-container"
                             onClick={() =>
                                 props.printOnHand("EDI", "status", "picked up")
@@ -300,7 +300,7 @@ const ControlCenter = props => {
 
                     <div className="col">
                         <div
-                            style={{ background: "#0984e3" }}
+                            style={{ background: "#0984e3", minWidth: '190px' }}
                             className="text-center customer-card-container"
                             onClick={() =>
                                 props.printOnHand(
@@ -327,7 +327,7 @@ const ControlCenter = props => {
 
                     <div className="col">
                         <div
-                            style={{ background: "#6c5ce7" }}
+                            style={{ background: "#6c5ce7", minWidth: '190px' }}
                             className="text-center customer-card-container"
                             onClick={() =>
                                 props.printOnHand(
@@ -356,7 +356,7 @@ const ControlCenter = props => {
                 <div className="row">
                     <div className="col">
                         <div
-                            style={{ background: "#00cec9" }}
+                            style={{ background: "#00cec9", minWidth: '190px' }}
                             className="text-center customer-card-container"
                             onClick={() =>
                                 props.printOnHand("EDI", "status", "inbound")
@@ -377,7 +377,7 @@ const ControlCenter = props => {
 
                     <div className="col">
                         <div
-                            style={{ background: "#0984e3" }}
+                            style={{ background: "#0984e3", minWidth: '190px' }}
                             className="text-center customer-card-container"
                             onClick={() =>
                                 props.printOnHand(
@@ -404,7 +404,7 @@ const ControlCenter = props => {
 
                     <div className="col">
                         <div
-                            style={{ background: "#6c5ce7" }}
+                            style={{ background: "#6c5ce7", minWidth: '190px' }}
                             className="text-center customer-card-container"
                             onClick={() =>
                                 props.printOnHand(
@@ -437,17 +437,20 @@ const ControlCenter = props => {
             >
                 {/* Pro */}
 
-                <div className="container pt-5">
+                <div className="container py-5">
                 <h4 className='text-white'>Shipments</h4>
                     <div className="row ">
                         <div className="col text-center">
                             <div
-                                className="card grow text-white bg-info mb-3 mx-auto"
+                                style={{minHeight: '100%'}}
+                                className="card grow text-white bg-info mx-auto"
                                 
                                 onClick={e => props.handleInsertShipment(e)}
                             >
-                                <div className="card-header" style={{fontSize: '2.1rem'}}>
+                                <div className="card-header py-3 font-bold"><h3 className="text-white">
+
                                     Insert a Shipment
+                                </h3>
                                 </div>
                                 <div className="card-body">
                                     <h5 className="card-title">
@@ -461,11 +464,13 @@ const ControlCenter = props => {
                         <div className="col">
                             <div
                                 className="card grow text-white bg-danger mb-3 mx-auto"
-                                
+                                style={{minHeight: '100%'}}
                                 onClick={e => props.handleUpdateShipment(e)}
                             >
-                                <div className="card-header " style={{fontSize: '2.1rem'}}>
+                                <div className="card-header  py-3 font-bold"><h3 className="text-white">
+
                                     Update a Shipment
+                                </h3>
                                 </div>
                                 <div className="card-body">
                                     <h5 className="card-title">
@@ -479,17 +484,19 @@ const ControlCenter = props => {
                     </div>
                 </div>
                 {/* Manifest */}
-                <div className="container">
-                <h4 className='text-white mt-5'>Outbounds</h4>
+                <div className="container py-5">
+                <h4 className='text-white '>Outbounds</h4>
                     <div className="row">
                         <div className="col">
                             <div
                                 className="card grow text-dark bg-secondary mb-3 mx-auto"
-                                
+                                style={{minHeight: '100%'}}
                                 onClick={e => props.handleCreateOutbound(e)}
                             >
-                                <div className="card-header" style={{fontSize: '2.1rem'}}>
+                                <div className="card-header py-3 font-bold"><h3 className="text-dark">
+
                                     Create an Outbound Manifest
+                                </h3>
                                 </div>
                                 <div className="card-body">
                                     <h5 className="card-title">
@@ -503,11 +510,13 @@ const ControlCenter = props => {
                         <div className="col">
                             <div
                                 className="card grow text-white bg-dark mb-3 mx-auto"
-                                
+                                style={{minHeight: '100%'}}
                                 onClick={e => props.handlePrintTruckManifest(e)}
                             >
-                                <div className="card-header" style={{fontSize: '2.1rem'}}>
+                                <div className="card-header py-3 font-bold"><h3 className="text-white">
+
                                     Print a Truck Manifest
+                                </h3>
                                 </div>
                                 <div className="card-body">
                                     <h5 className="card-title" >
@@ -526,11 +535,13 @@ const ControlCenter = props => {
                         <div className="col">
                             <div
                                 className="card grow text-white bg-warning mb-3 mx-auto"
-                                
+                                style={{minHeight: '100%'}}
                                 onClick={e => props.handleCreateDriverTrip(e)}
                             >
-                                <div className="card-header" style={{fontSize: '2.1rem'}}>
+                                <div className="card-header py-3 font-bold"><h3 className="text-white">
+
                                     Create a driver trip
+                                </h3>
                                 </div>
                                 <div className="card-body">
                                     <h5 className="card-title">
@@ -544,11 +555,13 @@ const ControlCenter = props => {
                         <div className="col">
                             <div
                                 className="card grow text-white bg-success mb-3 mx-auto"
-                                
+                                style={{minHeight: '100%'}}
                                 onClick={e => props.handleModifyDrivers(e)}
                             >
-                                <div className="card-header" style={{fontSize: '2.1rem'}}>
+                                <div className="card-header py-3 font-bold"><h3 className="text-white">
+
                                     Driver Functions
+                                </h3>
                                 </div>
                                 <div className="card-body">
                                     <h5 className="card-title">
@@ -563,62 +576,52 @@ const ControlCenter = props => {
 
 
                              {/* Reports*/}
-                <div className="container"> 
-                <h4 className='text-white mt-5'>Reports</h4>
+                <div className="container pt-5 mt-5"> 
+                <h4 className='text-white'>Reports</h4>
                     <div className="row">
                         <div className="col">
                             <div style={{background: '#a55eea', height: '160px'}}
-                                className="card grow text-white  mb-3 mx-auto px-2 py-2"
+                                className="card grow text-white  mb-3 mx-auto px-2 py-3"
                                 
                                 onClick={e => props.handleFindShipments(e)}
                             >
-                                <div className="" style={{fontSize: '2.1rem'}}>
-                                    Find Shipments
-                                </div>
+                                
+                                    <h3 className='text-white'>Find Shipments</h3>
+                                
                                 <div className="card-body">
-                                    <h5 className="card-title">
-                                        Find Shipments by Date, Pickup Name, or Delivery Name
-                                    </h5>
-                                    <p className="card-text" />
+                                    <p className="card-text"> Search by Vendor,Date, etc.</p> 
                                 </div>
                             </div>
                         </div>
 
                         <div className="col">
                             <div style={{background: '#0fb9b1', height: '160px'}}
-                                className="card grow text-white mb-3 mx-auto px-2 py-2"
+                                className="card grow text-white mb-3 mx-auto px-2 py-3"
                                 
                                 onClick={e => props.handleModifyDrivers(e)}
                             >
-                                <div className="" style={{fontSize: '2.1rem'}}>
-                                    Find Driver Trips by Date
-                                </div>
+                                <h3 className='text-white'>Find Driver Trips</h3>
                                 <div className="card-body">
                                     <h5 className="card-title">
-                                        Find driver trips
+                                        
                                     </h5>
-                                    <p className="card-text" />
+                                    <p className="card-text">Search by Date or Driver</p> 
                                 </div>
                             </div>
                         </div>
 
-                        <div className="col">
+                        {/* <div className="col">
                             <div style={{background: '#eb3b5a', height: '160px'}}
-                                className="card grow text-white mb-3 mx-auto px-2 py-2"
+                                className="card grow text-white mb-3 mx-auto px-2 py-3"
                                 
                                 onClick={e => props.handleModifyDrivers(e)}
                             >
-                                <div className="" style={{fontSize: '2.1rem'}}>
-                                    Find Driver Trips by Date
-                                </div>
+                               <h3 className='text-white'>Find Driver Trips</h3>
                                 <div className="card-body">
-                                    <h5 className="card-title">
-                                        Find driver trips
-                                    </h5>
-                                    <p className="card-text" />
+                                    <p className="card-text">Find driver trips</p> 
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
 
                     </div>
                 </div>
