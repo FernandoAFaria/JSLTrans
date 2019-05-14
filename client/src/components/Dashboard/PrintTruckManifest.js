@@ -227,14 +227,15 @@ export default class PrintTruckManifest extends Component {
                 
                 if (manifest.manifest_date !== null) {
                   date = manifest.manifest_date.substr(0, 10) || "";
-                } else date = "Inbound";
+                  return (
+                    <div className="row">
+                      <div className="col">{manifest.manifest}</div>
+                      <div className="col">{date}</div>
+                    </div>
+                  );
+                } return "";
 
-                return (
-                  <div className="row">
-                    <div className="col">{manifest.manifest}</div>
-                    <div className="col">{date}</div>
-                  </div>
-                );
+                
               })
             : ""}
         </div>

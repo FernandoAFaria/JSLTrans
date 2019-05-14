@@ -15,7 +15,7 @@ export default function Contact() {
     >
       <div
         id="submitted-modal"
-        className="bg-dark text-center "
+        className="bg-primary text-center "
         style={{
           position: "absolute",
           zIndex: "1",

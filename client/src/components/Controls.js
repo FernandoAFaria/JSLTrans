@@ -453,7 +453,7 @@ const ControlCenter = props => {
                                 </h3>
                                 </div>
                                 <div className="card-body">
-                                    <h5 className="card-title">
+                                    <h5 className="card-title pt-3">
                                         Pickups, Inbounds, or Customer Drop Off
                                     </h5>
                                     <p className="card-text" />
@@ -473,7 +473,7 @@ const ControlCenter = props => {
                                 </h3>
                                 </div>
                                 <div className="card-body">
-                                    <h5 className="card-title">
+                                    <h5 className="card-title pt-3">
                                         Shipment delivered, brought back as an
                                         attempt, or returned? Update here.
                                     </h5>
@@ -499,7 +499,7 @@ const ControlCenter = props => {
                                 </h3>
                                 </div>
                                 <div className="card-body">
-                                    <h5 className="card-title">
+                                    <h5 className="card-title pt-3">
                                         Shipments transfered to another carrier.
                                     </h5>
                                     <p className="card-text" />
@@ -519,7 +519,7 @@ const ControlCenter = props => {
                                 </h3>
                                 </div>
                                 <div className="card-body">
-                                    <h5 className="card-title" >
+                                    <h5 className="card-title pt-3" >
                                         Print by Manifest Number
                                     </h5>
                                     <p className="card-text" />
@@ -544,7 +544,7 @@ const ControlCenter = props => {
                                 </h3>
                                 </div>
                                 <div className="card-body">
-                                    <h5 className="card-title">
+                                    <h5 className="card-title pt-3">
                                         Shipments Out For Delivery
                                     </h5>
                                     <p className="card-text" />
@@ -564,7 +564,7 @@ const ControlCenter = props => {
                                 </h3>
                                 </div>
                                 <div className="card-body">
-                                    <h5 className="card-title">
+                                    <h5 className="card-title pt-3">
                                         Add, Remove, Update a Driver
                                     </h5>
                                     <p className="card-text" />
