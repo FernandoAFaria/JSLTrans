@@ -26,7 +26,7 @@ export default class CreateDriverTrip extends Component {
 
   populateProInfo(id) {
     let stopCountCopy = this.state.stopCount;
-    stopCountCopy.push(this.state.stopCount.length + 1);
+    
 
     let pro = document.getElementById(id).value;
     let consignee = document.getElementById(`${id}-consignee`);
@@ -37,6 +37,7 @@ export default class CreateDriverTrip extends Component {
     let vendor = document.getElementById(`${id}-vendor`);
 
     if (pro !== "") {
+      console.log(this.state.pros)
       fetch(`http://localhost:5000/pro/${pro}`)
         .then(res => res.json())
         .then(data => {
@@ -47,19 +48,69 @@ export default class CreateDriverTrip extends Component {
               stopCount: stopCountCopy
             });
           } else {
+            
             consignee.value = data[0].toName;
             citystate.value = data[0].toCity + " " + data[0].toState;
             pcs.innerText = data[0].pieces;
             weight.innerText = data[0].weight;
             stop.value = id.slice(4, id.length);
             vendor.innerText = data[0].vendor;
-
+          //Stops adding fields if an old value is clicked
+            if( !stopCountCopy.includes(parseInt(stop.value)+1)){
+              stopCountCopy.push(this.state.stopCount.length + 1);
+            }
             this.setState({
-              stopCount: stopCountCopy
+              stopCount: stopCountCopy,
+              pros: [...this.state.pros, data[0]]
             });
           }
         });
+    } else {
+      //clears the fields if the pro# is deleted
+            consignee.value = ""
+            citystate.value = ""
+            pcs.innerText = ""
+            weight.innerText = ""
+            stop.value = ""
+            vendor.innerText = ""
     }
+  }
+
+ async createMapQuestMap(){
+    //https://www.mapquestapi.com/staticmap/v5/map?key=ypVqLLcJIipNIuhONCGOT7wAISFEODCG&locations=Denver,CO||Boulder,CO&size=1100,500@2x
+    console.log(this.state.pros)
+    let mapUrl = ""
+    this.state.pros.map((pro,index) => {
+      mapUrl = `${pro.toZipcode}||`
+   })
+
+  fetch(`https://www.mapquestapi.com/staticmap/v5/map?key=ypVqLLcJIipNIuhONCGOT7wAISFEODCG&locations=${mapUrl}&size=400,300@2x&format=png`)
+.then(response => {
+  const reader =  response.body.getReader();
+  return new ReadableStream({
+    start(controller) {
+      return pump();
+      function pump() {
+        return reader.read().then(({done, value})=> {
+          if(done){
+            controller.close();
+            return
+          }
+          controller.enqueue(value);
+          return pump()
+        })
+      }
+    }
+  }).then(stream => new Response(stream))
+    .then(res => res.blob())
+    .then(blob => URL.createObjectURL(blob))
+    .then(url => console.log(url))
+
+})
+  
+
+
+
   }
 
   calculateByClassColumn(className){
@@ -73,11 +124,15 @@ export default class CreateDriverTrip extends Component {
     return count;
   }
 
-  printDriverTrip(e) {
+  async printDriverTrip(e) {
     e.preventDefault();
     let weight = this.calculateByClassColumn('weight');
     let pcs = this.calculateByClassColumn('pcs')
     let driverId = document.getElementById('driverId').value
+    let map = await this.createMapQuestMap();
+  console.log(map)
+    
+    
 
     //This will fetch the driver's name
     fetch(`http://localhost:5000/driver/single/${driverId}`)
@@ -91,7 +146,7 @@ export default class CreateDriverTrip extends Component {
       let win = window.open(
         "",
         "TRUCK MANIFEST",
-        "toolbar=yes,directories=no, status=no, width=1280, height=720 "
+        "toolbar=yes,directories=no, status=no, width=1440, height=920 "
       );
       win.document.head.insertAdjacentHTML(
         "afterbegin",
@@ -119,7 +174,7 @@ export default class CreateDriverTrip extends Component {
       `;
       let footerTemplate = `
       <div style="position: absolute; bottom: 50px; right: 75px;">
-      
+      <img style="-webkit-user-select: none;" url=${map} width="275" height="207"></img>
       <h5>Total Pcs:  ${pcs}</h5>
       <h5>Total Weight: ${weight}</h5>
       </div>
@@ -167,7 +222,7 @@ export default class CreateDriverTrip extends Component {
             this.updateStatuses();
         } else {
           document.getElementById("insert-message").textContent =
-            "Something went wrong, nothing added";
+            "Something went wrong, driver trip not created";
         }
       });
   }
