@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function UpdateShipment(props) {
-  
   function handleSubmit(e) {
     e.preventDefault();
     let pro = document.getElementById("proNumber").value;
@@ -22,6 +21,7 @@ export default function UpdateShipment(props) {
     let toState = document.getElementById("to-state").value || " ";
     let toZipcode = document.getElementById("to-zip").value || " ";
     let manifest = document.getElementById("manifest").value || " ";
+    let status_code = document.getElementById('status_code').value;
 
     let body = {
       pro,
@@ -41,7 +41,8 @@ export default function UpdateShipment(props) {
       toCity,
       toState,
       toZipcode,
-      manifest
+      manifest,
+      status_code
     };
 
     fetch(`http://localhost:5000/pro/${pro}`, {
@@ -60,7 +61,6 @@ export default function UpdateShipment(props) {
         }
       })
       .catch(err => {
-       
         document.getElementById("error").style.display = "block";
         document.getElementById("error").textContent = "Error: " + err;
       });
@@ -94,7 +94,8 @@ export default function UpdateShipment(props) {
             toZipcode,
             vendor,
             weight,
-            manifest
+            manifest,
+            status_code
           } = myJson[0];
 
           document.getElementById("vendor").value = vendor;
@@ -114,6 +115,8 @@ export default function UpdateShipment(props) {
           document.getElementById("to-state").value = toState;
           document.getElementById("to-zip").value = toZipcode;
           document.getElementById("manifest").value = manifest;
+          document.getElementById("status_code").value = status_code;
+          console.log(status_code)
         }
       });
   }
@@ -124,30 +127,56 @@ export default function UpdateShipment(props) {
         <h3 className="text-dark  mb-5 text-center">Update a Shipment</h3>
         <div className="container mb-5 ">
           <div className="form-inline">
-            <div className="form-group mb-5">
-              <label htmlFor="proNumber" className="mr-1">
-                Pro Number:
-              </label>
-              <input
-                id="proNumber"
-                name="proNumber"
-                className="form-control border border-primary mr-3"
-              />
-              <button className="btn btn-primary  " onClick={e => fetchInfo(e)}>
-                Fetch Pro
-              </button>
+            
+              <div className="form-group mb-5">
+                <label  htmlFor="proNumber" className="mr-1 mt-4">
+                  Pro Number:
+                </label>
+                <input
+                  id="proNumber"
+                  name="proNumber"
+                  className="form-control border border-primary mr-3 mt-4"
+                />
+              
+              <div className="form-group">
+                <button
+                  style={{ marginTop: "26px" }}
+                  className="btn btn-primary "
+                  onClick={e => fetchInfo(e)}
+                >
+                  Fetch Pro
+                </button>
+              </div>
 
-              <label htmlFor="manifest" className="mr-1 ml-5">
-                Manifest:
-              </label>
-              <input
-                id="manifest"
-                name="manifest"
-                className="form-control border border-primary mr-3"
-              />
+              <div className="form-group">
+                <label className='mt-4' htmlFor="manifest">Manifest:</label>
+                <input
+                  style={{ width: "125px" }}
+                  id="manifest"
+                  name="manifest"
+                  className="form-control border border-primary mt-4 "
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="status_code" className="mt-4  mr-1">
+                  Status:
+                </label>
+                <select
+                  id="status_code"
+                  name="status_code"
+                  className="form-control border border-primary mr-3 mt-4"
+                >
+                  <option value="Picked Up">Picked Up</option>
+                  <option value="inbound">Inbound</option>
+                  <option value="Picked Up">On Hand</option>
+                  <option value="delivered">Delivered</option>
+                  <option value="returned">Returned</option>
+                  <option value="transfered">Transfered</option>
+                  <option value="ofd">Out For Delivery</option>
+                </select>
+              </div>
             </div>
           </div>
-
           <div className="form-inline">
             <div className="form-group">
               <label htmlFor="vendor" className="mr-1">
@@ -169,8 +198,8 @@ export default function UpdateShipment(props) {
                 name="date"
                 className="form-control border border-primary"
               />
-              <label htmlFor="status" className="mx-2 ">
-                Status:
+              <label htmlFor="status" className="ml-5 ">
+                Notes for Tracking:
               </label>
               <input
                 id="status"

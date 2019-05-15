@@ -33,7 +33,8 @@ router.post("/", (req, res) => {
     toCity,
     toState,
     toZipcode,
-    manifest
+    manifest,
+    status_code
   } = req.body;
 
   dbActions.insert(
@@ -55,6 +56,7 @@ router.post("/", (req, res) => {
     toState,
     toZipcode,
     manifest,
+    status_code,
     (err, rows) => {
       if (err) {
         if (err.code === "ER_DUP_ENTRY") {
@@ -90,7 +92,8 @@ router.put("/:pro", (req, res) => {
     toCity,
     toState,
     toZipcode,
-    manifest
+    manifest,
+    status_code
   } = req.body;
   dbActions.modify(
     pro,
@@ -110,7 +113,7 @@ router.put("/:pro", (req, res) => {
     toCity,
     toState,
     toZipcode,
-    manifest,
+    manifest,status_code,
     (err, response) => {
       if (err) {
         console.log(err);
@@ -124,8 +127,8 @@ router.put("/:pro", (req, res) => {
 
 //Modify Status field
 router.post("/updateStatus", (req, res) => {
-  let { pro, status } = req.body;
-  dbActions.updateStatus(pro, status, (err, rows) => {
+  let { pro, status, status_code } = req.body;
+  dbActions.updateStatus(pro, status,status_code, (err, rows) => {
     if (err) console.log(err);
     res.send(rows);
   });

@@ -14,7 +14,7 @@ export default class Controls extends React.Component {
     constructor() {
         super();
         this.state = {
-            component: "Controls"
+            component: "UpdateShipment"
         };
     }
 
@@ -27,37 +27,37 @@ export default class Controls extends React.Component {
     updateOnhandStatus() {
         this.searchProsByField(
             "edi",
-            "status",
+            "status_code",
             "picked up",
             "edi-on-hand-outbound"
         );
         this.searchProsByField(
             "hercules",
-            "status",
+            "status_code",
             "picked up",
             "hercules-on-hand-outbound"
         );
         this.searchProsByField(
             "clear lane",
-            "status",
+            "status_code",
             "picked up",
             "clearlane-on-hand-outbound"
         );
-        // this.searchProsByField("edi", "status", "ofd", "edi-ofd");
-        // this.searchProsByField("hercules", "status", "ofd", "hercules-ofd");
-        // this.searchProsByField("clear lane", "status", "ofd", "clearlane-ofd");
+        // this.searchProsByField("edi", "status_code", "ofd", "edi-ofd");
+        // this.searchProsByField("hercules", "status_code", "ofd", "hercules-ofd");
+        // this.searchProsByField("clear lane", "status_code", "ofd", "clearlane-ofd");
         //inbound shipments
 
         this.searchProsByField(
             "clear lane",
-            "status",
+            "status_code",
             "inbound",
             "clearlane-inbound"
         );
-        this.searchProsByField("edi", "status", "inbound", "edi-inbound");
+        this.searchProsByField("edi", "status_code", "inbound", "edi-inbound");
         this.searchProsByField(
             "hercules",
-            "status",
+            "status_code",
             "inbound",
             "hercules-inbound"
         );
@@ -282,7 +282,7 @@ const ControlCenter = props => {
                             style={{ background: "#00cec9", minWidth: '190px' }}
                             className="text-center customer-card-container"
                             onClick={() =>
-                                props.printOnHand("EDI", "status", "picked up")
+                                props.printOnHand("EDI", "status_code", "picked up")
                             }
                         >
                             <p>On-Hand Outbound</p>
@@ -305,7 +305,7 @@ const ControlCenter = props => {
                             onClick={() =>
                                 props.printOnHand(
                                     "CLEAR LANE",
-                                    "status",
+                                    "status_code",
                                     "picked up"
                                 )
                             }
@@ -332,7 +332,7 @@ const ControlCenter = props => {
                             onClick={() =>
                                 props.printOnHand(
                                     "HERCULES",
-                                    "status",
+                                    "status_code",
                                     "picked up"
                                 )
                             }
@@ -359,7 +359,7 @@ const ControlCenter = props => {
                             style={{ background: "#00cec9", minWidth: '190px' }}
                             className="text-center customer-card-container"
                             onClick={() =>
-                                props.printOnHand("EDI", "status", "inbound")
+                                props.printOnHand("EDI", "status_code", "inbound")
                             }
                         >
                             <p>On-Hand Inbound</p>
@@ -382,7 +382,7 @@ const ControlCenter = props => {
                             onClick={() =>
                                 props.printOnHand(
                                     "CLEAR LANE",
-                                    "status",
+                                    "status_code",
                                     "inbound"
                                 )
                             }
@@ -409,7 +409,7 @@ const ControlCenter = props => {
                             onClick={() =>
                                 props.printOnHand(
                                     "HERCULES",
-                                    "status",
+                                    "status_code",
                                     "inbound"
                                 )
                             }

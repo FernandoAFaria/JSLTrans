@@ -14,7 +14,8 @@ router.put("/:pro", (req, res) => {
       manifest_carrier,
       manifest_trailer,
       manifest_destination,
-      manifest_loader
+      manifest_loader,
+      status_code
   } = req.body;
   dbActions.updateManifestInfo(
       pro,
@@ -25,6 +26,7 @@ router.put("/:pro", (req, res) => {
       manifest_trailer,
       manifest_destination,
       manifest_loader,
+      status_code,
       (err, response) => {
      
           if (err) {

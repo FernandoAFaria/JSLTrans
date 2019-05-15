@@ -48,9 +48,10 @@ export default function InsertShipment(props) {
     let toCity = document.getElementById('to-city').value || " ";
     let toState = document.getElementById('to-state').value || " ";
     let toZipcode = document.getElementById('to-zip').value || " ";
+    let status_code = document.getElementById('shipment-type').value
 
     let body = {
-      pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode,manifest
+      pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode,manifest,status_code
     }
     fetch('http://localhost:5000/pro', {
       method: 'post',
@@ -225,8 +226,8 @@ export default function InsertShipment(props) {
             <label className="ml-auto mt-4" htmlFor='shipment-type'>Shipment Type: </label>
             <select id='shipment-type' name='shipment-type' className='form-control border border-danger mt-4'>
               <option default value='Picked Up'>Pickup</option>
-              <option value='Inbound'>Inbound</option>
-              <option value='Customer Drop Off'>Customer Drop</option>
+              <option value='inbound'>Inbound</option>
+              <option value='customer drop'>Customer Drop</option>
               <option>Other</option>
             </select>
             <label htmlFor='manifest' className='mr-1 mt-4 ml-3'>Inbound M#:</label>

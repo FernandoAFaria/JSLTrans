@@ -175,7 +175,7 @@ export default class CreateOutbound extends Component {
     for (let i = 0; i < this.state.prosTo24.length; i++) {
       if (this.state.prosTo24[i] !== " ") {
         let pro = this.state.prosTo24[i];
-        let status = `Transfered to ${destination} on ${date}. Loaded on ${carrier}, trailer #${trailerNumber}.`;
+        let status = ` || ${date} -> Transfered to ${destination} on ${carrier} trailer #${trailerNumber}.`;
         let body = {
           status: status,
           manifest: manifest,
@@ -183,7 +183,8 @@ export default class CreateOutbound extends Component {
           manifest_carrier: carrier,
           manifest_trailer: trailerNumber,
           manifest_destination: destination,
-          manifest_loader: loader
+          manifest_loader: loader,
+          status_code: "transfered"
         };
 
         fetch(`http://localhost:5000/manifest/${pro}`, {
@@ -216,7 +217,8 @@ export default class CreateOutbound extends Component {
                 toCity: " ",
                 toState: " ",
                 toZipcode: " ",
-                manifest: manifest
+                manifest: manifest,
+                status_code: "Transfered"
               };
               fetch("http://localhost:5000/pro", {
                 method: "post",

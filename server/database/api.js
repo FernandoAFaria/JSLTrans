@@ -17,15 +17,15 @@ module.exports = {
   // ADD ONE
   insert(pro, vendor, date, pieces, pallets, status, weight, fromName, fromStreet, fromCity, fromState, fromZipcode, toName, toStreet, toCity, toState, toZipcode, manifest, callback) {
 
-    let sql = `INSERT INTO shipments(pro, vendor, date, pieces, pallets, status, weight, fromName, fromStreet, fromCity, fromState, fromZipcode, toName, toStreet, toCity, toState, toZipcode, manifest) values('${pro}', '${vendor}', '${date}', '${pieces}', '${pallets}', '${status}', '${weight}', '${fromName}',' ${fromStreet}', '${fromCity}', '${fromState}', '${fromZipcode}', '${toName}', '${toStreet}', '${toCity}',' ${toState}', '${toZipcode}', '${manifest}')`;
+    let sql = `INSERT INTO shipments(pro, vendor, date, pieces, pallets, status, weight, fromName, fromStreet, fromCity, fromState, fromZipcode, toName, toStreet, toCity, toState, toZipcode, manifest,status_code) values('${pro}', '${vendor}', '${date}', '${pieces}', '${pallets}', '${status}', '${weight}', '${fromName}',' ${fromStreet}', '${fromCity}', '${fromState}', '${fromZipcode}', '${toName}', '${toStreet}', '${toCity}',' ${toState}', '${toZipcode}', '${manifest}', '${status}')`;
 
     db.query(sql, callback)
   },
 
   // MODIFY ONE
-  modify(pro, vendor, date, pieces, pallets, status, weight, fromName, fromStreet, fromCity, fromState, fromZipcode, toName, toStreet, toCity, toState, toZipcode, manifest, callback) {
-    status = " \n- " + status;
-    let sql = 'UPDATE shipments SET vendor=' + db.escape(vendor) + ',date=' + db.escape(date) + ', pieces=' + db.escape(pieces) + ', pallets=' + db.escape(pallets) + ', status =  +' + db.escape(status) + ' , weight=' + db.escape(weight) + ', fromName=' + db.escape(fromName) + ', fromStreet=' + db.escape(fromStreet) + ", fromCity=" + db.escape(fromCity) + ', fromState=' + db.escape(fromState) + ', fromZipcode=' + db.escape(fromZipcode) + ', toName=' + db.escape(toName) + ', toStreet=' + db.escape(toStreet) + ', toCity=' + db.escape(toCity) + ', toState=' + db.escape(toState) + ', toZipcode=' + db.escape(toZipcode) + ',manifest=' + db.escape(manifest) + ' WHERE pro=' + db.escape(pro)
+  modify(pro, vendor, date, pieces, pallets, status, weight, fromName, fromStreet, fromCity, fromState, fromZipcode, toName, toStreet, toCity, toState, toZipcode, manifest,status_code, callback) {
+    
+    let sql = 'UPDATE shipments SET vendor=' + db.escape(vendor) + ',date=' + db.escape(date) + ', pieces=' + db.escape(pieces) + ', pallets=' + db.escape(pallets) + ', status =  ' + db.escape(status) + ' , weight=' + db.escape(weight) + ', fromName=' + db.escape(fromName) + ', fromStreet=' + db.escape(fromStreet) + ", fromCity=" + db.escape(fromCity) + ', fromState=' + db.escape(fromState) + ', fromZipcode=' + db.escape(fromZipcode) + ', toName=' + db.escape(toName) + ', toStreet=' + db.escape(toStreet) + ', toCity=' + db.escape(toCity) + ', toState=' + db.escape(toState) + ', toZipcode=' + db.escape(toZipcode) + ',manifest=' + db.escape(manifest) + ', status_code=' + db.escape(status_code) + ' WHERE pro=' + db.escape(pro)
     db.query(sql, callback)
 
   },
@@ -40,24 +40,23 @@ module.exports = {
       db.query(sql, callback)
     }
     
-
-
   },
 
   //MANIFESTS
 
-
   //Update status when creating a manifest
-  updateManifestInfo(pro, status, manifest, manifest_date, manifest_carrier, manifest_trailer, manifest_destination, manifest_loader, callback) {
-    let sql = `UPDATE shipments SET status='${status}', manifest='${manifest}', manifest_date=` + db.escape(manifest_date) + `, manifest_carrier='${manifest_carrier}', manifest_trailer='${manifest_trailer}', manifest_destination='${manifest_destination}', manifest_loader='${manifest_loader}' where pro = '${pro}';`
+  updateManifestInfo(pro, status, manifest, manifest_date, manifest_carrier, manifest_trailer, manifest_destination, manifest_loader,status_code, callback) {
+    let updatedStatus = " - " + status;
+    let sql = `UPDATE shipments SET status= CONCAT(status,` + db.escape(updatedStatus) + `), manifest='${manifest}', manifest_date=` + db.escape(manifest_date) + `, manifest_carrier='${manifest_carrier}', manifest_trailer='${manifest_trailer}', manifest_destination='${manifest_destination}', manifest_loader='${manifest_loader}', status_code='${status_code}' WHERE pro = '${pro}';`
     db.query(sql, callback)
 
   },
 
   //Update status for delivery manifest
 
-  updateStatus(pro, status, callback) {
-    let sql = `UPDATE shipments set status='${status}' where pro='${pro}'`
+  updateStatus(pro, status, status_code, callback) {
+    status = " - " + status;
+    let sql = `UPDATE shipments set status= CONCAT(status,` + db.escape(status) + `), status_code='${status_code}' where pro='${pro}'`
     db.query(sql, callback)
   },
 

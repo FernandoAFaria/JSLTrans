@@ -234,7 +234,8 @@ export default class CreateDriverTrip extends Component {
   updateStatuses() {
     let pro = document.getElementsByClassName("pro");
     let date = document.getElementById('date').value
-    let status = `OFD on ${date}`
+    let status = `OFD on ${date}`;
+    let status_code = "ofd"
     for (let i = 0; i < pro.length; i++) {
       if (pro[i].value !== "") {
         //Create a fetch for each good pro
@@ -246,7 +247,8 @@ export default class CreateDriverTrip extends Component {
             if (data.length !== 0) {
               let bodyData = {
                 pro: pro[i].value,
-                status: status
+                status: status,
+                status_code: status_code
               }
               fetch('http://localhost:5000/pro/updateStatus', {
                 method: 'post',
