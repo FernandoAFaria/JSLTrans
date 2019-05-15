@@ -9,7 +9,7 @@ export default class CreateDriverTrip extends Component {
       lastTripID: 0,
       driversLoaded: false,
       pros: [],
-      stopCount: [1,2]
+      stopCount: [1, 2]
     };
   }
 
@@ -26,7 +26,7 @@ export default class CreateDriverTrip extends Component {
 
   populateProInfo(id) {
     let stopCountCopy = this.state.stopCount;
-    
+
 
     let pro = document.getElementById(id).value;
     let consignee = document.getElementById(`${id}-consignee`);
@@ -48,15 +48,15 @@ export default class CreateDriverTrip extends Component {
               stopCount: stopCountCopy
             });
           } else {
-            
+
             consignee.value = data[0].toName;
             citystate.value = data[0].toCity + " " + data[0].toState;
             pcs.innerText = data[0].pieces;
             weight.innerText = data[0].weight;
             stop.value = id.slice(4, id.length);
             vendor.innerText = data[0].vendor;
-          //Stops adding fields if an old value is clicked
-            if( !stopCountCopy.includes(parseInt(stop.value)+1)){
+            //Stops adding fields if an old value is clicked
+            if (!stopCountCopy.includes(parseInt(stop.value) + 1)) {
               stopCountCopy.push(this.state.stopCount.length + 1);
             }
             this.setState({
@@ -67,57 +67,62 @@ export default class CreateDriverTrip extends Component {
         });
     } else {
       //clears the fields if the pro# is deleted
-            consignee.value = ""
-            citystate.value = ""
-            pcs.innerText = ""
-            weight.innerText = ""
-            stop.value = ""
-            vendor.innerText = ""
+      consignee.value = ""
+      citystate.value = ""
+      pcs.innerText = ""
+      weight.innerText = ""
+      stop.value = ""
+      vendor.innerText = ""
     }
   }
 
- async createMapQuestMap(){
+  async createMapQuestMap() {
     //https://www.mapquestapi.com/staticmap/v5/map?key=ypVqLLcJIipNIuhONCGOT7wAISFEODCG&locations=Denver,CO||Boulder,CO&size=1100,500@2x
     console.log(this.state.pros)
     let mapUrl = ""
-    this.state.pros.map((pro,index) => {
-      mapUrl = `${pro.toZipcode}||`
-   })
-
+    this.state.pros.forEach((pro,index) => {
+      mapUrl = mapUrl + `${pro.toZipcode}|marker-${index+1}||`
+    })
+    const img = new Image();
+    console.log(mapUrl)
   fetch(`https://www.mapquestapi.com/staticmap/v5/map?key=ypVqLLcJIipNIuhONCGOT7wAISFEODCG&locations=${mapUrl}&size=400,300@2x&format=png`)
-.then(response => {
-  const reader =  response.body.getReader();
-  return new ReadableStream({
-    start(controller) {
-      return pump();
-      function pump() {
-        return reader.read().then(({done, value})=> {
-          if(done){
-            controller.close();
-            return
+    .then(response => response.body.getReader())
+    .then(reader => {
+      const stream = new ReadableStream({
+        start(controller) {
+          function push(){
+            reader.read().then(({done, value}) => {
+              if(done) {
+                 controller.close();
+                return;
+              }
+              controller.enqueue(value);
+              push();
+            })
           }
-          controller.enqueue(value);
-          return pump()
-        })
-      }
-    }
-  }).then(stream => new Response(stream))
-    .then(res => res.blob())
+          push();
+        }
+      })
+      return new Response(stream)
+    })
+    .then(data => data.blob())
     .then(blob => URL.createObjectURL(blob))
-    .then(url => console.log(url))
-
-})
-  
-
-
-
+    .then(url => img.src = url)
+    
+    img.width = "520"
+    img.height = '350'
+    img.style.position = 'fixed'
+    img.style.bottom = '45px'
+    img.style.left = '15px'
+ 
+    return img;
   }
 
-  calculateByClassColumn(className){
+  calculateByClassColumn(className) {
     let columns = document.getElementsByClassName(className);
     let count = 0;
-    for(let i = 0; i < columns.length; i++){
-      if(columns[i].innerText !==""){
+    for (let i = 0; i < columns.length; i++) {
+      if (columns[i].innerText !== "") {
         count += parseInt(columns[i].innerText)
       }
     }
@@ -129,39 +134,36 @@ export default class CreateDriverTrip extends Component {
     let weight = this.calculateByClassColumn('weight');
     let pcs = this.calculateByClassColumn('pcs')
     let driverId = document.getElementById('driverId').value
-    let map = await this.createMapQuestMap();
-  console.log(map)
-    
-    
-
+    const img = await this.createMapQuestMap();
+  
     //This will fetch the driver's name
     fetch(`http://localhost:5000/driver/single/${driverId}`)
-    .then(res => res.json())
-    .then(driver => {
-      //once it got the drivers info, will create the window and populate the results
+      .then(res => res.json())
+      .then(driver => {
+        //once it got the drivers info, will create the window and populate the results
 
-      let date = document.getElementById('date').value;
-      let deliveryZone = document.getElementById('zone').value
-      let form = document.getElementById("driver-trip-table").cloneNode(true);
-      let win = window.open(
-        "",
-        "TRUCK MANIFEST",
-        "toolbar=yes,directories=no, status=no, width=1440, height=920 "
-      );
-      win.document.head.insertAdjacentHTML(
-        "afterbegin",
-        `<link
+        let date = document.getElementById('date').value;
+        let deliveryZone = document.getElementById('zone').value
+        let form = document.getElementById("driver-trip-table").cloneNode(true);
+        let win = window.open(
+          "",
+          "TRUCK MANIFEST",
+          "toolbar=yes,directories=no, status=no, width=1440, height=920 "
+        );
+        win.document.head.insertAdjacentHTML(
+          "afterbegin",
+          `<link
         rel="stylesheet"
         href="https://bootswatch.com/4/lux/bootstrap.min.css"
         /><style>@page{size: A4 landscape}</style>`
-      );
-      
-      win.document.body.classList.add("py-3");
-      win.document.body.classList.add("px-5");
-      win.document.body.classList.add('d-flex');
-      win.document.body.classList.add('flex-column');
-      let headerTemplate = 
-      `
+        );
+
+        win.document.body.classList.add("py-3");
+        win.document.body.classList.add("px-5");
+        win.document.body.classList.add('d-flex');
+        win.document.body.classList.add('flex-column');
+        let headerTemplate =
+          `
         <div class='container-fluid text-center'>
         <h2>JSL Transportation Delivery Manifest</h2>
           <div class='text-left my-4'>
@@ -172,19 +174,20 @@ export default class CreateDriverTrip extends Component {
         </div>
         <hr class='border border-primary my-3' />
       `;
-      let footerTemplate = `
+        let footerTemplate = `
       <div style="position: absolute; bottom: 50px; right: 75px;">
-      <img style="-webkit-user-select: none;" url=${map} width="275" height="207"></img>
+      
       <h5>Total Pcs:  ${pcs}</h5>
       <h5>Total Weight: ${weight}</h5>
       </div>
       `;
-      win.document.body.insertAdjacentHTML('afterbegin', headerTemplate)
-      win.document.body.insertAdjacentElement('beforeend', form)
-      win.document.body.insertAdjacentHTML('beforeend', footerTemplate)
+        win.document.body.insertAdjacentHTML('afterbegin', headerTemplate)
+        win.document.body.insertAdjacentElement('beforeend', form)
+        win.document.body.insertAdjacentHTML('beforeend', footerTemplate)
+        win.document.body.insertAdjacentElement('beforeend', img)
 
-    })
-    
+      })
+
     
   }
 
@@ -215,11 +218,11 @@ export default class CreateDriverTrip extends Component {
     })
       .then(response => response.json())
       .then(myData => {
-        
+
         if (myData.affectedRows === 1) {
           document.getElementById("insert-message").textContent =
             "DRIVER TRIP CREATED";
-            this.updateStatuses();
+          this.updateStatuses();
         } else {
           document.getElementById("insert-message").textContent =
             "Something went wrong, driver trip not created";
@@ -228,34 +231,34 @@ export default class CreateDriverTrip extends Component {
   }
 
   //Update Status on pros showing Out for Delivery + date
-  updateStatuses(){
+  updateStatuses() {
     let pro = document.getElementsByClassName("pro");
     let date = document.getElementById('date').value
     let status = `OFD on ${date}`
     for (let i = 0; i < pro.length; i++) {
-      if(pro[i].value !== "") {
+      if (pro[i].value !== "") {
         //Create a fetch for each good pro
-      //Check if pro is in system first
-      fetch(`http://localhost:5000/pro/${pro[i].value}`)
-      .then(res => res.json())
-      .then(data => {
-        //if pro exists then update status
-        if(data.length !== 0) {
-          let bodyData = {
-            pro:pro[i].value,
-            status: status
-          }
-          fetch('http://localhost:5000/pro/updateStatus', {
-            method: 'post',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(bodyData)
-          }).then(response => console.log(response))
-        }
-      })
+        //Check if pro is in system first
+        fetch(`http://localhost:5000/pro/${pro[i].value}`)
+          .then(res => res.json())
+          .then(data => {
+            //if pro exists then update status
+            if (data.length !== 0) {
+              let bodyData = {
+                pro: pro[i].value,
+                status: status
+              }
+              fetch('http://localhost:5000/pro/updateStatus', {
+                method: 'post',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(bodyData)
+              }).then(response => console.log(response))
+            }
+          })
 
 
       }
-    
+
     }
 
     //clear the form
@@ -267,7 +270,7 @@ export default class CreateDriverTrip extends Component {
     return (
       <div className="container-fluid px-5 my-5 text-center">
         <h1 className="mt-5">Create a Driver Trip</h1>
-      <form className="form mt-5" onSubmit={e => this.submitDriverTrip(e)}>
+        <form className="form mt-5" onSubmit={e => this.submitDriverTrip(e)}>
           <div className="row">
             <div className="col">
               <label htmlFor="driver">Driver:</label>
@@ -277,23 +280,23 @@ export default class CreateDriverTrip extends Component {
               >
                 {this.state.driversLoaded === true
                   ? this.state.drivers.map(driver => {
-                      if (driver.status === "Active") {
-                        return (
-                          <option
-                            key={driver.id}
-                            value={driver.id}
-                          >
-                            {driver.first_name +
-                              " " +
-                              driver.last_name +
-                              " -- " +
-                              driver.vehicle}
-                          </option>
-                        );
-                      } else {
-                        return "";
-                      }
-                    })
+                    if (driver.status === "Active") {
+                      return (
+                        <option
+                          key={driver.id}
+                          value={driver.id}
+                        >
+                          {driver.first_name +
+                            " " +
+                            driver.last_name +
+                            " -- " +
+                            driver.vehicle}
+                        </option>
+                      );
+                    } else {
+                      return "";
+                    }
+                  })
                   : null}
               </select>
             </div>
@@ -301,7 +304,7 @@ export default class CreateDriverTrip extends Component {
             <div className="col">
               <label htmlFor="date">Route Date:</label>
               <input
-              required
+                required
                 className="form-control border border-danger"
                 name="date"
                 type="date"
@@ -312,7 +315,7 @@ export default class CreateDriverTrip extends Component {
             <div className="col">
               <label htmlFor="zone">Delivery Zone:</label>
               <input
-              required
+                required
                 className="form-control border border-danger"
                 name="zone"
                 type="text"
@@ -340,9 +343,9 @@ export default class CreateDriverTrip extends Component {
             <div className="col">
               <input type='submit'
                 className="btn btn-danger my-4"
-                
+
               >
-                
+
               </input>
             </div>
           </div>
@@ -354,7 +357,7 @@ export default class CreateDriverTrip extends Component {
         </form>
 
         <p>Pros</p>
-        <table id="driver-trip-table"  className=" table-striped ">
+        <table id="driver-trip-table" className=" table-striped ">
           <thead className="text-dark border" >
             <tr style={{ height: "25px" }}>
               <th>#</th>
@@ -372,16 +375,16 @@ export default class CreateDriverTrip extends Component {
             {this.state.stopCount.map(val => {
               return (
                 <tr key={val}>
-                
+
                   <td><input
 
-                      id={"stop" + val + "-stop"}
-                      style={{ width: "50px", background: 'transparent' }}
-                      className="border border-white"
-                    />
+                    id={"stop" + val + "-stop"}
+                    style={{ width: "50px", background: 'transparent' }}
+                    className="border border-white"
+                  />
                   </td>
                   <td id={"stop" + val + "-vendor"}
-                      style={{ width: "50px" }}></td>
+                    style={{ width: "50px" }}></td>
                   <td>
                     <input
                       className="pro border"
@@ -394,35 +397,35 @@ export default class CreateDriverTrip extends Component {
                   </td>
                   <td>
                     <input
-                      style={{background: 'transparent'}}
+                      style={{ background: 'transparent' }}
                       id={"stop" + val + "-consignee"}
                       className="border border-white"
                     />
                   </td>
                   <td>
                     <input
-                    style={{background: 'transparent'}}
+                      style={{ background: 'transparent' }}
                       id={"stop" + val + "-citystate"}
                       className="border border-white"
                     />
                   </td>
                   <td>
                     <input
-                    style={{background: 'transparent'}}
+                      style={{ background: 'transparent' }}
                       id={"stop" + val + "-apts"}
                       className="border notes"
                     />
                   </td>
                   <td
-                      id={"stop" + val + "-pcs"}
-                      className="border border-white pcs"
-                      style={{ width: "50px" }}
-                    >
+                    id={"stop" + val + "-pcs"}
+                    className="border border-white pcs"
+                    style={{ width: "50px" }}
+                  >
                   </td>
                   <td id={"stop" + val + "-weight"} className="border border-white weight mx-3" style={{ width: "125px" }} >
                   </td>
-                  <td style={{background: 'white'}}><input type='text' className='form-control'></input></td>
-                  
+                  <td style={{ background: 'white' }}><input type='text' className='form-control'></input></td>
+
                 </tr>
               );
             })}
