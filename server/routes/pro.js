@@ -58,6 +58,7 @@ router.post("/", (req, res) => {
     manifest,
     status_code,
     (err, rows) => {
+      
       if (err) {
         if (err.code === "ER_DUP_ENTRY") {
           res.status(401).send("Pro Already Exists");
@@ -113,7 +114,8 @@ router.put("/:pro", (req, res) => {
     toCity,
     toState,
     toZipcode,
-    manifest,status_code,
+    manifest,
+    status_code,
     (err, response) => {
       if (err) {
         console.log(err);

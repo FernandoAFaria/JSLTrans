@@ -49,7 +49,7 @@ export default function InsertShipment(props) {
     let toState = document.getElementById('to-state').value || " ";
     let toZipcode = document.getElementById('to-zip').value || " ";
     let status_code = document.getElementById('shipment-type').value
-
+    console.log(body)
     let body = {
       pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode,manifest,status_code
     }
@@ -58,7 +58,7 @@ export default function InsertShipment(props) {
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(body)
     }).then(res => {
-      
+       
       if(res.status === 200) {
         document.getElementById('success').style.display = 'block';
         document.getElementById('error').style.display = 'none';
@@ -73,7 +73,7 @@ export default function InsertShipment(props) {
       }
     }).catch(err => {
       
-      document.getElementById('error').style.display = 'block';
+       document.getElementById('error').style.display = 'block';
         document.getElementById('error').textContent = "Error: " + err;
     }) 
 
@@ -226,8 +226,8 @@ export default function InsertShipment(props) {
             <label className="ml-auto mt-4" htmlFor='shipment-type'>Shipment Type: </label>
             <select id='shipment-type' name='shipment-type' className='form-control border border-danger mt-4'>
               <option default value='Picked Up'>Pickup</option>
-              <option value='inbound'>Inbound</option>
-              <option value='customer drop'>Customer Drop</option>
+              <option value='Inbound'>Inbound</option>
+              <option value='Customer Drop'>Customer Drop</option>
               <option>Other</option>
             </select>
             <label htmlFor='manifest' className='mr-1 mt-4 ml-3'>Inbound M#:</label>
