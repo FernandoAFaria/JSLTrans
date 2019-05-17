@@ -1,7 +1,12 @@
 const db = require("./config");
 
 module.exports = {
-  //PROS
+
+  /*************
+   * *
+   * ****PROS
+   * *
+   * **********/
 
   // GET ALL
   queryAllByStatus(field, value, callback) {
@@ -42,9 +47,14 @@ module.exports = {
     
   },
 
-  //MANIFESTS
+  /****************
+   * 
+   * **MANIFESTS
+   * 
+   ****************/
 
   //Update status when creating a manifest
+
   updateManifestInfo(pro, status, manifest, manifest_date, manifest_carrier, manifest_trailer, manifest_destination, manifest_loader,status_code, callback) {
     let updatedStatus = " - " + status;
     let sql = `UPDATE shipments SET status= CONCAT(status,` + db.escape(updatedStatus) + `), manifest='${manifest}', manifest_date=` + db.escape(manifest_date) + `, manifest_carrier='${manifest_carrier}', manifest_trailer='${manifest_trailer}', manifest_destination='${manifest_destination}', manifest_loader='${manifest_loader}', status_code='${status_code}' WHERE pro = '${pro}';`
@@ -61,19 +71,24 @@ module.exports = {
   },
 
   //GET ALL MANIFESTS
+
   getManifests(callback) {
     let sql = 'select distinct manifest, manifest_date from shipments';
     db.query(sql, callback)
   },
 
-  // DRIVER FUNCTIONS
+  /******************
+   * 
+   * DRIVER FUNCTIONS
+   * 
+   ******************/
 
   //INSERT A DRIVER
+
   insertDriver(firstname, lastname, vehicle, phone, address, status, callback) {
     let sql = "INSERT INTO drivers(first_name, last_name, vehicle, phone, address, status) VALUES(" + db.escape(firstname) + "," + db.escape(lastname) + "," + db.escape(vehicle) + "," + db.escape(phone) + "," + db.escape(address) + "," + db.escape(status) + ")"
 
     db.query(sql, callback)
-
 
   },
 
@@ -104,17 +119,61 @@ module.exports = {
     db.query(sql, callback)
   },
 
-  //DRIVER TRIPS
-  createDriverTrip(driverId, date, pros, delivery_zone, callback) {
-    let sql = "INSERT INTO driver_trips(driver_id, date, pros, zone) VALUE(" + db.escape(driverId) + ", " + db.escape(date) + ", " + db.escape(pros) + ", " + db.escape(delivery_zone) + ")";
+  /***************
+   * 
+   ** DRIVER TRIPS
+   * 
+   ***************/
+
+
+
+  createDriverTrip(driverId, date, pros, delivery_zone,pieces,weight, callback) {
+    let sql = "INSERT INTO driver_trips(driver_id, date, pros, zone, pieces, weight) VALUE(" + db.escape(driverId) + ", " + db.escape(date) + ", " + db.escape(pros) + ", " + db.escape(delivery_zone) + ", " + db.escape(pieces) + ", " + db.escape(weight) + ")";
 
     db.query(sql, callback)
 
   },
 
-  //CUSTOMERS
+  getDriverTripsByDate(date, callback){
+    let sql = `select driver_trips.id, driver_trips.driver_id, driver_trips.date, driver_trips.pros, driver_trips.zone,driver_trips.pieces, driver_trips.weight, drivers.first_name, drivers.last_name from driver_trips
+    inner join drivers
+    on driver_trips.driver_id = drivers.id
+    where driver_trips.date = '${date}'
+    order by driver_trips.driver_id DESC`
+    db.query(sql,callback)
+
+  },
+
+  getDriverTripsByDriver(driver_id, callback) {
+    let sql = `select driver_trips.id, driver_trips.driver_id, driver_trips.date, driver_trips.pros, driver_trips.zone,driver_trips.pieces, driver_trips.weight, drivers.first_name, drivers.last_name from driver_trips
+    inner join drivers
+    on driver_trips.driver_id = drivers.id
+    where driver_trips.driver_id = '${driver_id}'
+    order by driver_trips.date DESC`;
+    db.query(sql,callback)
+  },
+
+  getAllDriverTrips(callback){
+    let sql = `select driver_trips.id, driver_trips.driver_id, driver_trips.date, driver_trips.pros, driver_trips.zone,driver_trips.pieces, driver_trips.weight, drivers.first_name, drivers.last_name from driver_trips
+    inner join drivers
+    on driver_trips.driver_id = drivers.id
+    order by driver_trips.date DESC`;
+
+    db.query(sql,callback)
+
+  },
+
+
+
+
+  /*************
+   * 
+   * *CUSTOMERS
+   * 
+   *************/
 
   //GET CUSTOMER INFO
+
   getCustomerData(name, callback){
     let sql = "SELECT * FROM customer_data where customer_name=" + db.escape(name);
     db.query(sql, callback);
@@ -122,6 +181,7 @@ module.exports = {
   },
 
   //INSERT CUSTOMER
+
   addCustomerData(name,street, city,state,zipcode, callback){
     
     let sql = "INSERT INTO customer_data(customer_name, street, city, state, zipcode) VALUE(" + db.escape(name) + "," + db.escape(street) + "," + db.escape(city) + "," + db.escape(state) + "," + db.escape(zipcode) + ")"

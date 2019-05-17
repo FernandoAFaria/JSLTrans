@@ -10,6 +10,7 @@ export default class CreateDriverTrip extends Component {
       driversLoaded: false,
       pros: [],
       stopCount: [1, 2]
+
     };
   }
 
@@ -37,7 +38,7 @@ export default class CreateDriverTrip extends Component {
     let vendor = document.getElementById(`${id}-vendor`);
 
     if (pro !== "") {
-      console.log(this.state.pros)
+    
       fetch(`http://localhost:5000/pro/${pro}`)
         .then(res => res.json())
         .then(data => {
@@ -78,13 +79,13 @@ export default class CreateDriverTrip extends Component {
 
   async createMapQuestMap() {
     //https://www.mapquestapi.com/staticmap/v5/map?key=ypVqLLcJIipNIuhONCGOT7wAISFEODCG&locations=Denver,CO||Boulder,CO&size=1100,500@2x
-    console.log(this.state.pros)
+ 
     let mapUrl = ""
     this.state.pros.forEach((pro,index) => {
       mapUrl = mapUrl + `${pro.toZipcode}|marker-${index+1}||`
     })
     const img = new Image();
-    console.log(mapUrl)
+    
   fetch(`https://www.mapquestapi.com/staticmap/v5/map?key=ypVqLLcJIipNIuhONCGOT7wAISFEODCG&locations=${mapUrl}&size=400,300@2x&format=png`)
     .then(response => response.body.getReader())
     .then(reader => {
@@ -135,6 +136,8 @@ export default class CreateDriverTrip extends Component {
     let pcs = this.calculateByClassColumn('pcs')
     let driverId = document.getElementById('driverId').value
     const img = await this.createMapQuestMap();
+
+
   
     //This will fetch the driver's name
     fetch(`http://localhost:5000/driver/single/${driverId}`)
@@ -196,20 +199,32 @@ export default class CreateDriverTrip extends Component {
     const driverId = document.getElementById("driverId").value;
     const date = document.getElementById("date").value;
     const deliverZone = document.getElementById("zone").value;
+    let totalWeight = this.calculateByClassColumn('weight');
+    let pcs = this.calculateByClassColumn('pcs')
     let pros = [];
     let pro = document.getElementsByClassName("pro");
     let notes = document.getElementsByClassName("notes");
 
     for (let i = 0; i < pro.length; i++) {
       if (pro[i].value !== "") {
-        pros.push({ pro: pro[i].value, notes: notes[i].value || " " });
+        pros.push({
+            pro: pro[i].value,
+            notes: notes[i].value || " ",
+            weight: document.getElementById(`stop${i + 1}-weight`).textContent,
+            pieces: document.getElementById(`stop${i + 1}-pcs`).textContent,
+            vendor: document.getElementById(`stop${i + 1}-vendor`).textContent,
+            consignee: document.getElementById(`stop${i + 1}-consignee`).value,
+            citystate: document.getElementById(`stop${i + 1}-citystate`).value
+        });
       }
     }
     const driverTripData = {
       driverId,
       date,
       zone: deliverZone,
-      pros
+      pros,
+      pieces: pcs,
+      weight: totalWeight
     };
     fetch("http://localhost:5000/trips", {
       method: "post",
@@ -223,6 +238,7 @@ export default class CreateDriverTrip extends Component {
           document.getElementById("insert-message").textContent =
             "DRIVER TRIP CREATED";
           this.updateStatuses();
+          
         } else {
           document.getElementById("insert-message").textContent =
             "Something went wrong, driver trip not created";
@@ -254,7 +270,9 @@ export default class CreateDriverTrip extends Component {
                 method: 'post',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(bodyData)
-              }).then(response => console.log(response))
+              }).then(response => {
+                console.log(response.status)
+              })
             }
           })
 
@@ -264,9 +282,55 @@ export default class CreateDriverTrip extends Component {
     }
 
     //clear the form
+    setTimeout(() => {
+      this.clearForm();
+    },1500)
   }
 
   //Clear the form
+  clearForm(){
+    this.setState({
+      lastTripID: 0,
+      pros: [],
+      stopCount: [1, 2]
+    })
+    let proField = document.getElementsByClassName('pro');
+    let stop = document.getElementsByClassName('stop');
+    let vendor = document.getElementsByClassName('vendor');
+    let consignee = document.getElementsByClassName('consignee');
+    let citystate = document.getElementsByClassName('citystate');
+    let apts = document.getElementsByClassName('apts');
+    let pcs = document.getElementsByClassName('pcs');
+    let weight = document.getElementsByClassName('weight');
+    for(let i = 0; i < proField.length; i++){
+        proField[i].value = ""
+    }
+    for(let i = 0; i < proField.length; i++){
+      proField[i].value = ""
+    }
+      for(let i = 0; i < stop.length; i++){
+        stop[i].value = ""
+    }
+    for(let i = 0; i < vendor.length; i++){
+      vendor[i].textContent = ""
+    }
+    for(let i = 0; i < consignee.length; i++){
+      consignee[i].value = ""
+    }
+    for(let i = 0; i < citystate.length; i++){
+      citystate[i].value = ""
+    }
+    for(let i = 0; i < apts.length; i++){
+      apts[i].value = ""
+    }
+    for(let i = 0; i < pcs.length; i++){
+      pcs[i].textContent = ""
+    }
+    for(let i = 0; i < weight.length; i++){
+      weight[i].textContent  = ""
+    }
+
+  }
 
   render() {
     return (
@@ -382,17 +446,17 @@ export default class CreateDriverTrip extends Component {
 
                     id={"stop" + val + "-stop"}
                     style={{ width: "50px", background: 'transparent' }}
-                    className="border border-white"
+                    className="border border-white stop"
                   />
                   </td>
-                  <td id={"stop" + val + "-vendor"}
+                  <td className='vendor' id={"stop" + val + "-vendor"}
                     style={{ width: "50px" }}></td>
                   <td>
                     <input
                       className="pro border"
                       id={"stop" + val}
                       tabIndex={val}
-                      onBlur={e => {
+                      onChange={e => {
                         this.populateProInfo(e.target.id);
                       }}
                     />
@@ -401,21 +465,21 @@ export default class CreateDriverTrip extends Component {
                     <input
                       style={{ background: 'transparent' }}
                       id={"stop" + val + "-consignee"}
-                      className="border border-white"
+                      className="border border-white consignee"
                     />
                   </td>
                   <td>
                     <input
                       style={{ background: 'transparent' }}
                       id={"stop" + val + "-citystate"}
-                      className="border border-white"
+                      className="border border-white citystate"
                     />
                   </td>
                   <td>
                     <input
                       style={{ background: 'transparent' }}
                       id={"stop" + val + "-apts"}
-                      className="border notes"
+                      className="border notes apts"
                     />
                   </td>
                   <td

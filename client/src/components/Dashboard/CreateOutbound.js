@@ -16,6 +16,9 @@ export default class CreateOutbound extends Component {
       errorUpdatingPros: []
     };
   }
+  componentDidMount(){
+    window.scrollTo(0,0);
+  }
 
   //State changes
   

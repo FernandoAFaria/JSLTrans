@@ -16,6 +16,9 @@ export default class PrintTruckManifest extends Component {
   }
   componentDidMount() {
     //Fetches all manifests
+    
+      window.scrollTo(0,0);
+    
     fetch("http://localhost:5000/manifest")
       .then(data => data.json())
       .then(myjson => {

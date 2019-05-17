@@ -12,6 +12,9 @@ export default class ModifyDrivers extends Component {
   componentDidMount() {
     //fetch all divers and load into state
     this.getAllDrivers();
+ 
+      window.scrollTo(0,0);
+    
   }
 
   getAllDrivers = () => {

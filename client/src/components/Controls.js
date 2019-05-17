@@ -6,6 +6,7 @@ import PrintTruckManifest from "./Dashboard/PrintTruckManifest";
 import ModifyDrivers from "./Dashboard/ModifyDrivers";
 import CreateDriverTrip from "./Dashboard/CreateDriverTrip";
 import FindShipments from './Dashboard/FindShipments';
+import FindDriverTrips from './Dashboard/FindDriverTrips';
 
 //default Controls
 //This holds all functions for displaying different dashboard components
@@ -14,7 +15,7 @@ export default class Controls extends React.Component {
     constructor() {
         super();
         this.state = {
-            component: "Controls"
+            component: "FindDriverTrips"
         };
     }
 
@@ -163,27 +164,9 @@ export default class Controls extends React.Component {
                 );
             });
     };
+
+
     //Component switches
-    handleInsertShipment = e => {
-        e.preventDefault();
-        this.setState({
-            component: "InsertShipment"
-        });
-    };
-
-    handleUpdateShipment = e => {
-        e.preventDefault();
-        this.setState({
-            component: "UpdateShipment"
-        });
-    };
-
-    handleCreateOutbound = e => {
-        e.preventDefault();
-        this.setState({
-            component: "CreateOutbound"
-        });
-    };
 
     handleBackBtn = e => {
         e.preventDefault();
@@ -193,32 +176,12 @@ export default class Controls extends React.Component {
         this.updateOnhandStatus();
     };
 
-    handlePrintTruckManifest = e => {
-        e.preventDefault();
-        this.setState({
-            component: "PrintTruckManifest"
-        });
-    };
 
-    handleModifyDrivers = e => {
-        e.preventDefault();
+    handleComponentChange = component => {
         this.setState({
-            component: "ModifyDrivers"
+            component: component
         });
-    };
-
-    handleCreateDriverTrip = e => {
-        e.preventDefault();
-        this.setState({
-            component: "CreateDriverTrip"
-        });
-    };
-    handleFindShipments = e => {
-        e.preventDefault();
-        this.setState({
-            component: "FindShipments"
-        });
-    };
+    }
 
 
     render() {
@@ -226,14 +189,9 @@ export default class Controls extends React.Component {
             case "Controls":
                 return (
                     <ControlCenter
-                        handleInsertShipment={this.handleInsertShipment}
+                        handleComponentChange={this.handleComponentChange}
                         printOnHand={this.printOnHand}
-                        handleUpdateShipment={this.handleUpdateShipment}
-                        handleCreateOutbound={this.handleCreateOutbound}
-                        handlePrintTruckManifest={this.handlePrintTruckManifest}
-                        handleModifyDrivers={this.handleModifyDrivers}
-                        handleCreateDriverTrip={this.handleCreateDriverTrip}
-                        handleFindShipments={this.handleFindShipments}
+                    
                     />
                 );
 
@@ -259,6 +217,9 @@ export default class Controls extends React.Component {
 
             case "FindShipments":
                 return <FindShipments handleBackBtn={this.handleBackBtn} />;
+
+            case "FindDriverTrips":
+                return <FindDriverTrips handleBackBtn={this.handleBackBtn} />;
 
             default:
                 return "";
@@ -445,7 +406,7 @@ const ControlCenter = props => {
                                 style={{minHeight: '100%'}}
                                 className="card grow text-white bg-info mx-auto"
                                 
-                                onClick={e => props.handleInsertShipment(e)}
+                                onClick={e => props.handleComponentChange("InsertShipment")}
                             >
                                 <div className="card-header py-3 font-bold"><h3 className="text-white">
 
@@ -465,7 +426,7 @@ const ControlCenter = props => {
                             <div
                                 className="card grow text-white bg-danger mb-3 mx-auto"
                                 style={{minHeight: '100%'}}
-                                onClick={e => props.handleUpdateShipment(e)}
+                                onClick={e => props.handleComponentChange("UpdateShipment")}
                             >
                                 <div className="card-header  py-3 font-bold"><h3 className="text-white">
 
@@ -491,7 +452,7 @@ const ControlCenter = props => {
                             <div
                                 className="card grow text-dark bg-secondary mb-3 mx-auto"
                                 style={{minHeight: '100%'}}
-                                onClick={e => props.handleCreateOutbound(e)}
+                                onClick={e => props.handleComponentChange("CreateOutbound")}
                             >
                                 <div className="card-header py-3 font-bold"><h3 className="text-dark">
 
@@ -511,7 +472,7 @@ const ControlCenter = props => {
                             <div
                                 className="card grow text-white bg-dark mb-3 mx-auto"
                                 style={{minHeight: '100%'}}
-                                onClick={e => props.handlePrintTruckManifest(e)}
+                                onClick={e => props.handleComponentChange("PrintTruckManifest")}
                             >
                                 <div className="card-header py-3 font-bold"><h3 className="text-white">
 
@@ -536,7 +497,7 @@ const ControlCenter = props => {
                             <div
                                 className="card grow text-white bg-warning mb-3 mx-auto"
                                 style={{minHeight: '100%'}}
-                                onClick={e => props.handleCreateDriverTrip(e)}
+                                onClick={e => props.handleComponentChange("CreateDriverTrip")}
                             >
                                 <div className="card-header py-3 font-bold"><h3 className="text-white">
 
@@ -556,7 +517,7 @@ const ControlCenter = props => {
                             <div
                                 className="card grow text-white bg-success mb-3 mx-auto"
                                 style={{minHeight: '100%'}}
-                                onClick={e => props.handleModifyDrivers(e)}
+                                onClick={e => props.handleComponentChange("ModifyDrivers")}
                             >
                                 <div className="card-header py-3 font-bold"><h3 className="text-white">
 
@@ -583,7 +544,7 @@ const ControlCenter = props => {
                             <div style={{background: '#a55eea', height: '160px'}}
                                 className="card grow text-white  mb-3 mx-auto px-2 py-3"
                                 
-                                onClick={e => props.handleFindShipments(e)}
+                                onClick={e => props.handleComponentChange("FindShipments")}
                             >
                                 
                                     <h3 className='text-white'>Find Shipments</h3>
@@ -598,7 +559,7 @@ const ControlCenter = props => {
                             <div style={{background: '#0fb9b1', height: '160px'}}
                                 className="card grow text-white mb-3 mx-auto px-2 py-3"
                                 
-                                onClick={e => props.handleModifyDrivers(e)}
+                                onClick={e => props.handleComponentChange("FindDriverTrips")}
                             >
                                 <h3 className='text-white'>Find Driver Trips</h3>
                                 <div className="card-body">
@@ -611,17 +572,17 @@ const ControlCenter = props => {
                         </div>
 
                         {/* <div className="col">
-                            <div style={{background: '#eb3b5a', height: '160px'}}
-                                className="card grow text-white mb-3 mx-auto px-2 py-3"
+//                             <div style={{background: '#eb3b5a', height: '160px'}}
+//                                 className="card grow text-white mb-3 mx-auto px-2 py-3"
                                 
-                                onClick={e => props.handleModifyDrivers(e)}
-                            >
-                               <h3 className='text-white'>Find Driver Trips</h3>
-                                <div className="card-body">
-                                    <p className="card-text">Find driver trips</p> 
-                                </div>
-                            </div>
-                        </div> */}
+//                                 onClick={e => props.handleModifyDrivers(e)}
+//                             >
+//                                <h3 className='text-white'>Find Driver Trips</h3>
+//                                 <div className="card-body">
+//                                     <p className="card-text">Find driver trips</p> 
+//                                 </div>
+//                             </div>
+//                         </div> */}
 
                     </div>
                 </div>
