@@ -60,7 +60,7 @@ export default class PrintTruckManifest extends Component {
     //timeout to make sure state gets loaded
     setTimeout(() => {
       let table = ``;
-      this.state.pros.map(pro => {
+      this.state.pros.forEach(pro => {
         table =
           table +
           `<tr>

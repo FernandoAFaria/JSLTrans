@@ -45,7 +45,7 @@ export default function FindShipments(props) {
                   return b-a;
                })
                 let html = "";
-                sortedData.map(pro => {
+                sortedData.forEach(pro => {
                     html =
                         html +
                         `

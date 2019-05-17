@@ -14,7 +14,7 @@ export default class Controls extends React.Component {
     constructor() {
         super();
         this.state = {
-            component: "UpdateShipment"
+            component: "Controls"
         };
     }
 

@@ -49,7 +49,7 @@ export default function InsertShipment(props) {
     let toState = document.getElementById('to-state').value || " ";
     let toZipcode = document.getElementById('to-zip').value || " ";
     let status_code = document.getElementById('shipment-type').value
-    console.log(body)
+    
     let body = {
       pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode,manifest,status_code
     }
