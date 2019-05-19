@@ -15,7 +15,7 @@ export default class Controls extends React.Component {
     constructor() {
         super();
         this.state = {
-            component: "FindDriverTrips"
+            component: "Controls"
         };
     }
 
@@ -240,7 +240,7 @@ const ControlCenter = props => {
                 <div className="row">
                     <div className="col">
                         <div
-                            style={{ background: "#00cec9", minWidth: '190px' }}
+                            style={{ background: "#00b894", minWidth: '190px' }}
                             className="text-center customer-card-container"
                             onClick={() =>
                                 props.printOnHand("EDI", "status_code", "picked up")
@@ -317,7 +317,7 @@ const ControlCenter = props => {
                 <div className="row">
                     <div className="col">
                         <div
-                            style={{ background: "#00cec9", minWidth: '190px' }}
+                            style={{ background: "#00b894", minWidth: '190px' }}
                             className="text-center customer-card-container"
                             onClick={() =>
                                 props.printOnHand("EDI", "status_code", "inbound")
@@ -400,6 +400,7 @@ const ControlCenter = props => {
 
                 <div className="container py-5">
                 <h4 className='text-white'>Shipments</h4>
+                <hr className='border-secondary'></hr>
                     <div className="row ">
                         <div className="col text-center">
                             <div
@@ -447,6 +448,7 @@ const ControlCenter = props => {
                 {/* Manifest */}
                 <div className="container py-5">
                 <h4 className='text-white '>Outbounds</h4>
+                <hr className='border-secondary'></hr>
                     <div className="row">
                         <div className="col">
                             <div
@@ -454,13 +456,13 @@ const ControlCenter = props => {
                                 style={{minHeight: '100%'}}
                                 onClick={e => props.handleComponentChange("CreateOutbound")}
                             >
-                                <div className="card-header py-3 font-bold"><h3 className="text-dark">
+                                <div className="card-header py-3 font-bold"><h4 className="text-dark">
 
                                     Create an Outbound Manifest
-                                </h3>
+                                </h4>
                                 </div>
                                 <div className="card-body">
-                                    <h5 className="card-title pt-3">
+                                    <h5 className="card-title pt-2">
                                         Shipments transfered to another carrier.
                                     </h5>
                                     <p className="card-text" />
@@ -492,6 +494,7 @@ const ControlCenter = props => {
                 {/* Driver */}
                 <div className="container"> 
                 <h4 className='text-white mt-5'>Drivers & Trips</h4>
+                <hr className='border-secondary'></hr>
                     <div className="row">
                         <div className="col">
                             <div
@@ -519,10 +522,10 @@ const ControlCenter = props => {
                                 style={{minHeight: '100%'}}
                                 onClick={e => props.handleComponentChange("ModifyDrivers")}
                             >
-                                <div className="card-header py-3 font-bold"><h3 className="text-white">
+                                <div className="card-header py-3 font-bold"><h4 className="text-white">
 
                                     Driver Functions
-                                </h3>
+                                </h4>
                                 </div>
                                 <div className="card-body">
                                     <h5 className="card-title pt-3">
@@ -539,9 +542,10 @@ const ControlCenter = props => {
                              {/* Reports*/}
                 <div className="container pt-5 mt-5"> 
                 <h4 className='text-white'>Reports</h4>
+                <hr className='border-secondary'></hr>
                     <div className="row">
                         <div className="col">
-                            <div style={{background: '#a55eea', height: '160px'}}
+                            <div style={{background: '#a55eea', minHeight: '190px'}}
                                 className="card grow text-white  mb-3 mx-auto px-2 py-3"
                                 
                                 onClick={e => props.handleComponentChange("FindShipments")}
@@ -556,7 +560,7 @@ const ControlCenter = props => {
                         </div>
 
                         <div className="col">
-                            <div style={{background: '#0fb9b1', height: '160px'}}
+                            <div style={{background: '#0fb9b1', minHeight: '190px'}}
                                 className="card grow text-white mb-3 mx-auto px-2 py-3"
                                 
                                 onClick={e => props.handleComponentChange("FindDriverTrips")}

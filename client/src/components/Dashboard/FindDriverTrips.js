@@ -36,6 +36,7 @@ export default class FindDriverTrips extends Component {
         e.preventDefault();
         let driver_id = document.getElementById("driver").value;
         let date = document.getElementById("date").value;
+      
         if (driver_id === "" && date === "") {
             fetch("http://localhost:5000/trips/")
                 .then(res => res.json())
@@ -46,7 +47,7 @@ export default class FindDriverTrips extends Component {
                     });
                 });
         }
-        if (date === "") {
+         else if (date === "" && driver_id !== "") {
             fetch("http://localhost:5000/trips/" + driver_id)
                 .then(res => res.json())
                 .then(data => {
@@ -56,7 +57,7 @@ export default class FindDriverTrips extends Component {
                     });
                 });
         }
-        if(driver_id === "") {
+        else if(driver_id === "" && date !== "") {
           fetch("http://localhost:5000/trips/date/" + date)
                 .then(res => res.json())
                 .then(data => {
@@ -66,14 +67,12 @@ export default class FindDriverTrips extends Component {
                     });
                 });
         }
-        else {
+        else if(driver_id !== "" && date !== "") {                      
           fetch("http://localhost:5000/trips/")
                 .then(res => res.json())
                 .then(data => {
                   let filtered = data.filter((val, index) => val.driver_id === driver_id && val.date.slice(0,10) === date )
-                  console.log(filtered)
-
-
+            
                     this.setState({
                         driver_trips: filtered,
                         trips_loaded: true
@@ -84,7 +83,6 @@ export default class FindDriverTrips extends Component {
     openDriverTrip(e) {
         e.preventDefault();
         let trip_id = e.target.parentNode.id;
-
         let date = this.state.driver_trips[trip_id].date.slice(0, 10);
         let delivery_zone = this.state.driver_trips[trip_id].zone;
         let pcs = this.state.driver_trips[trip_id].pieces;

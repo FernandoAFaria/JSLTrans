@@ -201,6 +201,7 @@ export default class PrintTruckManifest extends Component {
           <div className="form-group">
             <label htmlFor="manifest">Manfiest Number</label>
             <input
+              required
               id="manifest"
               className="form-control ml-3 border border-dark"
               name="manifest"
@@ -225,13 +226,13 @@ export default class PrintTruckManifest extends Component {
         <h4>All manifest</h4>
         <div>
           {this.state.pageLoaded === true
-            ? this.state.allManifests.map(manifest => {
+            ? this.state.allManifests.map((manifest, index) => {
                 let date;
-                
-                if (manifest.manifest_date !== null) {
+                console.log(manifest)
+                if (manifest.manifest_date !== null && manifest.manifest !== " ") {
                   date = manifest.manifest_date.substr(0, 10) || "";
                   return (
-                    <div className="row">
+                    <div key={index} className="row">
                       <div className="col">{manifest.manifest}</div>
                       <div className="col">{date}</div>
                     </div>

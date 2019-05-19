@@ -76,7 +76,12 @@ export default class CreateOutbound extends Component {
       .then(res => res.json())
       .then(myJson => {
         if (myJson.length > 0) {
-          alert("THAT MANIFEST ALREADY EXISTS");
+       
+          document.getElementById('success').classList.remove('alert-success');
+          document.getElementById('success').classList.add('alert-danger');
+          document.getElementById('success').innerHTML = '<h3>That Manifest already Exists! Manifest not created...</h3>';
+          document.getElementById('success').style.display = 'block';
+
         } else {
           let allPros = document.getElementsByClassName("manifest-pro");
           let proList24 = [];
@@ -258,8 +263,17 @@ export default class CreateOutbound extends Component {
     for (let i = 0; i < allPros.length; i++) {
       allPros[i].value = "";
     }
-    document.getElementById("success").style.display = "block";
-    document.getElementById("success").textContent = "Manifest Created";
+    if(document.getElementById('success').classList.contains('alert-danger')){
+      document.getElementById('success').classList.remove('alert-danger');
+      document.getElementById('success').classList.add('alert-success');
+      document.getElementById('success').innerHTML = '<h3>Manifest created...</h3>';
+      document.getElementById('success').style.display = 'block';
+
+    } else {
+      document.getElementById('success').innerHTML = '<h3>Manifest created...</h3>';
+      document.getElementById('success').style.display = 'block';
+    }
+          
   }
 
   render() {

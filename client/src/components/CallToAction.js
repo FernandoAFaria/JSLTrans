@@ -7,7 +7,7 @@ export default function Landing() {
         <div className="callToAction"
             
             style={{
-                background: `linear-gradient(to top,rgba(45, 52, 54,.2), rgba(9,132,227, 0)) ,url(${backgroundImg})`,
+                background: `linear-gradient(to top,rgba(45, 52, 54,.0), rgba(9,132,227, .2)) ,url(${backgroundImg})`,
                 backgroundSize: "cover",
                 backgroundPosition: "bottom center"
             }}
@@ -26,9 +26,9 @@ export default function Landing() {
                     </div>
                     {/* Request a quote section */}
 
-                    <div className=" req-quote shadow" >
-                        <h5 className="card-header bg-warning text-center py-4">
-                            <strong>Request a quote.</strong>
+                    <div className=" req-quote shadow border border-dark" >
+                        <h5 className="card-header bg-danger text-center py-4">
+                            <span className='text-white mt-2'>Request a quote.</span>
                         </h5>
 
                         <div className="card-body px-lg-5 pt-0 mt-5">
@@ -94,7 +94,7 @@ export default function Landing() {
                                     className="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
                                     type="submit"
                                 >
-                                    Request Quote
+                                    Get Pricing
                                 </button>
                             </form>
                         </div>

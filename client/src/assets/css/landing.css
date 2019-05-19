@@ -17,7 +17,7 @@
 }
 
 .req-quote{
-  min-width: 440px;
+  min-width: 490px;
   background: rgba(0,0,0,.2)
 }
 
@@ -178,6 +178,9 @@
   color: black;
   font-size: 1.2rem;
 }
+.info-bar-text-hidden{
+  display: none;
+}
 .sm {
   width: 35px;
 }
@@ -256,5 +259,16 @@
   }
   .cs-card .card-img-top {
     height: auto;
+  }
+  .info-bar-text {
+    font-size: .7rem;
+  }
+}
+@media screen and (max-width: 710px) {
+  .info-bar-text {
+    display: none;
+  }
+  .info-bar-text-hidden{
+    display: block
   }
 }
