@@ -1,5 +1,5 @@
 import React from "react";
-import backgroundImg from "../assets/imgs/trucking.jpg";
+import backgroundImg from "../assets/imgs/trucking1.jpg";
 import "../assets/css/landing.css";
 
 export default function Landing() {
@@ -7,7 +7,7 @@ export default function Landing() {
         <div className="callToAction"
             
             style={{
-                background: `linear-gradient(to top,rgba(45, 52, 54,.0), rgba(9,132,227, .2)) ,url(${backgroundImg})`,
+                background: `linear-gradient(rgba(0,0,0,.2), rgba(0,0,0.5)), url(${backgroundImg})`,
                 backgroundSize: "cover",
                 backgroundPosition: "bottom center"
             }}
@@ -63,26 +63,11 @@ export default function Landing() {
                                         placeholder="Phone Number"
                                     />
                                 </div>
-                                <div className="form-group">
-                                    <input
-                                        type="text"
-                                        id="requestFrom"
-                                        className="form-control"
-                                        placeholder="Picking up at:"
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <input
-                                        type="text"
-                                        id="requestEmail"
-                                        className="form-control"
-                                        placeholder="Deliverying to:"
-                                    />
-                                </div>
+                                
 
                                 <div className="form-group">
                                     <textarea
-                                        placeholder="Description of merchandise"
+                                        placeholder="Information, pickup location, delivery, type of freight, ect..."
                                         required
                                         id="requestBody"
                                         className="form-control"
@@ -98,7 +83,7 @@ export default function Landing() {
                                 </button>
                             </form>
                         </div>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>

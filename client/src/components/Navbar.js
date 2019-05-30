@@ -34,7 +34,7 @@ export default class Navbar extends React.Component {
   return (
     <div id='top-nav-bar'>
 
-      <div className="info-bar bg-warning navbar-light" >
+      <div className="info-bar" >
         <h5 className='info-bar-text'>48 3rd Street, Kearny, NJ</h5>
         <h5 className='info-bar-text'>201-999-9999</h5>
         <h5 className='info-bar-text'>email@jsltransportation.com</h5>
@@ -67,7 +67,7 @@ export default class Navbar extends React.Component {
           <form onSubmit={(e) => this.submitTracking(e)}  className="form-inline my-2 my-lg-0">
           <div style={{width: '400px'}}>
             <input required id='tracking-num' className="form-control mr-sm-3" type="search" placeholder="Pro#"  />
-            <button id='track-btn' className="btn btn-info my-2 my-sm-0" type="submit">Track</button>
+            <button id='track-btn' className="btn my-2 my-sm-0" type="submit">Track</button>
             </div>
           </form>
         </div>
