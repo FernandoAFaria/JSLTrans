@@ -91,8 +91,12 @@
   margin-right: 4rem;
 }
 .cs-card {
-  width: 26rem;
+  width: 33.333vw;
   position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  
 }
 .cs-card .card-img-top {
   height: 16rem;
@@ -102,7 +106,7 @@
 .hidden-btn {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%) translateY(-80px);
+  transform: translateX(-50%);
   opacity: 0;
   transition: all 0.3s;
 }
@@ -115,9 +119,9 @@
   background: white;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  padding: 95px 25px;
-  border: 2px solid black;
+  justify-content: flex-start;
+  
+  
   text-align: center;
 }
 .inbound-pros {
@@ -272,7 +276,8 @@
     justify-content: center;
   }
   .cs-card {
-    width: 80vw;
+    width: 100vw;
+    
   }
   .cs-card .card-img-top {
     height: auto;
@@ -280,12 +285,18 @@
   .info-bar-text {
     font-size: .7rem;
   }
+  .card-body{
+    padding-left: 75px;
+    padding-right: 75px;
+  }
 }
 @media screen and (max-width: 710px) {
   .info-bar-text {
     display: none;
   }
   .info-bar-text-hidden{
-    display: block
+    display: block;
+    color: white;
+    transform: translateY(4px)
   }
 }

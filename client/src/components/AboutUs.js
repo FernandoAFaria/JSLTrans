@@ -2,7 +2,8 @@ import React from "react";
 
 export default function AboutUs() {
     return (
-        <div className="container-fluid bg-primary px-5 py-5">
+        <div className="container-fluid bg-primary py-5">
+            <div className='container'>
         <h2 className='text-white'>About us</h2>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
@@ -31,6 +32,7 @@ export default function AboutUs() {
                 sodales quis, maximus sed lorem. Quisque auctor elementum elit
                 quis accumsan.
             </p>
+            </div>
         </div>
     );
 }

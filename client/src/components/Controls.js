@@ -252,7 +252,7 @@ const ControlCenter = props => {
                                     <span
                                         id="edi-on-hand-outbound"
                                         className="display-5"
-                                    />
+                                    >loading</span>
                                 </div>
                                 <div className="customer-card-name ">EDI</div>
                             </div>
@@ -277,7 +277,7 @@ const ControlCenter = props => {
                                     <span
                                         id="clearlane-on-hand-outbound"
                                         className="display-5"
-                                    />
+                                    >loading</span>
                                 </div>
                                 <div className="customer-card-name ">
                                     Clear Lane
@@ -304,7 +304,7 @@ const ControlCenter = props => {
                                     <span
                                         id="hercules-on-hand-outbound"
                                         className="display-5"
-                                    />
+                                    >loading</span>
                                 </div>
                                 <div className="customer-card-name ">
                                     Hercules
@@ -329,7 +329,7 @@ const ControlCenter = props => {
                                     <span
                                         id="edi-inbound"
                                         className="display-5"
-                                    />
+                                    >loading</span>
                                 </div>
                                 <div className="customer-card-name ">EDI</div>
                             </div>
@@ -354,7 +354,7 @@ const ControlCenter = props => {
                                     <span
                                         id="clearlane-inbound"
                                         className="display-5"
-                                    />
+                                    >loading</span>
                                 </div>
                                 <div className="customer-card-name ">
                                     Clear Lane
@@ -381,7 +381,7 @@ const ControlCenter = props => {
                                     <span
                                         id="hercules-inbound"
                                         className="display-5"
-                                    />
+                                    >loading</span>
                                 </div>
                                 <div className="customer-card-name ">
                                     Hercules
