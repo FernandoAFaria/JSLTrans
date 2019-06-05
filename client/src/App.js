@@ -7,12 +7,6 @@ import Landing from './components/Landing'
 import Contact from './components/Contact'
 import Tracking from './components/Tracking'
 
-
-//need navbar, footer, main page, cards
-
-
-
-
 class App extends Component {
 
   render() {

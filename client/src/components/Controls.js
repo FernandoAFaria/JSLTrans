@@ -162,7 +162,7 @@ export default class Controls extends React.Component {
                     "afterbegin",
                     `<link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css" /> `
                 );
-            });
+            }).catch(err => console.log(err));
     };
 
 

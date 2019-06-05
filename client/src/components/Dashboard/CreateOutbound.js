@@ -134,6 +134,7 @@ export default class CreateOutbound extends Component {
         }
       });
   };
+
   calcShipments() {
     let count = 0;
     this.state.prosTo24.forEach(ea => {
@@ -241,7 +242,7 @@ export default class CreateOutbound extends Component {
                 "Something went wrong " + response.status;
             }
           })
-          .catch(err => {});
+          .catch(err => {console.log(err)});
       }
     }
     // Once complete show finished

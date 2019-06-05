@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
 export default function Contact() {
-
-    const submitForm = (e) => {
-        e.preventDefault();
-        document.getElementById('submitted-modal').style.display = 'block'
-    }
+  const submitForm = e => {
+    e.preventDefault();
+    document.getElementById("submitted-modal").style.display = "block";
+    
+  };
 
   return (
     <section

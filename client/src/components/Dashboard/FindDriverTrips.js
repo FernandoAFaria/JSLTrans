@@ -15,6 +15,7 @@ export default class FindDriverTrips extends Component {
         this.getAllDrivers();
     }
 
+    // Loads active drivers in select field
     getAllDrivers = () => {
         fetch("http://localhost:5000/driver/all", {
             method: "get"
@@ -29,8 +30,6 @@ export default class FindDriverTrips extends Component {
                 });
             });
     };
-
-    //Find Drivers
 
     handleFindDriverTrips = e => {
         e.preventDefault();

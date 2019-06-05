@@ -27,8 +27,6 @@ export default class CreateDriverTrip extends Component {
 
   populateProInfo(id) {
     let stopCountCopy = this.state.stopCount;
-
-
     let pro = document.getElementById(id).value;
     let consignee = document.getElementById(`${id}-consignee`);
     let citystate = document.getElementById(`${id}-citystate`);
@@ -79,7 +77,7 @@ export default class CreateDriverTrip extends Component {
 
   async createMapQuestMap() {
     //https://www.mapquestapi.com/staticmap/v5/map?key=ypVqLLcJIipNIuhONCGOT7wAISFEODCG&locations=Denver,CO||Boulder,CO&size=1100,500@2x
- 
+    
     let mapUrl = ""
     this.state.pros.forEach((pro,index) => {
       mapUrl = mapUrl + `${pro.toZipcode}|marker-${index+1}||`
@@ -137,8 +135,6 @@ export default class CreateDriverTrip extends Component {
     let driverId = document.getElementById('driverId').value
     const img = await this.createMapQuestMap();
 
-
-  
     //This will fetch the driver's name
     fetch(`http://localhost:5000/driver/single/${driverId}`)
       .then(res => res.json())
@@ -190,8 +186,6 @@ export default class CreateDriverTrip extends Component {
         win.document.body.insertAdjacentElement('beforeend', img)
 
       })
-
-    
   }
 
   submitDriverTrip(e) {
@@ -275,10 +269,7 @@ export default class CreateDriverTrip extends Component {
               })
             }
           })
-
-
       }
-
     }
 
     //clear the form
@@ -329,7 +320,6 @@ export default class CreateDriverTrip extends Component {
     for(let i = 0; i < weight.length; i++){
       weight[i].textContent  = ""
     }
-
   }
 
   render() {

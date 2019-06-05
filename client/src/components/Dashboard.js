@@ -10,8 +10,7 @@ export default class Dashboard extends Component {
             username: "",
             password: "",
             error: "",
-            auth: true,
-            sk: ""
+            auth: true
         };
 
         
@@ -59,10 +58,8 @@ export default class Dashboard extends Component {
     Authenticated() {
         if (this.state.auth === true) {
             
-                    return <Controls />
-               
-            
-                
+            return <Controls />
+                 
         } else {
             return (
                 <Login
