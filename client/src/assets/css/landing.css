@@ -18,8 +18,9 @@
 .callToAction {
   min-height: 600px;
   position: relative;
-  background:linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0.5)),
+  background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0.5)),
   url('../imgs/trucking1.jpg');
+  background: url('../imgs/trucking1.jpg');
   background-size: cover;
   background-position: bottom center;
 }
