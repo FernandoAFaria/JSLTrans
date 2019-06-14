@@ -31,7 +31,7 @@ export default function FindShipments(props) {
             query.value = "%";
         }
 
-        fetch("http://localhost:5000/search", {
+        fetch("http://73.10.32.79:8137/search", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(query)

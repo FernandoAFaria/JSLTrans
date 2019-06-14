@@ -15,7 +15,7 @@ export default class CreateDriverTrip extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:5000/driver/all")
+    fetch("http://73.10.32.79:8137/driver/all")
       .then(res => res.json())
       .then(drivers => {
         this.setState({
@@ -37,7 +37,7 @@ export default class CreateDriverTrip extends Component {
 
     if (pro !== "") {
     
-      fetch(`http://localhost:5000/pro/${pro}`)
+      fetch(`http://73.10.32.79:8137/pro/${pro}`)
         .then(res => res.json())
         .then(data => {
           if (data.length === 0) {
@@ -136,7 +136,7 @@ export default class CreateDriverTrip extends Component {
     const img = await this.createMapQuestMap();
 
     //This will fetch the driver's name
-    fetch(`http://localhost:5000/driver/single/${driverId}`)
+    fetch(`http://73.10.32.79:8137/driver/single/${driverId}`)
       .then(res => res.json())
       .then(driver => {
         //once it got the drivers info, will create the window and populate the results
@@ -220,7 +220,7 @@ export default class CreateDriverTrip extends Component {
       pieces: pcs,
       weight: totalWeight
     };
-    fetch("http://localhost:5000/trips", {
+    fetch("http://73.10.32.79:8137/trips", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(driverTripData)
@@ -250,7 +250,7 @@ export default class CreateDriverTrip extends Component {
       if (pro[i].value !== "") {
         //Create a fetch for each good pro
         //Check if pro is in system first
-        fetch(`http://localhost:5000/pro/${pro[i].value}`)
+        fetch(`http://73.10.32.79:8137/pro/${pro[i].value}`)
           .then(res => res.json())
           .then(data => {
             //if pro exists then update status
@@ -260,7 +260,7 @@ export default class CreateDriverTrip extends Component {
                 status: status,
                 status_code: status_code
               }
-              fetch('http://localhost:5000/pro/updateStatus', {
+              fetch('http://73.10.32.79:8137/pro/updateStatus', {
                 method: 'post',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(bodyData)

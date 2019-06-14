@@ -64,7 +64,7 @@ export default class CreateOutbound extends Component {
 
     let manifestNumber = this.state.manifest;
     //searches if Manifest exists
-    fetch("http://localhost:5000/search", {
+    fetch("http://73.10.32.79:8137/search", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -120,7 +120,7 @@ export default class CreateOutbound extends Component {
   };
 
   getPieces = (pro, pltOrWt) => {
-    fetch(`http://localhost:5000/pro/${pro}`)
+    fetch(`http://73.10.32.79:8137/pro/${pro}`)
       .then(res => res.json())
       .then(data => {
         if (data.length > 0 && !data.error) {
@@ -196,7 +196,7 @@ export default class CreateOutbound extends Component {
           status_code: "transfered"
         };
 
-        fetch(`http://localhost:5000/manifest/${pro}`, {
+        fetch(`http://73.10.32.79:8137/manifest/${pro}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body)
@@ -229,7 +229,7 @@ export default class CreateOutbound extends Component {
                 manifest: manifest,
                 status_code: "Transfered"
               };
-              fetch("http://localhost:5000/pro", {
+              fetch("http://73.10.32.79:8137/pro", {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)

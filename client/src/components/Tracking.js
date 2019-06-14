@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class Tracking extends Component {
 
   componentDidMount(){
-    fetch(`http://localhost:5000/trackMyShipment/${this.props.match.params.pro}`)
+    fetch(`http://73.10.32.79:8137/trackMyShipment/${this.props.match.params.pro}`)
     .then(res => {
      return res.json()
     }).then(data => {

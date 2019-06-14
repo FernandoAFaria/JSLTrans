@@ -19,7 +19,7 @@ export default class PrintTruckManifest extends Component {
     
       window.scrollTo(0,0);
     
-    fetch("http://localhost:5000/manifest")
+    fetch("http://73.10.32.79:8137/manifest")
       .then(data => data.json())
       .then(myjson => {
         myjson.sort((a, b) => {
@@ -159,7 +159,7 @@ export default class PrintTruckManifest extends Component {
       field: "manifest",
       value: manifestNumber
     };
-    fetch("http://localhost:5000/search", {
+    fetch("http://73.10.32.79:8137/search", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)

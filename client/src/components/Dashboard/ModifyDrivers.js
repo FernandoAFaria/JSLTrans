@@ -18,7 +18,7 @@ export default class ModifyDrivers extends Component {
   }
 
   getAllDrivers = () => {
-    fetch("http://localhost:5000/driver/all", {
+    fetch("http://73.10.32.79:8137/driver/all", {
       method: "get"
       // headers: {'Content-Type': 'application/json'},
       // body: JSON.stringify({drivers: 'all'})
@@ -43,7 +43,7 @@ export default class ModifyDrivers extends Component {
 
     //Lets check if Driver exists first
 
-    fetch("http://localhost:5000/driver/find", {
+    fetch("http://73.10.32.79:8137/driver/find", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ firstname: firstname, lastname: lastname })
@@ -66,7 +66,7 @@ export default class ModifyDrivers extends Component {
             address: address
           };
 
-          fetch("http://localhost:5000/driver", {
+          fetch("http://73.10.32.79:8137/driver", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(driverData)
@@ -116,7 +116,7 @@ export default class ModifyDrivers extends Component {
       id
     };
 
-    fetch("http://localhost:5000/driver/", {
+    fetch("http://73.10.32.79:8137/driver/", {
       method: "put",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(modifiedData)
@@ -150,7 +150,7 @@ export default class ModifyDrivers extends Component {
     document.getElementById("insert-message").style.display = "none";
     let firstname = document.getElementById("firstname-modify").value;
     let lastname = document.getElementById("lastname-modify").value;
-    fetch("http://localhost:5000/driver/find", {
+    fetch("http://73.10.32.79:8137/driver/find", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ firstname: firstname, lastname: lastname })
@@ -184,7 +184,7 @@ export default class ModifyDrivers extends Component {
     let firstname = splitName[0];
     let lastname = splitName[2] || splitName[1];
 
-    fetch("http://localhost:5000/driver", {
+    fetch("http://73.10.32.79:8137/driver", {
       method: "delete",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ firstname: firstname, lastname: lastname })

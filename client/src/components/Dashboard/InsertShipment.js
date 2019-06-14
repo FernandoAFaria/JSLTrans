@@ -53,7 +53,7 @@ export default function InsertShipment(props) {
     let body = {
       pro,vendor,date,pieces,pallets,status,weight,fromName,fromStreet,fromCity,fromState,fromZipcode,toName,toStreet,toCity,toState,toZipcode,manifest,status_code
     }
-    fetch('http://localhost:5000/pro', {
+    fetch('http://73.10.32.79:8137/pro', {
       method: 'post',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(body)
@@ -98,7 +98,7 @@ export default function InsertShipment(props) {
       //check database first for customer, if it doesnt exist then insert
 
       //ShipFrom
-      fetch(`http://localhost:5000/customers?name=${fromName}`)
+      fetch(`http://73.10.32.79:8137/customers?name=${fromName}`)
       .then(res => res.json())
       .then(data => {
       
@@ -111,7 +111,7 @@ export default function InsertShipment(props) {
             zipcode: fromZipcode
           }
 
-          fetch('http://localhost:5000/customers', {
+          fetch('http://73.10.32.79:8137/customers', {
             method: 'post',
             headers: {"Content-Type": 'application/json'},
             body: JSON.stringify(cus_info)
@@ -120,7 +120,7 @@ export default function InsertShipment(props) {
       }) 
 
       //Shipto
-      fetch(`http://localhost:5000/customers?name=${toName}`)
+      fetch(`http://73.10.32.79:8137/customers?name=${toName}`)
       .then(res => res.json())
       .then(data => {
         
@@ -133,7 +133,7 @@ export default function InsertShipment(props) {
             zipcode: toZipcode
           }
 
-          fetch('http://localhost:5000/customers', {
+          fetch('http://73.10.32.79:8137/customers', {
             method: 'post',
             headers: {"Content-Type": 'application/json'},
             body: JSON.stringify(cus_info)
@@ -150,7 +150,7 @@ export default function InsertShipment(props) {
     e.preventDefault()
     
     let customer_name = e.target.value
-    fetch(`http://localhost:5000/customers?name=${customer_name}`)
+    fetch(`http://73.10.32.79:8137/customers?name=${customer_name}`)
     .then(res => res.json())
     .then(data => {
         
@@ -171,7 +171,7 @@ export default function InsertShipment(props) {
     e.preventDefault()
     
     let customer_name = e.target.value
-    fetch(`http://localhost:5000/customers?name=${customer_name}`)
+    fetch(`http://73.10.32.79:8137/customers?name=${customer_name}`)
     .then(res => res.json())
     .then(data => {
       

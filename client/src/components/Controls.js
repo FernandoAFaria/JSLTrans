@@ -66,7 +66,7 @@ export default class Controls extends React.Component {
 
     searchProsByField(vendor, field, value, populate) {
         //('EDI', 'STATUS', 'PICKED UP', 'edi-on-hand')
-        fetch("http://localhost:5000/search", {
+        fetch("http://73.10.32.79:8137/search", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -99,7 +99,7 @@ export default class Controls extends React.Component {
             `<h1 class="my-4">${vendor}</h1>`
         );
 
-        fetch("http://localhost:5000/search", {
+        fetch("http://73.10.32.79:8137/search", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -251,7 +251,7 @@ const ControlCenter = props => {
                                 <div>
                                     <span
                                         id="edi-on-hand-outbound"
-                                        className="display-5"
+                                        className="display-5 mr-2"
                                     >loading</span>
                                 </div>
                                 <div className="customer-card-name ">EDI</div>
@@ -276,7 +276,7 @@ const ControlCenter = props => {
                                 <div>
                                     <span
                                         id="clearlane-on-hand-outbound"
-                                        className="display-5"
+                                        className="display-5 mr-2"
                                     >loading</span>
                                 </div>
                                 <div className="customer-card-name ">
@@ -303,7 +303,7 @@ const ControlCenter = props => {
                                 <div>
                                     <span
                                         id="hercules-on-hand-outbound"
-                                        className="display-5"
+                                        className="display-5 mr-2"
                                     >loading</span>
                                 </div>
                                 <div className="customer-card-name ">
@@ -328,7 +328,7 @@ const ControlCenter = props => {
                                 <div>
                                     <span
                                         id="edi-inbound"
-                                        className="display-5"
+                                        className="display-5 mr-2"
                                     >loading</span>
                                 </div>
                                 <div className="customer-card-name ">EDI</div>
@@ -353,7 +353,7 @@ const ControlCenter = props => {
                                 <div>
                                     <span
                                         id="clearlane-inbound"
-                                        className="display-5"
+                                        className="display-5 mr-2"
                                     >loading</span>
                                 </div>
                                 <div className="customer-card-name ">
@@ -380,7 +380,7 @@ const ControlCenter = props => {
                                 <div>
                                     <span
                                         id="hercules-inbound"
-                                        className="display-5"
+                                        className="display-5 mr-2"
                                     >loading</span>
                                 </div>
                                 <div className="customer-card-name ">

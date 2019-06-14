@@ -45,7 +45,7 @@ export default function UpdateShipment(props) {
       status_code
     };
 
-    fetch(`http://localhost:5000/pro/${pro}`, {
+    fetch(`http://73.10.32.79:8137/pro/${pro}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body)
@@ -69,7 +69,7 @@ export default function UpdateShipment(props) {
     e.preventDefault();
     let errorDiv = document.getElementById("error");
     const pro = document.getElementById("proNumber").value;
-    fetch(`http://localhost:5000/pro/${pro}`)
+    fetch(`http://73.10.32.79:8137/pro/${pro}`)
       .then(data => data.json())
       .then(myJson => {
         if (myJson.length === 0) {
