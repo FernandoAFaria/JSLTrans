@@ -15,7 +15,7 @@ export default class CreateDriverTrip extends Component {
   }
 
   componentDidMount() {
-    fetch("http://73.10.32.79:8137/driver/all")
+    fetch("http://localhost:5000/driver/all")
       .then(res => res.json())
       .then(drivers => {
         this.setState({
@@ -37,7 +37,7 @@ export default class CreateDriverTrip extends Component {
 
     if (pro !== "") {
     
-      fetch(`http://73.10.32.79:8137/pro/${pro}`)
+      fetch(`http://localhost:5000/pro/${pro}`)
         .then(res => res.json())
         .then(data => {
           if (data.length === 0) {
@@ -79,6 +79,7 @@ export default class CreateDriverTrip extends Component {
     //https://www.mapquestapi.com/staticmap/v5/map?key=ypVqLLcJIipNIuhONCGOT7wAISFEODCG&locations=Denver,CO||Boulder,CO&size=1100,500@2x
     
     let mapUrl = ""
+    
     this.state.pros.forEach((pro,index) => {
       mapUrl = mapUrl + `${pro.toZipcode}|marker-${index+1}||`
     })
@@ -107,6 +108,7 @@ export default class CreateDriverTrip extends Component {
     .then(data => data.blob())
     .then(blob => URL.createObjectURL(blob))
     .then(url => img.src = url)
+    .catch(err => console.log(err))
     
     img.width = "520"
     img.height = '350'
@@ -136,7 +138,7 @@ export default class CreateDriverTrip extends Component {
     const img = await this.createMapQuestMap();
 
     //This will fetch the driver's name
-    fetch(`http://73.10.32.79:8137/driver/single/${driverId}`)
+    fetch(`http://localhost:5000/driver/single/${driverId}`)
       .then(res => res.json())
       .then(driver => {
         //once it got the drivers info, will create the window and populate the results
@@ -220,7 +222,7 @@ export default class CreateDriverTrip extends Component {
       pieces: pcs,
       weight: totalWeight
     };
-    fetch("http://73.10.32.79:8137/trips", {
+    fetch("http://localhost:5000/trips", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(driverTripData)
@@ -250,7 +252,7 @@ export default class CreateDriverTrip extends Component {
       if (pro[i].value !== "") {
         //Create a fetch for each good pro
         //Check if pro is in system first
-        fetch(`http://73.10.32.79:8137/pro/${pro[i].value}`)
+        fetch(`http://localhost:5000/pro/${pro[i].value}`)
           .then(res => res.json())
           .then(data => {
             //if pro exists then update status
@@ -260,7 +262,7 @@ export default class CreateDriverTrip extends Component {
                 status: status,
                 status_code: status_code
               }
-              fetch('http://73.10.32.79:8137/pro/updateStatus', {
+              fetch('http://localhost:5000/pro/updateStatus', {
                 method: 'post',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(bodyData)
@@ -446,7 +448,7 @@ export default class CreateDriverTrip extends Component {
                       className="pro border"
                       id={"stop" + val}
                       tabIndex={val}
-                      onChange={e => {
+                      onBlur={e => {
                         this.populateProInfo(e.target.id);
                       }}
                     />

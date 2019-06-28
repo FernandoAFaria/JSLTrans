@@ -17,7 +17,7 @@ export default class FindDriverTrips extends Component {
 
     // Loads active drivers in select field
     getAllDrivers = () => {
-        fetch("http://73.10.32.79:8137/driver/all", {
+        fetch("http://localhost:5000/driver/all", {
             method: "get"
             // headers: {'Content-Type': 'application/json'},
             // body: JSON.stringify({drivers: 'all'})
@@ -37,7 +37,7 @@ export default class FindDriverTrips extends Component {
         let date = document.getElementById("date").value;
       
         if (driver_id === "" && date === "") {
-            fetch("http://73.10.32.79:8137/trips/")
+            fetch("http://localhost:5000/trips/")
                 .then(res => res.json())
                 .then(data => {
                     this.setState({
@@ -47,7 +47,7 @@ export default class FindDriverTrips extends Component {
                 });
         }
          else if (date === "" && driver_id !== "") {
-            fetch("http://73.10.32.79:8137/trips/" + driver_id)
+            fetch("http://localhost:5000/trips/" + driver_id)
                 .then(res => res.json())
                 .then(data => {
                     this.setState({
@@ -57,7 +57,7 @@ export default class FindDriverTrips extends Component {
                 });
         }
         else if(driver_id === "" && date !== "") {
-          fetch("http://73.10.32.79:8137/trips/date/" + date)
+          fetch("http://localhost:5000/trips/date/" + date)
                 .then(res => res.json())
                 .then(data => {
                     this.setState({
@@ -67,7 +67,7 @@ export default class FindDriverTrips extends Component {
                 });
         }
         else if(driver_id !== "" && date !== "") {                      
-          fetch("http://73.10.32.79:8137/trips/")
+          fetch("http://localhost:5000/trips/")
                 .then(res => res.json())
                 .then(data => {
                   let filtered = data.filter((val, index) => val.driver_id === driver_id && val.date.slice(0,10) === date )

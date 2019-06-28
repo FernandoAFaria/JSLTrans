@@ -66,7 +66,7 @@ export default class Controls extends React.Component {
 
     searchProsByField(vendor, field, value, populate) {
         //('EDI', 'STATUS', 'PICKED UP', 'edi-on-hand')
-        fetch("http://73.10.32.79:8137/search", {
+        fetch("http://localhost:5000/search", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -99,7 +99,7 @@ export default class Controls extends React.Component {
             `<h1 class="my-4">${vendor}</h1>`
         );
 
-        fetch("http://73.10.32.79:8137/search", {
+        fetch("http://localhost:5000/search", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

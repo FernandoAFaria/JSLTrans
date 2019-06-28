@@ -33,7 +33,7 @@ export default class Dashboard extends Component {
         //Auth
 
         //send a request to /login
-        fetch('http://73.10.32.79:8137/login', {
+        fetch('http://localhost:5000/login', {
             method: 'post',
             headers: {"Content-Type": "application/json"},
             credentials: 'include',
